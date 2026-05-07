@@ -1,0 +1,150 @@
+﻿
+<#@ template language="C#" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="CodeGenerator_Modules" #>
+
+
+<# if (IncludeAdd) { #>
+        public static bool Add(cls<#= TableSingleName #> <#= TableSingleName #>)
+        {
+            if (<#= TableSingleName #>.IsFull())
+            {
+                return <#= TableSingleName #>Repository.Add(<#= TableSingleName #>);
+            }
+            else
+            {
+                return false;
+            }
+        }
+<# } #>
+
+<# if (IncludeUpdate) { #>
+        public static bool Update(cls<#= TableSingleName #> <#= TableSingleName #>)
+        {
+<# if (Columns.Find(x => x.Name == UpdateParameterName).Type == "string") { #>
+            if (!string.IsNullOrWhiteSpace(<#= TableSingleName #>.<#= UpdateParameterName.Replace("_", "") #>) && <#= TableSingleName #>.IsFull())
+<# } #>
+<# if (Columns.Find(x => x.Name == UpdateParameterName).Type != "string") { #>
+            if (<#= TableSingleName #>.<#= HandleCorrectCheckParamerter(UpdateParameterName).Replace("_", "") #> && <#= TableSingleName #>.IsFull())
+<# } #>
+            {
+                return <#= TableSingleName #>Repository.Update(<#= TableSingleName.Replace("_", "") #>);
+            }
+            else
+            {
+                return false;
+            }
+        }
+<# } #>
+
+<# if (IncludeFind) { #>
+        static public cls<#= TableSingleName #> Find(<#= HandleParameter(FindParameterName).Replace("_", "") #>)
+        {
+            if (<#= HandleCorrectCheckParamerter(FindParameterName).Replace("_", "") #>)
+            {
+                return <#= TableSingleName #>Repository.Find(<#= FindParameterName.Replace("_", "") #>);
+            }
+            else
+            {
+                return null;
+            }
+        }
+<# } #>
+
+<# if (IncludeDelete) { #>
+        public static bool Delete(<#= HandleParameter(DeleteParameterName).Replace("_", "") #>)
+        {
+            if (<#= HandleCorrectCheckParamerter(DeleteParameterName).Replace("_", "") #>)
+            {
+                return <#= TableSingleName #>Repository.Delete(<#= DeleteParameterName.Replace("_", "") #>);
+            }
+            else
+            {
+                return false;
+            }
+        }
+<# } #>
+
+<# if (IncludeGetAll) { #>
+        static public List<cls<#= TableSingleName #>> GetAll<#= TableName #>()
+        {
+            return <#= TableSingleName #>Repository.GetAll<#= TableName #>();
+        }
+<# } #>
+
+<# if (IncludeExist) { #>
+        public static bool IsExist(<#= HandleParameter(ExistParameterName).Replace("_", "") #>)
+        {
+            if (<#= HandleCorrectCheckParamerter(ExistParameterName).Replace("_", "") #>)
+            {
+                return <#= TableSingleName #>Repository.IsExist(<#= ExistParameterName.Replace("_", "") #>);
+            }
+            else
+            {
+                return false;
+            }
+        }
+<# } #>
+
+
+        // Never delete this comment
+        // [EXTRA_METHODS_HERE]
+
+
+<#+
+
+public string TableName { get; set; } = "";
+public string NamespaceName { get; set; } = "";
+public string ModulesLayerNameSpace { get; set; } = "";
+public string DataAccessLayerNameSpace { get; set; } = "";
+public List<clsColumnDataBusinessLayer> Columns { get; set; }
+public string TableSingleName { get; set; } = "";
+
+public string UpdateParameterName { get; set; } = "";
+public string FindParameterName { get; set; } = "";
+public string ExistParameterName { get; set; } = "";
+public string DeleteParameterName { get; set; } = "";
+
+public bool IncludeAdd { get; set; }
+public bool IncludeUpdate { get; set; }
+public bool IncludeFind { get; set; }
+public bool IncludeExist { get; set; }
+public bool IncludeGetAll { get; set; }
+public bool IncludeDelete { get; set; }
+
+
+private List<string> DataTypesWithoutStringAndDateTimeAndBoolan = new List<string> { "int", "double", "float", "short", "decimal", "long", "byte" };
+
+
+string HandleParameter(string ParameterName)
+{
+     clsColumnDataBusinessLayer Col = Columns.Find(x => x.Name == ParameterName);
+
+     if (Col != null)
+     {
+         return Col.Type + " " + ParameterName;
+     }
+     else
+     {
+         return "";
+     }
+}
+
+string HandleCorrectCheckParamerter(string ParameterName)
+{
+    if (DataTypesWithoutStringAndDateTimeAndBoolan.Contains(Columns.Find(x => x.Name == ParameterName).Type))
+    {
+        return ParameterName + " > 0";
+    }
+    else if (Columns.Find(x => x.Name == ParameterName).Type == "DateTime")
+    {
+        return ParameterName + " != default";
+    }
+    else
+    {
+        return "!string.IsNullOrWhiteSpace(" + ParameterName + ")";
+    }
+}
+
+#>

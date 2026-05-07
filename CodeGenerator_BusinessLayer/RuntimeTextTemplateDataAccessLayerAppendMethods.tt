@@ -1,0 +1,523 @@
+﻿
+<#@ template language="C#" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="CodeGenerator_Modules" #>
+
+
+<# if (IncludeAdd) { #>
+        public static bool Add(cls<#= TableSingleName #> <#= TableSingleName #>)
+        {
+            bool Add = false;
+
+            if (<#= TableSingleName #>.IsFull())
+            {
+                SqlConnection Connection = null;
+                SqlCommand Command = null;
+
+                try
+                {
+                    Connection = new SqlConnection(clsConnectionString.ConnectionString);
+
+                    string AddQuery = @"insert into [<#= TableName #>] (
+<# for (short i = 0; i < Columns.Count; i++) { 
+                                if (Columns[i].IsPrimaryKey)
+                                            continue;#>
+                             [<#= Columns[i].Name #>]<#= (i < Columns.Count - 1) ? ", " : " )" #>
+<# } #>
+                            values (
+<# for (short i = 0; i < Columns.Count; i++) { 
+                                    if (Columns[i].IsPrimaryKey)
+                                            continue;#>
+                             @<#= Columns[i].NameWithout_ #><#= (i < Columns.Count - 1) ? ", " : " );" #>
+<# } #>
+                             select Scope_Identity();";
+
+                    Command = new SqlCommand(AddQuery, Connection);
+
+<# for (short i = 0; i < Columns.Count; i++) {
+                if (Columns[i].IsPrimaryKey)
+                           continue;
+               if (Columns[i].IsNullable && Columns[i].Type == "string") { #>
+                    if (string.IsNullOrWhiteSpace(<#= TableSingleName #>.<#= Columns[i].NameWithout_ #>))
+                    {
+                        Command.Parameters.AddWithValue("@<#= Columns[i].NameWithout_ #>", DBNull.Value);
+                    }
+                    else
+                    {
+                        Command.Parameters.AddWithValue("@<#= Columns[i].NameWithout_ #>", <#= TableSingleName #>.<#= Columns[i].NameWithout_ #>);
+                    }
+<# } #>
+<# if (Columns[i].IsNullable && Columns[i].Type != "string") { #>
+                    if (<#= TableSingleName #>.<#= Columns[i].NameWithout_ #> == null)
+                    {
+                        Command.Parameters.AddWithValue("@<#= Columns[i].NameWithout_ #>", DBNull.Value);
+                    }
+                    else
+                    {
+                        Command.Parameters.AddWithValue("@<#= Columns[i].NameWithout_ #>", <#= TableSingleName #>.<#= Columns[i].NameWithout_ #>);
+                    }
+<# } #>
+<# if (!Columns[i].IsNullable) { #>
+                    Command.Parameters.AddWithValue("@<#= Columns[i].NameWithout_ #>", <#= TableSingleName #>.<#= Columns[i].NameWithout_ #>);
+<# } #>
+<# } #>
+
+                    Connection.Open();
+
+                    object ID = Command.ExecuteScalar();
+
+                    if (ID != null)
+                    {
+<# for (short i = 0; i < Columns.Count; i++) { 
+if (Columns[i].IsPrimaryKey) { #>
+                        <#= TableSingleName #>.<#= Columns[i].NameWithout_ #> = int.Parse(ID.ToString());
+                        Add = true;
+<# } #>
+<# } #>
+                    }
+                }
+                finally
+                {
+                    if (Command != null)
+                    {
+                        Command.Dispose();
+                    }
+
+                    if (Connection != null)
+                    {
+                        Connection.Close();
+                        Connection.Dispose();
+                    }
+                }
+            }
+
+            return Add;
+        }
+<# } #>
+
+<# if (IncludeUpdate) { #>
+        public static bool Update(cls<#= TableSingleName #> <#= TableSingleName #>)
+        {
+            bool Update = false;
+
+<#if (Columns.Find(x => x.Name == UpdateParameterName).Type == "string") { #>
+            if (!string.IsNullOrWhiteSpace(<#= TableSingleName #>.<#= UpdateParameterName.Replace("_", "") #>) && <#= TableSingleName #>.IsFull())
+<# } #>
+<# if (Columns.Find(x => x.Name == UpdateParameterName).Type != "string") { #>
+            if (<#= TableSingleName #>.<#= HandleCorrectCheckParamerter(UpdateParameterName).Replace("_", "") #> && <#= TableSingleName #>.IsFull())
+<# } #>
+            {
+                SqlConnection Connection = null;
+                SqlCommand Command = null;
+
+                try
+                {
+                    Connection = new SqlConnection(clsConnectionString.ConnectionString);
+
+                    string UpdateQuery = @"update [<#= TableName #>] set 
+<# for (short i = 0; i < Columns.Count; i++) { 
+                                if (Columns[i].IsPrimaryKey)
+                                            continue;#>
+                             [<#= Columns[i].Name #>] = @<#= Columns[i].NameWithout_ #><#= (i < Columns.Count - 1) ? ", " : "" #>
+<# } #>
+                             where [<#= UpdateParameterName #>] = @<#= UpdateParameterName.Replace("_", "") #>;";
+
+                    Command = new SqlCommand(UpdateQuery, Connection);
+
+                    Command.Parameters.AddWithValue("@<#= UpdateParameterName.Replace("_", "") #>", <#= TableSingleName #>.<#= UpdateParameterName.Replace("_", "") #>);
+<# for (short i = 0; i < Columns.Count; i++) {
+                if (Columns[i].IsPrimaryKey)
+                           continue;
+               if (Columns[i].IsNullable && Columns[i].Type == "string") { 
+#>
+                    if (string.IsNullOrWhiteSpace(<#= TableSingleName #>.<#= Columns[i].NameWithout_ #>))
+                    {
+                        Command.Parameters.AddWithValue("@<#= Columns[i].NameWithout_ #>", DBNull.Value);
+                    }
+                    else
+                    {
+                        Command.Parameters.AddWithValue("@<#= Columns[i].NameWithout_ #>", <#= TableSingleName #>.<#= Columns[i].NameWithout_ #>);
+                    }
+<# } #>
+<# if (Columns[i].IsNullable && Columns[i].Type != "string") { #>
+                    if (<#= TableSingleName #>.<#= Columns[i].NameWithout_ #> == null)
+                    {
+                        Command.Parameters.AddWithValue("@<#= Columns[i].NameWithout_ #>", DBNull.Value);
+                    }
+                    else
+                    {
+                        Command.Parameters.AddWithValue("@<#= Columns[i].NameWithout_ #>", <#= TableSingleName #>.<#= Columns[i].NameWithout_ #>);
+                    }
+<# } #>
+<# if (!Columns[i].IsNullable) { #>
+                    Command.Parameters.AddWithValue("@<#= Columns[i].NameWithout_ #>", <#= TableSingleName #>.<#= Columns[i].NameWithout_ #>);
+<# } #>
+<# } #>
+
+                    Connection.Open();
+
+                    if (Command.ExecuteNonQuery() > 0)
+                    {
+                        Update = true;
+                    }
+                }
+                finally
+                {
+                    if (Command != null)
+                    {
+                        Command.Dispose();
+                    }
+
+                    if (Connection != null)
+                    {
+                        Connection.Close();
+                        Connection.Dispose();
+                    }
+                }
+            }
+
+            return Update;
+        }
+<# } #>
+
+<# if (IncludeFind) { #>
+        public static cls<#= TableSingleName #> Find(<#= HandleParameter(FindParameterName).Replace("_", "") #>)
+        {
+            cls<#= TableSingleName #> <#= TableSingleName #> = null;
+
+            if (<#= HandleCorrectCheckParamerter(FindParameterName).Replace("_", "") #>)
+            {
+                SqlConnection Connection = null;
+                SqlCommand Command = null;
+                SqlDataReader Reader = null;
+
+                try
+                {
+                    Connection = new SqlConnection(clsConnectionString.ConnectionString);
+
+                    string FindQuery = @"select * from [<#= TableName #>] where [<#= FindParameterName #>] = @<#= FindParameterName.Replace("_", "") #>;";
+
+                    Command = new SqlCommand(FindQuery, Connection);
+
+                    Command.Parameters.AddWithValue("@<#= FindParameterName.Replace("_", "") #>", <#= FindParameterName.Replace("_", "") #>);
+
+                    Connection.Open();
+
+                    Reader = Command.ExecuteReader();
+
+                    if (Reader.Read())
+                    {
+                        <#= TableSingleName #> = new cls<#= TableSingleName #>();
+
+<# for (short i = 0; i < Columns.Count; i++) { #>
+<# if (Columns[i].IsNullable) { #>
+                        if (Reader["<#= Columns[i].Name #>"] == DBNull.Value)
+                        {
+                            <#= TableSingleName #>.<#= Columns[i].NameWithout_ #> = default;
+                        }
+                        else
+                        {
+<# if (DataTypesWithoutString.Contains(Columns[i].Type)) { #>
+<# if (Columns[i].Name == FindParameterName) { #>
+                            <#= Columns[i].Type #>.TryParse(Reader["<#= Columns[i].Name #>"].ToString(), out <#= Columns[i].Type #> <#= Columns[i].NameWithout_ #>2);
+                            <#= TableSingleName #>.<#= Columns[i].NameWithout_ #> = <#= Columns[i].NameWithout_ #>2;
+<# } #>
+<# if (Columns[i].Name != FindParameterName) { #>
+                            <#= Columns[i].Type #>.TryParse(Reader["<#= Columns[i].Name #>"].ToString(), out <#= Columns[i].Type #> <#= Columns[i].NameWithout_ #>);
+                            <#= TableSingleName #>.<#= Columns[i].NameWithout_ #> = <#= Columns[i].NameWithout_ #>;
+<# } #>
+<# } #>
+<# if (!DataTypesWithoutString.Contains(Columns[i].Type)) { #>
+                            <#= TableSingleName #>.<#= Columns[i].NameWithout_ #> = Reader["<#= Columns[i].Name #>"] as string ?? "";
+<# } #>
+                        }
+<# } #>
+<# if (!Columns[i].IsNullable) { #>
+<# if (DataTypesWithoutString.Contains(Columns[i].Type)) { #>
+<# if (Columns[i].Name == FindParameterName) { #>
+                        <#= Columns[i].Type #>.TryParse(Reader["<#= Columns[i].Name #>"].ToString(), out <#= Columns[i].Type #> <#= Columns[i].NameWithout_ #>2);
+                        <#= TableSingleName #>.<#= Columns[i].NameWithout_ #> = <#= Columns[i].NameWithout_ #>2;
+<# } #>
+<# if (Columns[i].Name != FindParameterName) { #>
+                        <#= Columns[i].Type #>.TryParse(Reader["<#= Columns[i].Name #>"].ToString(), out <#= Columns[i].Type #> <#= Columns[i].NameWithout_ #>);
+                        <#= TableSingleName #>.<#= Columns[i].NameWithout_ #> = <#= Columns[i].NameWithout_ #>;
+<# } #>
+<# } #>
+<# if (!DataTypesWithoutString.Contains(Columns[i].Type)) { #>
+                        <#= TableSingleName #>.<#= Columns[i].NameWithout_ #> = Reader["<#= Columns[i].Name #>"] as string ?? "";
+<# } #>
+<# } #>
+<# } #>
+                    }
+                }
+                finally
+                {
+                    if (Reader != null)
+                    {
+                        Reader.Close();
+                        Reader.Dispose();
+                    }
+
+                    if (Command != null)
+                    {
+                        Command.Dispose();
+                    }
+
+                    if (Connection != null)
+                    {
+                        Connection.Close();
+                        Connection.Dispose();
+                    }
+                }
+            }
+
+            return  <#= TableSingleName #>;
+        }
+<# } #>
+
+<# if (IncludeGetAll) { #>
+        public static List<cls<#= TableSingleName #>> GetAll<#= TableName #>()
+        {
+            List<cls<#= TableSingleName #>> ListOf<#= TableName #> = new List<cls<#= TableSingleName #>>();
+           
+            SqlConnection Connection = null;
+            SqlCommand Command = null;
+            SqlDataReader Reader = null;
+
+            try
+            {
+                Connection = new SqlConnection(clsConnectionString.ConnectionString);
+
+                string GetAllQuery = @"select * from [<#= TableName #>];";
+
+                Command = new SqlCommand(GetAllQuery, Connection);
+
+                Connection.Open();
+
+                Reader = Command.ExecuteReader();
+
+                while (Reader.Read())
+                {
+                    cls<#= TableSingleName #> <#= TableSingleName #> = new cls<#= TableSingleName #>();
+
+<# for (short i = 0; i < Columns.Count; i++) { #>
+<# if (Columns[i].IsNullable) { #>
+                    if (Reader["<#= Columns[i].Name #>"] == DBNull.Value)
+                    {
+                         <#= TableSingleName #>.<#= Columns[i].NameWithout_ #> = default;
+                    }
+                    else
+                    {
+<# if (DataTypesWithoutString.Contains(Columns[i].Type)) { #>
+                         <#= Columns[i].Type #>.TryParse(Reader["<#= Columns[i].Name #>"].ToString(), out <#= Columns[i].Type #> <#= Columns[i].NameWithout_ #>);
+                         <#= TableSingleName #>.<#= Columns[i].NameWithout_ #> = <#= Columns[i].NameWithout_ #>;
+<# } #>
+<# if (!DataTypesWithoutString.Contains(Columns[i].Type)) { #>
+                         <#= TableSingleName #>.<#= Columns[i].NameWithout_ #> = Reader["<#= Columns[i].Name #>"] as string ?? "";
+<# } #>
+                    }
+<# } #>
+<# if (!Columns[i].IsNullable) { #>
+<# if (DataTypesWithoutString.Contains(Columns[i].Type)) { #>
+                    <#= Columns[i].Type #>.TryParse(Reader["<#= Columns[i].Name #>"].ToString(), out <#= Columns[i].Type #> <#= Columns[i].NameWithout_ #>);
+                    <#= TableSingleName #>.<#= Columns[i].NameWithout_ #> = <#= Columns[i].NameWithout_ #>;
+<# } #>
+<# if (!DataTypesWithoutString.Contains(Columns[i].Type)) { #>
+                    <#= TableSingleName #>.<#= Columns[i].NameWithout_ #> = Reader["<#= Columns[i].Name #>"] as string ?? "";
+<# } #>
+<# } #>
+<# } #>
+
+                    ListOf<#= TableName #>.Add(<#= TableSingleName #>);
+                }
+
+            }
+            finally
+            {
+                if (Reader != null)
+                {
+                    Reader.Close();
+                    Reader.Dispose();
+                }
+
+                if (Command != null)
+                {
+                    Command.Dispose();
+                }
+
+                if (Connection != null)
+                {
+                    Connection.Close();
+                    Connection.Dispose();
+                }
+                
+            }
+
+            return ListOf<#= TableName #>;
+        }
+<# } #>
+
+<# if (IncludeDelete) { #>
+        public static bool Delete(<#= HandleParameter(DeleteParameterName).Replace("_", "") #>)
+        {
+            bool Delete = false;
+
+            if (<#= HandleCorrectCheckParamerter(DeleteParameterName).Replace("_", "") #>)
+            {
+                SqlConnection Connection = null;
+                SqlCommand Command = null;
+
+                try
+                {
+                    Connection = new SqlConnection(clsConnectionString.ConnectionString);
+
+                    string DeleteQuery = "delete from [<#= TableName #>] where [<#= DeleteParameterName #>] = @<#= DeleteParameterName.Replace("_", "") #>;";
+
+                    Command = new SqlCommand(DeleteQuery, Connection);
+
+                    Command.Parameters.AddWithValue("@<#= DeleteParameterName.Replace("_", "") #>", <#= DeleteParameterName.Replace("_", "") #>);
+
+                    Connection.Open();
+
+                    if (Command.ExecuteNonQuery() > 0)
+                    {
+                        Delete = true;
+                    }
+                }
+                finally
+                {
+                    if (Command != null)
+                    {
+                        Command.Dispose();
+                    }
+
+                    if (Connection != null)
+                    {
+                        Connection.Close();
+                        Connection.Dispose();
+                    }
+                }
+            }
+
+            return Delete;
+        }
+<# } #>
+
+<# if (IncludeExist) { #>
+        public static bool IsExist(<#= HandleParameter(ExistParameterName).Replace("_", "") #>)
+        {
+            bool Exist = false;
+
+            if (<#= HandleCorrectCheckParamerter(ExistParameterName).Replace("_", "") #>)
+            {
+                SqlConnection Connection = null;
+                SqlCommand Command = null;
+                SqlDataReader Reader = null;
+
+                try
+                {
+                    Connection = new SqlConnection(clsConnectionString.ConnectionString);
+
+                    string FindQuery = "select [<#= ExistParameterName #>] from [<#= TableName #>] where [<#= ExistParameterName #>] = @<#= ExistParameterName.Replace("_", "") #>;";
+
+                    Command = new SqlCommand(FindQuery, Connection);
+
+                    Command.Parameters.AddWithValue("@<#= ExistParameterName.Replace("_", "") #>", <#= ExistParameterName.Replace("_", "") #>);
+
+                    Connection.Open();
+
+                    Reader = Command.ExecuteReader();
+
+                    if (Reader.HasRows)
+                    {
+                        Exist = true;
+                    }
+                }
+                finally
+                {
+                    if (Reader != null)
+                    {
+                        Reader.Close();
+                        Reader.Dispose();
+                    }
+
+                    if (Command != null)
+                    {
+                        Command.Dispose();
+                    }
+
+                    if (Connection != null)
+                    {
+                        Connection.Close();
+                        Connection.Dispose();
+                    }
+                }
+            }
+
+            return Exist;
+        }
+<# } #>
+
+
+        // Never delete this comment
+        // [EXTRA_METHODS_HERE]
+
+
+<#+
+
+public string TableName { get; set; } = "";
+public string NamespaceName { get; set; } = "";
+public List<clsColumnDataDataAccessLayer> Columns { get; set; }
+public string ModulesLayerNameSpace { get; set; } = "";
+public string TableSingleName { get; set; } = "";
+
+public bool IncludeAdd { get; set; }
+public bool IncludeUpdate { get; set; }
+public bool IncludeFind { get; set; }
+public bool IncludeExist { get; set; }
+public bool IncludeGetAll { get; set; }
+public bool IncludeDelete { get; set; }
+
+public string UpdateParameterName { get; set; } = "";
+public string FindParameterName { get; set; } = "";
+public string ExistParameterName { get; set; } = "";
+public string DeleteParameterName { get; set; } = "";
+
+
+private List<string> DataTypesWithoutString = new List<string> { "int", "double", "float", "short", "decimal", "long", "byte", "DateTime", "bool" };
+private List<string> DataTypesWithoutStringAndDateTimeAndBoolan = new List<string> { "int", "double", "float", "short", "decimal", "long", "byte" };
+
+
+string HandleParameter(string ParameterName)
+{
+     clsColumnDataDataAccessLayer Col = Columns.Find(x => x.Name == ParameterName);
+
+     if (Col != null)
+     {
+         return Col.Type + " " + ParameterName;
+     }
+     else
+     {
+         return "";
+     }
+}
+
+
+string HandleCorrectCheckParamerter(string ParameterName)
+{
+    if (DataTypesWithoutStringAndDateTimeAndBoolan.Contains(Columns.Find(x => x.Name == ParameterName).Type))
+    {
+        return ParameterName + " > 0";
+    }
+    else if (Columns.Find(x => x.Name == ParameterName).Type == "DateTime")
+    {
+        return ParameterName + " != default";
+    }
+    else
+    {
+        return "!string.IsNullOrWhiteSpace(" + ParameterName + ")";
+    }
+}
+
+#>

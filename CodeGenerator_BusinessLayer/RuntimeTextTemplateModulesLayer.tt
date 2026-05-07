@@ -1,0 +1,79 @@
+﻿
+<#@ template language="C#" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="CodeGenerator_Modules" #>
+using System;
+
+
+namespace <#= NamespaceName #>
+{
+    public class cls<#= TableSingleName #>
+    {
+<# for (short i = 0; i < Columns.Count; i++) { #>
+        public <#= Columns[i].Type #> <#= Columns[i].NameWithout_ #> { get; set; }
+<# } #>
+        
+
+        public bool IsFull()
+        {
+            return 
+<# 
+    // قائمة لتخزين أجزاء الشرط التي سنولدها
+    List<string> conditions = new List<string>();
+    List<string> numericTypes = new List<string> { "int", "double", "float", "short", "decimal", "long", "byte" };
+
+
+    for (short i = 0; i < Columns.Count; i++) 
+    {
+        if (Columns[i].IsPrimaryKey || Columns[i].IsNullable)
+        {
+            continue;
+        }
+
+        string condition = "";
+
+        if (Columns[i].Type == "string") 
+        {
+            condition = $"!string.IsNullOrWhiteSpace(this.{Columns[i].NameWithout_})";
+        }
+        else if (Columns[i].Type == "DateTime") 
+        {
+            condition = $"this.{Columns[i].NameWithout_} != default(DateTime)";
+        }
+       else if (numericTypes.Contains(Columns[i].Type)) 
+        {
+            condition = $"this.{Columns[i].NameWithout_} > 0";
+        }
+
+        if (!string.IsNullOrEmpty(condition))
+        {
+            conditions.Add(condition);
+        }
+    }
+
+    
+    for (short j = 0; j < conditions.Count; j++)
+    {
+#>
+                <#= conditions[j] #><#= (j < conditions.Count - 1) ? " &&" : ";" #>
+<# 
+    } 
+#>
+        }
+
+
+
+
+    }
+}
+<#+
+
+
+public string NamespaceName { get; set; } = "";
+public List<clsColumnDataModulesLayer> Columns { get; set; }
+public string TableSingleName { get; set; } = "";
+
+
+#>
+

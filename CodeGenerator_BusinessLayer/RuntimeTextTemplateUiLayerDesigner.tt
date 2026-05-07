@@ -1,0 +1,696 @@
+﻿<#@ template language="C#" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="CodeGenerator_Modules" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Drawing" #>
+
+namespace <#= NameSpace #>
+{
+    partial class <#= (IsForm) ? "fm" : "uctrl" #><#= TableSingleName.Replace("_", "") #> 
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+<# if (IsView) { #>
+            this.lbNumberOfRowsResult = new System.Windows.Forms.Label();
+            this.cbFilter = new System.Windows.Forms.ComboBox();
+            this.btFind = new System.Windows.Forms.Button();
+            this.lbFilterBy = new System.Windows.Forms.Label();
+            this.mtxtbFilterValue = new System.Windows.Forms.MaskedTextBox();
+            this.dgv<#= TableName #> = new System.Windows.Forms.DataGridView();
+<# for (short i = 0; i < ListOfColunmData.Count; i++) { #>
+<# if (ListOfColunmData[i].Type == "bit") { #>
+            this.col<#= ListOfColunmData[i].NameWithout_ #> = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+<# } #>
+<# if (ListOfColunmData[i].Type != "bit") { #>
+            this.col<#= ListOfColunmData[i].NameWithout_ #> = new System.Windows.Forms.DataGridViewTextBoxColumn();
+<# } #>
+<# } #>
+<# } #>
+<# if (IsInput) { #>
+            this.components = new System.ComponentModel.Container();
+<# } #>
+<# for (short i = 0; i < ListOfInitializedControls.Count; i++) { #>
+            <#= ListOfInitializedControls[i] #>
+<# } #>
+<# if (IsInput) { #>
+            this.btSave = new System.Windows.Forms.Button();
+<# } #><# if (IsInput && IsForm) { #>
+            this.btCancel = new System.Windows.Forms.Button();
+<# } #><# if (IsInput) { #>
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
+<# } #>
+<# if (IsView) { #>
+            ((System.ComponentModel.ISupportInitialize)(this.dgv<#= TableName #>)).BeginInit();
+<# } #>
+            this.SuspendLayout();
+<# for (short i = 0; i < ListOfInitializedProperties.Count; i++) { #>
+            <#= ListOfInitializedProperties[i] #>
+<# } #>
+<# if (IsInput) { #>
+            // 
+            // btSave
+            // 
+            this.btSave.BackColor = System.Drawing.Color.Silver;
+            this.btSave.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.btSave.FlatAppearance.BorderSize = 2;
+            this.btSave.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Silver;
+            this.btSave.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
+            this.btSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            <#= (IsForm) ? "this.btSave.Location = new System.Drawing.Point(909, 456);" : "this.btSave.Location = new System.Drawing.Point(929, 504);" #>
+            this.btSave.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.btSave.Name = "btSave";
+            this.btSave.Size = new System.Drawing.Size(120, 40);
+            this.btSave.TabIndex = 6;
+            this.btSave.Text = "Save";
+            this.btSave.UseVisualStyleBackColor = false;
+            this.btSave.Click += new System.EventHandler(this.btSave_Click);
+<# } #><# if (IsInput && IsForm) { #>
+            // 
+            // btCancel
+            // 
+            this.btCancel.BackColor = System.Drawing.Color.Silver;
+            this.btCancel.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.btCancel.FlatAppearance.BorderSize = 2;
+            this.btCancel.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Silver;
+            this.btCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
+            this.btCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btCancel.Location = new System.Drawing.Point(786, 456);
+            this.btCancel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.btCancel.Name = "btCancel";
+            this.btCancel.Size = new System.Drawing.Size(120, 40);
+            this.btCancel.TabIndex = 20;
+            this.btCancel.Text = "Cancel";
+            this.btCancel.UseVisualStyleBackColor = false;
+            this.btCancel.Click += new System.EventHandler(this.btCancel_Click);
+<# } #><# if (IsInput) { #>
+            // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+<# } #>
+<# if (IsView) { #>
+            // 
+            // dgv<#= TableName #>
+            // 
+            this.dgv<#= TableName #>.AllowUserToAddRows = false;
+            this.dgv<#= TableName #>.AllowUserToDeleteRows = false;
+            this.dgv<#= TableName #>.AllowUserToResizeRows = false;
+            this.dgv<#= TableName #>.AllowUserToOrderColumns = true;
+            this.dgv<#= TableName #>.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv<#= TableName #>.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+<# for (short i = 0; i < ListOfColunmData.Count; i++) { #>
+            this.col<#= ListOfColunmData[i].NameWithout_ #><#= (i == ListOfColunmData.Count - 1) ? "});" : "," #>
+<# } #>
+            this.dgv<#= TableName #>.Dock = System.Windows.Forms.DockStyle.None;
+            this.dgv<#= TableName #>.Location = new System.Drawing.Point(0, 222);
+            this.dgv<#= TableName #>.MultiSelect = false;
+            this.dgv<#= TableName #>.Name = "dgv<#= TableName #>";
+            this.dgv<#= TableName #>.RowHeadersVisible = false;
+            this.dgv<#= TableName #>.RowHeadersWidth = 51;
+            this.dgv<#= TableName #>.RowTemplate.Height = 24;
+            this.dgv<#= TableName #>.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgv<#= TableName #>.Size = new System.Drawing.Size <#= (IsForm) ? "(1030, 250)" : "(1050, 250)" #>;
+            this.dgv<#= TableName #>.TabIndex = 10;
+<# for (short i = 0; i < ListOfColunmData.Count; i++) { #>
+            // 
+            // col<#= ListOfColunmData[i].NameWithout_ #>
+            // 
+            this.col<#= ListOfColunmData[i].NameWithout_ #>.HeaderText = "<#= ListOfColunmData[i].Name.Replace("_", " ") #>";
+            this.col<#= ListOfColunmData[i].NameWithout_ #>.MinimumWidth = 6;
+            this.col<#= ListOfColunmData[i].NameWithout_ #>.Name = "col<#= ListOfColunmData[i].NameWithout_ #>";
+            this.col<#= ListOfColunmData[i].NameWithout_ #>.ReadOnly = true;
+            this.col<#= ListOfColunmData[i].NameWithout_ #>.Width = 150;
+<# } #>
+            // 
+            // lbNumberOfRowsResult
+            // 
+            this.lbNumberOfRowsResult.AutoSize = true;
+            this.lbNumberOfRowsResult.Location = new System.Drawing.Point(0, 474);
+            this.lbNumberOfRowsResult.Name = "lbNumberOfRowsResult";
+            this.lbNumberOfRowsResult.ForeColor = System.Drawing.Color.Red;
+            this.lbNumberOfRowsResult.Size = new System.Drawing.Size(39, 20);
+            this.lbNumberOfRowsResult.TabIndex = 11;
+            this.lbNumberOfRowsResult.Text = "# Number Of Rows";
+            // 
+            // cbFilter
+            // 
+            this.cbFilter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbFilter.FormattingEnabled = true;
+            this.cbFilter.Location = new System.Drawing.Point(99, 139);
+            this.cbFilter.Name = "cbFilter";
+            this.cbFilter.Size = new System.Drawing.Size(160, 30);
+            this.cbFilter.TabIndex = 62;
+            this.cbFilter.SelectedIndexChanged += new System.EventHandler(this.cbFilter_SelectedIndexChanged);
+            // 
+            // btFind
+            // 
+            this.btFind.BackColor = System.Drawing.Color.Silver;
+            this.btFind.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.btFind.FlatAppearance.BorderSize = 2;
+            this.btFind.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Silver;
+            this.btFind.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
+            this.btFind.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btFind.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btFind.Location = new System.Drawing.Point(431, 133);
+            this.btFind.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.btFind.Name = "btFind";
+            this.btFind.Size = new System.Drawing.Size(120, 40);
+            this.btFind.TabIndex = 20;
+            this.btFind.Text = "Find";
+            this.btFind.UseVisualStyleBackColor = false;
+            this.btFind.Click += new System.EventHandler(this.btFind_Click);
+            // 
+            // lbFilterBy
+            // 
+            this.lbFilterBy.AutoSize = true;
+            this.lbFilterBy.Location = new System.Drawing.Point(0, 143);
+            this.lbFilterBy.Name = "lbFilterBy";
+            this.lbFilterBy.Size = new System.Drawing.Size(93, 20);
+            this.lbFilterBy.TabIndex = 60;
+            this.lbFilterBy.Text = "Filter By :";
+            // 
+            // mtxtbFilterValue
+            // 
+            this.mtxtbFilterValue.AllowPromptAsInput = false;
+            this.mtxtbFilterValue.Location = new System.Drawing.Point(265, 140);
+            this.mtxtbFilterValue.Mask = "00000000";
+            this.mtxtbFilterValue.Name = "mtxtbFilterValue";
+            this.mtxtbFilterValue.PromptChar = ' ';
+            this.mtxtbFilterValue.Size = new System.Drawing.Size(160, 27);
+            this.mtxtbFilterValue.TabIndex = 0;
+<# } #>
+            // 
+            // <#= (IsForm) ? "fm" : "uctrl" #><#= TableSingleName.Replace("_", "") #>
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 20F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            <#= (IsForm) ? "this.ClientSize = new System.Drawing.Size(1032, 498);" : "this.Size = new System.Drawing.Size(1050, 545);" #>
+<# for (short i = 0; i < ListOfControlNames.Count; i++) { #>
+            this.Controls.Add(this.<#= ListOfControlNames[i] #>);
+<# } #>
+<# if (IsInput && IsForm) { #>
+            this.Controls.Add(this.btCancel);
+<# } #><# if (IsInput) { #>
+            this.Controls.Add(this.btSave);
+<# } #>
+<# if (IsView) { #>
+            this.Controls.Add(this.dgv<#= TableName #>);
+            this.Controls.Add(this.mtxtbFilterValue);
+            this.Controls.Add(this.cbFilter);
+            this.Controls.Add(this.btFind);
+            this.Controls.Add(this.lbFilterBy);
+            this.Controls.Add(this.lbNumberOfRowsResult);
+<# } #>
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Margin = new System.Windows.Forms.Padding(4);
+            this.Name = "<#= (IsForm) ? "fm" : "uctrl" #><#= TableSingleName.Replace("_", "") #>";
+<# if (IsForm) { #>
+            this.MaximizeBox = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "<#= TableSingleName.Replace("_", " ") #>";
+<# } #><# if (IsView) { #>
+            this.Load += new System.EventHandler(this.fm<#= TableSingleName.Replace("_", "") #>_Load);
+<# } #>
+<# if (IsInput) { #>
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
+<# } #>
+<# if (IsView) { #>
+            ((System.ComponentModel.ISupportInitialize)(this.dgv<#= TableName #>)).EndInit();
+<# } #>
+            this.ResumeLayout(false);
+<# if (IsInput || IsView) { #>
+            this.PerformLayout();
+<# } #>
+
+        }
+
+        #endregion
+
+<# for (short i = 0; i < ListOfCreatedObjectsOfControls.Count; i++) { #>
+        <#= ListOfCreatedObjectsOfControls[i] #>
+<# } #>
+<# if (IsInput) { #>
+        private System.Windows.Forms.Button btSave;
+<# } #><# if (IsInput && IsForm) { #>
+        private System.Windows.Forms.Button btCancel;
+<# } #><# if (IsInput) { #>
+        private System.Windows.Forms.ErrorProvider errorProvider1;
+<# } #>
+<# if (IsView) { #>
+        private System.Windows.Forms.DataGridView dgv<#= TableName #>;
+        private System.Windows.Forms.Label lbNumberOfRowsResult;
+        private System.Windows.Forms.ComboBox cbFilter;
+        private System.Windows.Forms.Label lbFilterBy;
+        private System.Windows.Forms.Button btFind;
+        private System.Windows.Forms.MaskedTextBox mtxtbFilterValue;
+<# for (short i = 0; i < ListOfColunmData.Count; i++) { #>
+<# if (ListOfColunmData[i].Type == "bit") { #>
+        private System.Windows.Forms.DataGridViewCheckBoxColumn col<#= ListOfColunmData[i].NameWithout_ #>;
+<# } #>
+<# if (ListOfColunmData[i].Type != "bit") { #>
+        private System.Windows.Forms.DataGridViewTextBoxColumn col<#= ListOfColunmData[i].NameWithout_ #>;
+<# } #>
+<# } #>
+<# } #>
+    }
+}
+
+<#+
+
+string GetInitializedProperties(enControls ControlName, string ColumnName, short Index, bool IsAllowNull, Point point, bool IsLabel = false)
+{
+    string ColumnNameWithSpace = ColumnName.Replace("_", " ");
+    ColumnName = ColumnName.Replace("_", "");
+    string Value = "";
+
+    switch (ControlName)
+    {
+        case enControls.Label:
+            if (!IsLabel)
+                    {
+                        Value =
+                            $"//\n" +
+                            $"\t\t\t// lb{ColumnName}Result\n" +
+                            $"\t\t\t//\n" +
+                            $"\t\t\tthis.lb{ColumnName}Result.AutoSize = true;\n" +
+                            $"\t\t\tthis.lb{ColumnName}Result.Location = new System.Drawing.Point({point.X}, {point.Y});\n" +
+                            $"\t\t\tthis.lb{ColumnName}Result.Name = \"lb{ColumnName}Result\";\n" +
+                            $"\t\t\tthis.lb{ColumnName}Result.Size = new System.Drawing.Size(116, 25);\n" +
+                            $"\t\t\tthis.lb{ColumnName}Result.TabIndex = {Index};\n" +
+                            $"\t\t\tthis.lb{ColumnName}Result.Text = \"???\";";
+                    }
+                    else
+                    {
+                        Value =
+                            $"//\n" +
+                            $"\t\t\t// lb{ColumnName}\n" +
+                            $"\t\t\t//\n" +
+                            $"\t\t\tthis.lb{ColumnName}.AutoSize = true;\n" +
+                            $"\t\t\tthis.lb{ColumnName}.Location = new System.Drawing.Point({point.X}, {point.Y});\n" +
+                            $"\t\t\tthis.lb{ColumnName}.Name = \"lb{ColumnName}\";\n" +
+                            $"\t\t\tthis.lb{ColumnName}.Size = new System.Drawing.Size(116, 25);\n" +
+                            $"\t\t\tthis.lb{ColumnName}.TabIndex = {Index};\n" +
+                            $"\t\t\tthis.lb{ColumnName}.Text = \"{RemoveAnyDigitsInString(ColumnNameWithSpace)} :\";";
+                    }
+            break;
+        case enControls.CheckBox:
+            Value =
+                $"//\n" +
+                $"\t\t\t// chb{ColumnName}\n" +
+                $"\t\t\t//\n" +
+                $"\t\t\tthis.chb{ColumnName}.AutoSize = true;\n" +
+                $"\t\t\tthis.chb{ColumnName}.Location = new System.Drawing.Point({point.X}, {point.Y});\n" +
+                $"\t\t\tthis.chb{ColumnName}.Name = \"chb{ColumnName}\";\n" +
+                $"\t\t\tthis.chb{ColumnName}.Size = new System.Drawing.Size(160, 30);\n" +
+                $"\t\t\tthis.chb{ColumnName}.TabIndex = {Index};\n" +
+                $"\t\t\tthis.chb{ColumnName}.Text = \"{ColumnNameWithSpace}\";\n" +
+                $"\t\t\tthis.chb{ColumnName}.UseVisualStyleBackColor = true;";
+            break;
+        case enControls.TextBox:
+            Value =
+                $"//\n" +
+                $"\t\t\t// txtb{ColumnName}\n" +
+                $"\t\t\t//\n" +
+                $"\t\t\tthis.txtb{ColumnName}.Location = new System.Drawing.Point({point.X}, {point.Y});\n" +
+                $"\t\t\tthis.txtb{ColumnName}.Name = \"txtb{ColumnName}\";\n" +
+                $"\t\t\tthis.txtb{ColumnName}.Size = new System.Drawing.Size(160, 27);\n" +
+                $"\t\t\tthis.txtb{ColumnName}.TabIndex = {Index};";
+                if (!IsAllowNull)
+                        Value += $"\n\t\t\tthis.txtb{ColumnName}.Validating += new System.ComponentModel.CancelEventHandler(this.InputControls_Validating);";
+            break;
+        case enControls.MaskedTextBox:
+            Value =
+                $"//\n" +
+                $"\t\t\t// mtxtb{ColumnName}\n" +
+                $"\t\t\t//\n" +
+                $"\t\t\tthis.mtxtb{ColumnName}.AllowPromptAsInput = false;\n" +
+                $"\t\t\tthis.mtxtb{ColumnName}.Location = new System.Drawing.Point({point.X}, {point.Y});\n" +
+                $"\t\t\tthis.mtxtb{ColumnName}.Name = \"mtxtb{ColumnName}\";\n" +
+                $"\t\t\tthis.mtxtb{ColumnName}.PromptChar = ' ';\n" +
+                $"\t\t\tthis.mtxtb{ColumnName}.Size = new System.Drawing.Size(160, 27);\n" +
+                $"\t\t\tthis.mtxtb{ColumnName}.TabIndex = {Index};";
+                if (!IsAllowNull)
+                        Value += $"\n\t\t\tthis.mtxtb{ColumnName}.Validating += new System.ComponentModel.CancelEventHandler(this.InputControls_Validating);";
+            break;
+        case enControls.DateTimePicker:
+            Value =
+                $"//\n" +
+                $"\t\t\t// dtp{ColumnName}\n" +
+                $"\t\t\t//\n" +
+                $"\t\t\tthis.dtp{ColumnName}.Format = System.Windows.Forms.DateTimePickerFormat.Short;\n" +
+                $"\t\t\tthis.dtp{ColumnName}.Location = new System.Drawing.Point({point.X}, {point.Y});\n" +
+                $"\t\t\tthis.dtp{ColumnName}.Name = \"dtp{ColumnName}\";\n" +
+                $"\t\t\tthis.dtp{ColumnName}.Size = new System.Drawing.Size(145, 27);\n" +
+                $"\t\t\tthis.dtp{ColumnName}.TabIndex = {Index};";
+            break;
+        case enControls.ComboBox:
+            Value =
+                $"//\n" +
+                $"\t\t\t// cb{ColumnName}\n" +
+                $"\t\t\t//\n" +
+                $"\t\t\tthis.cb{ColumnName}.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;\n" +
+                $"\t\t\tthis.cb{ColumnName}.FormattingEnabled = true;\n" +
+                $"\t\t\tthis.cb{ColumnName}.Location = new System.Drawing.Point({point.X}, {point.Y});\n" +
+                $"\t\t\tthis.cb{ColumnName}.Name = \"cb{ColumnName}\";\n" +
+                $"\t\t\tthis.cb{ColumnName}.Size = new System.Drawing.Size(221, 28);\n" +
+                $"\t\t\tthis.cb{ColumnName}.TabIndex = {Index};";
+                if (!IsAllowNull)
+                        Value += $"\n\t\t\tthis.cb{ColumnName}.Validating += new System.ComponentModel.CancelEventHandler(this.InputControls_Validating);";
+            break;
+        default:
+            Value =
+                $"//\n" +
+                $"\t\t\t// lb{ColumnName}\n" +
+                $"\t\t\t//\n" +
+                $"\t\t\tthis.lb{ColumnName}.AutoSize = true;\n" +
+                $"\t\t\tthis.lb{ColumnName}.Location = new System.Drawing.Point({point.X}, {point.Y});\n" +
+                $"\t\t\tthis.lb{ColumnName}.Name = \"lb{ColumnName}\";\n" +
+                $"\t\t\tthis.lb{ColumnName}.Size = new System.Drawing.Size(116, 25);\n" +
+                $"\t\t\tthis.lb{ColumnName}.TabIndex = {Index};\n" +
+                $"\t\t\tthis.lb{ColumnName}.Text = \"{ColumnNameWithSpace}\";";
+            break;
+    }
+
+    return Value;
+}
+
+void CaseSameColumnNameAndSameControlNameHandle(string ColumnName)
+{
+    if (ListOfColunmData != null)
+    {
+        byte Count = (byte)ListOfColunmData.Count(x => x.Name == ColumnName);
+
+        if (Count > 1)
+        {
+            short Index = (short)ListOfColunmData.FindLastIndex(x => x.Name == ColumnName);
+
+            ListOfColunmData[Index].Name = ListOfColunmData[Index].Name + 2;
+        }
+    }
+}
+
+List<string> GetListOfInitializedProperties()
+{
+    List<string> ListOfInitializedProperties = new List<string>();
+
+    enControls ControlName = enControls.None;
+
+    Point LabelPoint = new Point(0, 10);
+    Point ControlPoint = new Point(210, 10);
+
+    for (short i = 0; i < ListOfColunmData.Count; i++)
+    {
+        if (ListOfColunmData[i].Generate)
+        {
+            Enum.TryParse(ListOfColunmData[i].ControlName, out ControlName);
+
+            if (ControlName != enControls.CheckBox)
+            {
+                ListOfInitializedProperties.Add(GetInitializedProperties(enControls.Label, ListOfColunmData[i].Name, i, ListOfColunmData[i].IsNullable, LabelPoint, true));
+                
+                ListOfInitializedProperties.Add(GetInitializedProperties(ControlName, ListOfColunmData[i].Name, i, ListOfColunmData[i].IsNullable, ControlPoint));
+            }
+            else
+            {
+                ListOfInitializedProperties.Add(GetInitializedProperties(ControlName, ListOfColunmData[i].Name, i, ListOfColunmData[i].IsNullable, ControlPoint));
+            }
+
+            if (ControlPoint.Y >= 425)
+            {
+                ControlPoint.Y = 10;
+                ControlPoint.X += 440;
+
+                LabelPoint.Y = 10;
+                LabelPoint.X += 440;
+            }
+            else
+            {
+                ControlPoint.Y += 35;
+                LabelPoint.Y += 35;
+            }
+        }
+    }
+
+    return ListOfInitializedProperties;
+}
+
+public static string GetControlName(enControls ControlName, string ColumnName, bool IsLabel = false)
+        {
+            switch (ControlName)
+            {
+                case enControls.Label:
+                    if (!IsLabel)
+                    {
+                        return $"lb{ColumnName}Result";
+                    }
+                    else
+                    {
+                        return $"lb{ColumnName}";
+                    }
+                case enControls.CheckBox:
+                    return $"chb{ColumnName}";
+                case enControls.TextBox:
+                    return $"txtb{ColumnName}";
+                case enControls.MaskedTextBox:
+                    return $"mtxtb{ColumnName}";
+                case enControls.DateTimePicker:
+                    return $"dtp{ColumnName}";
+                case enControls.ComboBox:
+                    return $"cb{ColumnName}";
+                default:
+                    return $"lb{ColumnName}";
+            }
+        }
+
+        List<string> GetListOfControlNames()
+        {
+            List<string> ListOfControlNames = new List<string>();
+
+            enControls ControlName = enControls.None;
+
+            for (short i = 0; i < ListOfColunmData.Count; i++)
+            {
+                if (ListOfColunmData[i].Generate)
+                {
+                    Enum.TryParse(ListOfColunmData[i].ControlName, out ControlName);
+
+                    if (ControlName != enControls.CheckBox)
+                    {
+                        ListOfControlNames.Add(GetControlName(enControls.Label, ListOfColunmData[i].NameWithout_, true));
+                    }
+
+                    ListOfControlNames.Add(GetControlName(ControlName, ListOfColunmData[i].NameWithout_));
+                }
+            }
+
+            return ListOfControlNames;
+        }
+
+
+string GetControlInitialized(enControls ControlName, string ColumnName, bool IsLabel = false)
+{
+     switch (ControlName)
+     {
+          case enControls.Label:
+               if (!IsLabel)
+               {
+                   return $"this.lb{ColumnName}Result = new System.Windows.Forms.{enControls.Label.ToString()}();";
+               }
+               else
+               {
+                   return $"this.lb{ColumnName} = new System.Windows.Forms.{enControls.Label.ToString()}();";
+               }
+          case enControls.CheckBox:
+              return $"this.chb{ColumnName} = new System.Windows.Forms.{enControls.CheckBox.ToString()}();";
+          case enControls.TextBox:
+              return $"this.txtb{ColumnName} = new System.Windows.Forms.{enControls.TextBox.ToString()}();";
+          case enControls.MaskedTextBox:
+              return $"this.mtxtb{ColumnName} = new System.Windows.Forms.{enControls.MaskedTextBox.ToString()}();";
+          case enControls.DateTimePicker:
+              return $"this.dtp{ColumnName} = new System.Windows.Forms.{enControls.DateTimePicker.ToString()}();";
+          case enControls.ComboBox:
+              return $"this.cb{ColumnName} = new System.Windows.Forms.{enControls.ComboBox.ToString()}();";
+          default:
+              return $"this.lb{ColumnName} = new System.Windows.Forms.{enControls.Label.ToString()}();";
+     }
+}
+
+List<string> GetListOfInitializedControls()
+{
+     List<string> ListOfInitializedControls = new List<string>();
+
+     enControls ControlName = enControls.None;
+
+     for (short i = 0; i < ListOfColunmData.Count; i++)
+     {
+         if (ListOfColunmData[i].Generate)
+         {
+              CaseSameColumnNameAndSameControlNameHandle(ListOfColunmData[i].Name);
+                
+              Enum.TryParse(ListOfColunmData[i].ControlName, out ControlName);
+
+              if (ControlName != enControls.CheckBox)
+              {
+                  ListOfInitializedControls.Add(GetControlInitialized(enControls.Label, ListOfColunmData[i].NameWithout_, true));
+              }
+
+              ListOfInitializedControls.Add(GetControlInitialized(ControlName, ListOfColunmData[i].NameWithout_));
+         }
+     }
+
+     return ListOfInitializedControls;
+}
+
+string GetCreatedObjectsOfControl(enControls ControlName, string ColumnName, bool IsLabel = false)
+{  
+      switch (ControlName)
+      {
+           case enControls.Label:
+               if (!IsLabel)
+               {
+                   return $"private System.Windows.Forms.{ControlName.ToString()} lb{ColumnName}Result;";
+               }
+               else
+               {
+                   return $"private System.Windows.Forms.{ControlName.ToString()} lb{ColumnName};";
+               }
+           case enControls.CheckBox:
+               return $"private System.Windows.Forms.{ControlName.ToString()} chb{ColumnName};";
+           case enControls.TextBox:
+               return $"private System.Windows.Forms.{ControlName.ToString()} txtb{ColumnName};";
+           case enControls.MaskedTextBox:
+               return $"private System.Windows.Forms.{ControlName.ToString()} mtxtb{ColumnName};";
+           case enControls.DateTimePicker:
+               return $"private System.Windows.Forms.{ControlName.ToString()} dtp{ColumnName};";
+           case enControls.ComboBox:
+               return $"private System.Windows.Forms.{ControlName.ToString()} cb{ColumnName};";
+           default:
+               return $"private System.Windows.Forms.{ControlName.ToString()} lb{ColumnName};";
+      }
+}
+
+ List<string> GetListOfCreatedObjectsOfControls()
+{
+     List<string> ListOfCreatedObjectsOfControls = new List<string>();
+
+     enControls ControlName = enControls.None;
+
+      for (short i = 0; i < ListOfColunmData.Count; i++)
+      {
+           if (ListOfColunmData[i].Generate)
+           {
+                Enum.TryParse(ListOfColunmData[i].ControlName, out ControlName);
+
+                if (ControlName != enControls.CheckBox)
+                {
+                    ListOfCreatedObjectsOfControls.Add(GetCreatedObjectsOfControl(enControls.Label, ListOfColunmData[i].NameWithout_, true));
+                }
+
+                ListOfCreatedObjectsOfControls.Add(GetCreatedObjectsOfControl(ControlName, ListOfColunmData[i].NameWithout_));
+           }
+      }
+
+      return ListOfCreatedObjectsOfControls;
+}
+
+
+string RemoveAnyDigitsInString(string Value)
+{
+    for (short i = 0; i < Value.Length; i++)
+    {
+        if (char.IsDigit(Value[i]))
+        {
+            Value = Value.Replace(Value[i].ToString(), "");
+        }
+    }
+    
+    return Value;
+}
+
+
+public string NameSpace { get; set; } = "";
+public bool IsInput { get; set; }
+public bool IsView { get; set; }
+
+// لو هذا المتغير بيساوي false معناها ان هيتم انشاء user control
+public bool IsForm { get; set; }
+
+public string TableSingleName { get; set; } = "";
+
+string _TableName = "";
+public string TableName
+{
+    get
+    {
+        return _TableName;
+    }
+    set
+    {
+        _TableName = value;
+
+        _TableName = _TableName.Replace("_", "");
+    }
+}
+
+private List<string> ListOfInitializedControls = new List<string>();
+private List<string> ListOfCreatedObjectsOfControls = new List<string>();
+private List<string> ListOfInitializedProperties = new List<string>();
+private List<string> ListOfControlNames = new List<string>();
+
+private List<clsColumnDataUILayer> _ListOfColunmData { get; set; }
+public List<clsColumnDataUILayer> ListOfColunmData 
+{
+     get
+     {
+          if (_ListOfColunmData == null)
+          {
+               return new List<clsColumnDataUILayer>();
+          }
+          else
+          {
+               return _ListOfColunmData;
+          }
+     }
+     set
+     {
+          _ListOfColunmData = value;
+
+          if (_ListOfColunmData != null)
+          {
+                ListOfInitializedControls = GetListOfInitializedControls();
+                ListOfCreatedObjectsOfControls = GetListOfCreatedObjectsOfControls();
+                ListOfInitializedProperties = GetListOfInitializedProperties();
+                ListOfControlNames = GetListOfControlNames();
+          }
+     }
+}
+
+
+#>

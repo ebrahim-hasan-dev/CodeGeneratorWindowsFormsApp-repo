@@ -1,0 +1,277 @@
+﻿<#@ template language="C#" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="CodeGenerator_Modules" #>
+<#@ import namespace="System.Collections.Generic" #>
+
+using System.Windows.Forms;
+using System.ComponentModel;
+using System;
+using System.Collections.Generic;
+
+
+namespace <#= NameSpace #>
+{
+    public partial class <#= (IsForm) ? "fm" : "uctrl" #><#= TableSingleName #> : <#= (IsForm) ? "Form" : "UserControl" #>
+    {
+        public  <#= (IsForm) ? "fm" : "uctrl" #><#= TableSingleName #>()
+        {
+            InitializeComponent();
+        }
+
+<# if (IsInput && IsForm) { #> 
+        void btCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+<# } #>
+
+<# if (IsInput) { #>
+        void ShowMissingMessage()
+        {
+            MessageBox.Show("One of the requirements is missing", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        void btSave_Click(object sender, EventArgs e)
+        {
+            if (!this.ValidateChildren())
+            {
+                ShowMissingMessage();
+                return;
+            }
+
+            if (
+<# for (short i = 0; i < ListInputOfControlsNotAllowNull.Count; i++) { #>
+                <#= ListInputOfControlsNotAllowNull[i] #><#= (i < ListInputOfControlsNotAllowNull.Count - 1) ? " &&" : "" #>
+<# } #>
+               )
+            {
+                
+            }
+            else
+            {
+                ShowMissingMessage();
+            }
+        }
+
+<# if (ListInputOfControlsNotAllowNull.Count > 0) { #>
+        void InputControls_ValidatingHelper(MaskedTextBox maskedtextBox, CancelEventArgs e)
+        {
+            if (maskedtextBox != null)
+            {
+                if (string.IsNullOrWhiteSpace(maskedtextBox.Text))
+                {
+                    errorProvider1.SetError(maskedtextBox, "This box should not be empty!");
+                    e.Cancel = true;
+                }
+                else if (!maskedtextBox.MaskCompleted)
+                {
+                    errorProvider1.SetError(maskedtextBox, "The requirements for this box are not complete!");
+                    e.Cancel = true;
+                }
+                else
+                {
+                    errorProvider1.SetError(maskedtextBox, "");
+                    e.Cancel = false;
+                }
+            }
+        }
+
+        void InputControls_ValidatingHelper(TextBox textBox, CancelEventArgs e)
+        {
+            if (textBox != null)
+            {
+                if (string.IsNullOrWhiteSpace(textBox.Text))
+                {
+                    errorProvider1.SetError(textBox, "This box should not be empty!");
+                    e.Cancel = true;
+                }
+                else
+                {
+                    errorProvider1.SetError(textBox, "");
+                    e.Cancel = false;
+                }
+            }
+        }
+
+        void InputControls_ValidatingHelper(ComboBox comboBox, CancelEventArgs e)
+        {
+            if (comboBox != null)
+            {
+                if (string.IsNullOrWhiteSpace(comboBox.Text))
+                {
+                    errorProvider1.SetError(comboBox, "This box should not be empty!");
+                    e.Cancel = true;
+                }
+                else
+                {
+                    errorProvider1.SetError(comboBox, "");
+                    e.Cancel = false;
+                }
+            }
+        }
+
+        void InputControls_Validating(object sender, CancelEventArgs e)
+        {
+            if (sender is TextBox)
+            {
+                TextBox textBox = sender as TextBox;
+
+                InputControls_ValidatingHelper(textBox, e);
+            }
+            else if (sender is MaskedTextBox)
+            {
+                MaskedTextBox maskedtextBox = sender as MaskedTextBox;
+
+                InputControls_ValidatingHelper(maskedtextBox, e);
+            }
+            else if (sender is ComboBox)
+            {
+                ComboBox comboBox = sender as ComboBox;
+
+                InputControls_ValidatingHelper(comboBox, e);
+            }
+        }
+<# } #>
+<# } #>
+<# if (IsView) { #>
+        void FillDataGirdView(List<cls<#= TableSingleName #>> ListOf<#= TableName #>)
+        {
+            if (ListOf<#= TableName #>.Count > 0)
+            {
+                lbNumberOfRowsResult.Text = ListOf<#= TableName #>.Count.ToString();
+
+                dgv<#= TableName #>.Rows.Clear();
+
+                for (int i = 0; i < ListOf<#= TableName #>.Count; i++)
+                {
+                    dgv<#= TableName #>.Rows.Add(new object[] {
+<# for (short i = 0; i < ListOfColunmData.Count; i++) { #>
+                     ListOf<#= TableName #>[i].<#= ListOfColunmData[i].NameWithout_ #><#= (i == ListOfColunmData.Count - 1) ? "" : "," #>
+<# } #>
+                         });
+                }
+            }
+        }
+
+        void FillComboBox()
+        {
+            //cbFilter.Items.Add("All");
+
+
+            //cbFilter.SelectedIndex = 0;
+        }
+
+        void fm<#= TableSingleName #>_Load(object sender, EventArgs e)
+        {
+            //FillDataGirdView(<#= TableSingleName #>Service.GetAll<#= TableName #>());
+
+            //FillComboBox();
+        }
+
+        void cbFilter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            mtxtbFilterValue.Clear();
+        }
+
+        void btFind_Click(object sender, EventArgs e)
+        {
+            
+
+            mtxtbFilterValue.Focus();
+        }
+<# } #>
+
+
+    }
+}
+
+
+
+<#+
+
+
+List <string> GetListInputOfControlsNotAllowNull()
+{
+    List<string> ListInputOfControlsNotAllowNull = new List<string>();
+
+    enControls ControlName = enControls.None;
+
+    for (short i = 0; i < ListOfColunmData.Count; i++)
+    {
+        Enum.TryParse(ListOfColunmData[i].ControlName, out ControlName);
+
+        if (ListOfColunmData[i].Generate && !ListOfColunmData[i].IsNullable && (ControlName == enControls.TextBox || ControlName == enControls.MaskedTextBox || ControlName == enControls.ComboBox))
+        {
+            ListInputOfControlsNotAllowNull.Add($"!string.IsNullOrWhiteSpace({RuntimeTextTemplateUiLayerDesigner.GetControlName(ControlName, ListOfColunmData[i].NameWithout_)}.Text)");
+        }
+    }
+
+    return ListInputOfControlsNotAllowNull;
+}
+
+public string NameSpace { get; set; } = "";
+
+string _TableSingleName = "";
+public string TableSingleName
+{
+    get
+    {
+        return _TableSingleName;
+    }
+    set
+    {
+        _TableSingleName = value;
+
+        _TableSingleName = _TableSingleName?.Replace("_", "");
+    }
+}
+
+string _TableName = "";
+public string TableName
+{
+    get 
+    {    
+        return _TableName;
+    }
+    set
+    {
+        _TableName = value;
+
+        _TableName = _TableName?.Replace("_", "");
+    }
+}
+
+public bool IsInput { get; set; }
+public bool IsView { get; set; }
+
+// لو هذا المتغير بيساوي false معناها ان هيتم انشاء user control
+public bool IsForm { get; set; }
+
+private List<string> ListInputOfControlsNotAllowNull = new List<string>();
+
+private List<clsColumnDataUILayer> _ListOfColunmData {  get; set; }
+public List<clsColumnDataUILayer> ListOfColunmData 
+{
+     get
+     {
+          if (_ListOfColunmData == null)
+          {
+               return new List<clsColumnDataUILayer>();
+          }
+          else
+          {
+               return _ListOfColunmData;
+          }
+     }
+     set
+     {
+          _ListOfColunmData = value;
+
+          if (_ListOfColunmData != null)
+          {
+                ListInputOfControlsNotAllowNull = GetListInputOfControlsNotAllowNull();
+          }
+     }
+}
+
+#>

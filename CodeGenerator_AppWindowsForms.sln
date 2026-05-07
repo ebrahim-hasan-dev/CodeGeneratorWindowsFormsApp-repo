@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36930.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeGenerator_PresentationLayer", "CodeGenerator_PresentationLayer\CodeGenerator_PresentationLayer.csproj", "{FFD019A7-DC95-4785-A32D-1E9DF27D30FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeGenerator_BusinessLayer", "CodeGenerator_BusinessLayer\CodeGenerator_BusinessLayer.csproj", "{7BE973D1-D4CC-4776-B70A-0C7DE741DD63}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeGenerator_DataAccessLayer", "CodeGenerator_DataAccessLayer\CodeGenerator_DataAccessLayer.csproj", "{25542A94-FD91-4D5F-9CA6-25F9E1412858}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeGenerator_Modules", "CodeGenerator_Modules\CodeGenerator_Modules.csproj", "{E1B56B2B-9C4F-4BE7-9C60-D630BF3BCCAF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FFD019A7-DC95-4785-A32D-1E9DF27D30FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFD019A7-DC95-4785-A32D-1E9DF27D30FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFD019A7-DC95-4785-A32D-1E9DF27D30FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFD019A7-DC95-4785-A32D-1E9DF27D30FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7BE973D1-D4CC-4776-B70A-0C7DE741DD63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BE973D1-D4CC-4776-B70A-0C7DE741DD63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BE973D1-D4CC-4776-B70A-0C7DE741DD63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BE973D1-D4CC-4776-B70A-0C7DE741DD63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25542A94-FD91-4D5F-9CA6-25F9E1412858}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25542A94-FD91-4D5F-9CA6-25F9E1412858}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25542A94-FD91-4D5F-9CA6-25F9E1412858}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25542A94-FD91-4D5F-9CA6-25F9E1412858}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1B56B2B-9C4F-4BE7-9C60-D630BF3BCCAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1B56B2B-9C4F-4BE7-9C60-D630BF3BCCAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1B56B2B-9C4F-4BE7-9C60-D630BF3BCCAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1B56B2B-9C4F-4BE7-9C60-D630BF3BCCAF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {83997FC8-B197-4DBF-B551-8753E3DF3D9B}
+	EndGlobalSection
+EndGlobal
