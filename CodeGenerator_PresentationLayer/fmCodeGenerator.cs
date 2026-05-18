@@ -45,7 +45,9 @@ namespace CodeGenerator_PresentationLayer
 
         void fmCodeGenerator_Load(object sender, EventArgs e)
         {
+            // This variable contains a test password, not the real one, as it was changed after the project was completed.
             //txtbPassword.Text = "123456";
+
             //txtbServerName.Text = ".";
             //txtbUserID.Text = "sa";
 
