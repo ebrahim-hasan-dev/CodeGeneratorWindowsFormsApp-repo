@@ -468,7 +468,17 @@ namespace CodeGenerator_PresentationLayer
 
         bool IsBoolean(string ParameterName, List<clsColumnDataDataAccessLayer> Columns)
         {
-            return Columns.Find(x => x.Name == ParameterName).Type == "bool";
+            clsColumnDataDataAccessLayer clsColumn = Columns.Find(x => x.Name == ParameterName);
+
+            if (clsColumn != null)
+            {
+                return clsColumn.Type == "bool";
+            }
+            else
+            {
+                // Here, the function must return `true` for the primary key to be selected as the Parameter.
+                return true;
+            }
         }
 
         string SelectCorrectParameterHelper(RuntimeTextTemplateDataAccessLayer DataAccessLayerTemplate, string PrimaryKeyName, string MethodParameterName)
@@ -726,7 +736,17 @@ namespace CodeGenerator_PresentationLayer
 
         bool IsBoolean(string ParameterName, List<clsColumnDataBusinessLayer> Columns)
         {
-            return Columns.Find(x => x.Name == ParameterName).Type == "bool";
+            clsColumnDataBusinessLayer clsColumn = Columns.Find(x => x.Name == ParameterName);
+
+            if (clsColumn != null)
+            {
+                return clsColumn.Type == "bool";
+            }
+            else
+            {
+                // Here, the function must return `true` for the primary key to be selected as the Parameter.
+                return true;
+            }
         }
 
         string SelectCorrectParameterHelper(RuntimeTextTemplateBusinessLayer BusinessLayerTemplate, string PrimaryKeyName, string MethodParameterName)
