@@ -352,6 +352,11 @@ if (Columns[i].IsPrimaryKey) {
             #line hidden
             this.Write(@"                    }
                 }
+                catch (Exception ex)
+                {
+                    clsEventLog.WriteToEventLog(ex.Message, enLogType.Error);
+                    Add = false;
+                }
                 finally
                 {
                     if (Command != null)
@@ -371,97 +376,97 @@ if (Columns[i].IsPrimaryKey) {
         }
 ");
             
-            #line 105 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 110 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 107 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 112 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
  if (IncludeUpdate) { 
             
             #line default
             #line hidden
             this.Write("        public static bool Update(cls");
             
-            #line 108 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 113 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 108 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 113 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
             
             #line default
             #line hidden
             this.Write(")\r\n        {\r\n            bool Update = false;\r\n\r\n");
             
-            #line 112 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 117 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
 if (Columns.Find(x => x.Name == UpdateParameterName).Type == "string") { 
             
             #line default
             #line hidden
             this.Write("            if (!string.IsNullOrWhiteSpace(");
             
-            #line 113 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 118 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
             
             #line default
             #line hidden
             this.Write(".");
             
-            #line 113 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 118 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(UpdateParameterName.Replace("_", "")));
             
             #line default
             #line hidden
             this.Write(") && ");
             
-            #line 113 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 118 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
             
             #line default
             #line hidden
             this.Write(".IsFull())\r\n");
             
-            #line 114 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 119 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
  } 
             
             #line default
             #line hidden
             
-            #line 115 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 120 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
  if (Columns.Find(x => x.Name == UpdateParameterName).Type != "string") { 
             
             #line default
             #line hidden
             this.Write("            if (");
             
-            #line 116 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 121 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
             
             #line default
             #line hidden
             this.Write(".");
             
-            #line 116 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 121 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(HandleCorrectCheckParamerter(UpdateParameterName).Replace("_", "")));
             
             #line default
             #line hidden
             this.Write(" && ");
             
-            #line 116 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 121 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
             
             #line default
             #line hidden
             this.Write(".IsFull())\r\n");
             
-            #line 117 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 122 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
  } 
             
             #line default
@@ -476,14 +481,14 @@ if (Columns.Find(x => x.Name == UpdateParameterName).Type == "string") {
 
                     string UpdateQuery = @""update [");
             
-            #line 126 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 131 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableName));
             
             #line default
             #line hidden
             this.Write("] set \r\n");
             
-            #line 127 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 132 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
  for (short i = 0; i < Columns.Count; i++) { 
                                 if (Columns[i].IsPrimaryKey)
                                             continue;
@@ -492,41 +497,41 @@ if (Columns.Find(x => x.Name == UpdateParameterName).Type == "string") {
             #line hidden
             this.Write("                             [");
             
-            #line 130 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 135 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].Name));
             
             #line default
             #line hidden
             this.Write("] = @");
             
-            #line 130 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 135 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].NameWithout_));
             
             #line default
             #line hidden
             
-            #line 130 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 135 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture((i < Columns.Count - 1) ? ", " : ""));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 131 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 136 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
  } 
             
             #line default
             #line hidden
             this.Write("                             where [");
             
-            #line 132 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 137 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(UpdateParameterName));
             
             #line default
             #line hidden
             this.Write("] = @");
             
-            #line 132 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 137 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(UpdateParameterName.Replace("_", "")));
             
             #line default
@@ -534,28 +539,28 @@ if (Columns.Find(x => x.Name == UpdateParameterName).Type == "string") {
             this.Write(";\";\r\n\r\n                    Command = new SqlCommand(UpdateQuery, Connection);\r\n\r\n" +
                     "                    Command.Parameters.AddWithValue(\"@");
             
-            #line 136 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 141 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(UpdateParameterName.Replace("_", "")));
             
             #line default
             #line hidden
             this.Write("\", ");
             
-            #line 136 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 141 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
             
             #line default
             #line hidden
             this.Write(".");
             
-            #line 136 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 141 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(UpdateParameterName.Replace("_", "")));
             
             #line default
             #line hidden
             this.Write(");\r\n");
             
-            #line 137 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 142 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
  for (short i = 0; i < Columns.Count; i++) {
                 if (Columns[i].IsPrimaryKey)
                            continue;
@@ -566,14 +571,14 @@ if (Columns.Find(x => x.Name == UpdateParameterName).Type == "string") {
             #line hidden
             this.Write("                    if (string.IsNullOrWhiteSpace(");
             
-            #line 142 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 147 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
             
             #line default
             #line hidden
             this.Write(".");
             
-            #line 142 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 147 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].NameWithout_));
             
             #line default
@@ -581,7 +586,7 @@ if (Columns.Find(x => x.Name == UpdateParameterName).Type == "string") {
             this.Write("))\r\n                    {\r\n                        Command.Parameters.AddWithValu" +
                     "e(\"@");
             
-            #line 144 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 149 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].NameWithout_));
             
             #line default
@@ -589,48 +594,48 @@ if (Columns.Find(x => x.Name == UpdateParameterName).Type == "string") {
             this.Write("\", DBNull.Value);\r\n                    }\r\n                    else\r\n             " +
                     "       {\r\n                        Command.Parameters.AddWithValue(\"@");
             
-            #line 148 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 153 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].NameWithout_));
             
             #line default
             #line hidden
             this.Write("\", ");
             
-            #line 148 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 153 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
             
             #line default
             #line hidden
             this.Write(".");
             
-            #line 148 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 153 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].NameWithout_));
             
             #line default
             #line hidden
             this.Write(");\r\n                    }\r\n");
             
-            #line 150 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 155 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
  } 
             
             #line default
             #line hidden
             
-            #line 151 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 156 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
  if (Columns[i].IsNullable && Columns[i].Type != "string") { 
             
             #line default
             #line hidden
             this.Write("                    if (");
             
-            #line 152 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 157 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
             
             #line default
             #line hidden
             this.Write(".");
             
-            #line 152 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 157 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].NameWithout_));
             
             #line default
@@ -638,7 +643,7 @@ if (Columns.Find(x => x.Name == UpdateParameterName).Type == "string") {
             this.Write(" == null)\r\n                    {\r\n                        Command.Parameters.AddW" +
                     "ithValue(\"@");
             
-            #line 154 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 159 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].NameWithout_));
             
             #line default
@@ -646,68 +651,68 @@ if (Columns.Find(x => x.Name == UpdateParameterName).Type == "string") {
             this.Write("\", DBNull.Value);\r\n                    }\r\n                    else\r\n             " +
                     "       {\r\n                        Command.Parameters.AddWithValue(\"@");
             
-            #line 158 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 163 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].NameWithout_));
             
             #line default
             #line hidden
             this.Write("\", ");
             
-            #line 158 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 163 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
             
             #line default
             #line hidden
             this.Write(".");
             
-            #line 158 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 163 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].NameWithout_));
             
             #line default
             #line hidden
             this.Write(");\r\n                    }\r\n");
             
-            #line 160 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 165 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
  } 
             
             #line default
             #line hidden
             
-            #line 161 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 166 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
  if (!Columns[i].IsNullable) { 
             
             #line default
             #line hidden
             this.Write("                    Command.Parameters.AddWithValue(\"@");
             
-            #line 162 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 167 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].NameWithout_));
             
             #line default
             #line hidden
             this.Write("\", ");
             
-            #line 162 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 167 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
             
             #line default
             #line hidden
             this.Write(".");
             
-            #line 162 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 167 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].NameWithout_));
             
             #line default
             #line hidden
             this.Write(");\r\n");
             
-            #line 163 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 168 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
  } 
             
             #line default
             #line hidden
             
-            #line 164 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 169 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
  } 
             
             #line default
@@ -719,6 +724,11 @@ if (Columns.Find(x => x.Name == UpdateParameterName).Type == "string") {
                     {
                         Update = true;
                     }
+                }
+                catch (Exception ex)
+                {
+                    clsEventLog.WriteToEventLog(ex.Message, enLogType.Error);
+                    Update = false;
                 }
                 finally
                 {
@@ -739,49 +749,49 @@ if (Columns.Find(x => x.Name == UpdateParameterName).Type == "string") {
         }
 ");
             
-            #line 190 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 200 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 192 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 202 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
  if (IncludeFind) { 
             
             #line default
             #line hidden
             this.Write("        public static cls");
             
-            #line 193 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 203 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
             
             #line default
             #line hidden
             this.Write(" Find(");
             
-            #line 193 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 203 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(HandleParameter(FindParameterName).Replace("_", "")));
             
             #line default
             #line hidden
             this.Write(")\r\n        {\r\n            cls");
             
-            #line 195 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 205 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 195 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 205 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
             
             #line default
             #line hidden
             this.Write(" = null;\r\n\r\n            if (");
             
-            #line 197 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 207 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(HandleCorrectCheckParamerter(FindParameterName).Replace("_", "")));
             
             #line default
@@ -798,21 +808,21 @@ if (Columns.Find(x => x.Name == UpdateParameterName).Type == "string") {
 
                     string FindQuery = @""select * from [");
             
-            #line 207 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 217 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableName));
             
             #line default
             #line hidden
             this.Write("] where [");
             
-            #line 207 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 217 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(FindParameterName));
             
             #line default
             #line hidden
             this.Write("] = @");
             
-            #line 207 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 217 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(FindParameterName.Replace("_", "")));
             
             #line default
@@ -820,14 +830,14 @@ if (Columns.Find(x => x.Name == UpdateParameterName).Type == "string") {
             this.Write(";\";\r\n\r\n                    Command = new SqlCommand(FindQuery, Connection);\r\n\r\n  " +
                     "                  Command.Parameters.AddWithValue(\"@");
             
-            #line 211 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 221 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(FindParameterName.Replace("_", "")));
             
             #line default
             #line hidden
             this.Write("\", ");
             
-            #line 211 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 221 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(FindParameterName.Replace("_", "")));
             
             #line default
@@ -836,48 +846,48 @@ if (Columns.Find(x => x.Name == UpdateParameterName).Type == "string") {
                     "and.ExecuteReader();\r\n\r\n                    if (Reader.Read())\r\n                " +
                     "    {\r\n                        ");
             
-            #line 219 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 229 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
             
             #line default
             #line hidden
             this.Write(" = new cls");
             
-            #line 219 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 229 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
             
             #line default
             #line hidden
             this.Write("();\r\n\r\n");
             
-            #line 221 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 231 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
  for (short i = 0; i < Columns.Count; i++) { 
             
             #line default
             #line hidden
             
-            #line 222 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 232 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
  if (Columns[i].IsNullable) { 
             
             #line default
             #line hidden
             this.Write("                        if (Reader[\"");
             
-            #line 223 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 233 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].Name));
             
             #line default
             #line hidden
             this.Write("\"] == DBNull.Value)\r\n                        {\r\n                            ");
             
-            #line 225 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 235 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
             
             #line default
             #line hidden
             this.Write(".");
             
-            #line 225 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 235 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].NameWithout_));
             
             #line default
@@ -885,176 +895,67 @@ if (Columns.Find(x => x.Name == UpdateParameterName).Type == "string") {
             this.Write(" = default;\r\n                        }\r\n                        else\r\n           " +
                     "             {\r\n");
             
-            #line 229 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 239 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
  if (DataTypesWithoutString.Contains(Columns[i].Type)) { 
             
             #line default
             #line hidden
             
-            #line 230 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 240 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
  if (Columns[i].Name == FindParameterName) { 
             
             #line default
             #line hidden
             this.Write("                            ");
             
-            #line 231 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 241 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].Type));
             
             #line default
             #line hidden
             this.Write(".TryParse(Reader[\"");
             
-            #line 231 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 241 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].Name));
             
             #line default
             #line hidden
             this.Write("\"].ToString(), out ");
             
-            #line 231 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 241 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].Type));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 231 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 241 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].NameWithout_));
             
             #line default
             #line hidden
             this.Write("2);\r\n                            ");
             
-            #line 232 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 242 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
             
             #line default
             #line hidden
             this.Write(".");
             
-            #line 232 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 242 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].NameWithout_));
             
             #line default
             #line hidden
             this.Write(" = ");
             
-            #line 232 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 242 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].NameWithout_));
             
             #line default
             #line hidden
             this.Write("2;\r\n");
-            
-            #line 233 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
- } 
-            
-            #line default
-            #line hidden
-            
-            #line 234 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
- if (Columns[i].Name != FindParameterName) { 
-            
-            #line default
-            #line hidden
-            this.Write("                            ");
-            
-            #line 235 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].Type));
-            
-            #line default
-            #line hidden
-            this.Write(".TryParse(Reader[\"");
-            
-            #line 235 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].Name));
-            
-            #line default
-            #line hidden
-            this.Write("\"].ToString(), out ");
-            
-            #line 235 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].Type));
-            
-            #line default
-            #line hidden
-            this.Write(" ");
-            
-            #line 235 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].NameWithout_));
-            
-            #line default
-            #line hidden
-            this.Write(");\r\n                            ");
-            
-            #line 236 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
-            
-            #line default
-            #line hidden
-            this.Write(".");
-            
-            #line 236 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].NameWithout_));
-            
-            #line default
-            #line hidden
-            this.Write(" = ");
-            
-            #line 236 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].NameWithout_));
-            
-            #line default
-            #line hidden
-            this.Write(";\r\n");
-            
-            #line 237 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
- } 
-            
-            #line default
-            #line hidden
-            
-            #line 238 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
- } 
-            
-            #line default
-            #line hidden
-            
-            #line 239 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
- if (!DataTypesWithoutString.Contains(Columns[i].Type)) { 
-            
-            #line default
-            #line hidden
-            this.Write("                            ");
-            
-            #line 240 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
-            
-            #line default
-            #line hidden
-            this.Write(".");
-            
-            #line 240 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].NameWithout_));
-            
-            #line default
-            #line hidden
-            this.Write(" = Reader[\"");
-            
-            #line 240 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].Name));
-            
-            #line default
-            #line hidden
-            this.Write("\"] as string ?? \"\";\r\n");
-            
-            #line 241 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
- } 
-            
-            #line default
-            #line hidden
-            this.Write("                        }\r\n");
             
             #line 243 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
  } 
@@ -1063,134 +964,107 @@ if (Columns.Find(x => x.Name == UpdateParameterName).Type == "string") {
             #line hidden
             
             #line 244 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
- if (!Columns[i].IsNullable) { 
-            
-            #line default
-            #line hidden
-            
-            #line 245 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
- if (DataTypesWithoutString.Contains(Columns[i].Type)) { 
-            
-            #line default
-            #line hidden
-            
-            #line 246 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
- if (Columns[i].Name == FindParameterName) { 
-            
-            #line default
-            #line hidden
-            this.Write("                        ");
-            
-            #line 247 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].Type));
-            
-            #line default
-            #line hidden
-            this.Write(".TryParse(Reader[\"");
-            
-            #line 247 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].Name));
-            
-            #line default
-            #line hidden
-            this.Write("\"].ToString(), out ");
-            
-            #line 247 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].Type));
-            
-            #line default
-            #line hidden
-            this.Write(" ");
-            
-            #line 247 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].NameWithout_));
-            
-            #line default
-            #line hidden
-            this.Write("2);\r\n                        ");
-            
-            #line 248 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
-            
-            #line default
-            #line hidden
-            this.Write(".");
-            
-            #line 248 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].NameWithout_));
-            
-            #line default
-            #line hidden
-            this.Write(" = ");
-            
-            #line 248 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].NameWithout_));
-            
-            #line default
-            #line hidden
-            this.Write("2;\r\n");
-            
-            #line 249 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
- } 
-            
-            #line default
-            #line hidden
-            
-            #line 250 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
  if (Columns[i].Name != FindParameterName) { 
             
             #line default
             #line hidden
-            this.Write("                        ");
+            this.Write("                            ");
             
-            #line 251 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 245 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].Type));
             
             #line default
             #line hidden
             this.Write(".TryParse(Reader[\"");
             
-            #line 251 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 245 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].Name));
             
             #line default
             #line hidden
             this.Write("\"].ToString(), out ");
             
-            #line 251 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 245 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].Type));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 251 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 245 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].NameWithout_));
             
             #line default
             #line hidden
-            this.Write(");\r\n                        ");
+            this.Write(");\r\n                            ");
             
-            #line 252 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 246 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
             
             #line default
             #line hidden
             this.Write(".");
             
-            #line 252 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 246 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].NameWithout_));
             
             #line default
             #line hidden
             this.Write(" = ");
             
-            #line 252 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 246 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].NameWithout_));
             
             #line default
             #line hidden
             this.Write(";\r\n");
+            
+            #line 247 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+ } 
+            
+            #line default
+            #line hidden
+            
+            #line 248 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+ } 
+            
+            #line default
+            #line hidden
+            
+            #line 249 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+ if (!DataTypesWithoutString.Contains(Columns[i].Type)) { 
+            
+            #line default
+            #line hidden
+            this.Write("                            ");
+            
+            #line 250 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
+            
+            #line default
+            #line hidden
+            this.Write(".");
+            
+            #line 250 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].NameWithout_));
+            
+            #line default
+            #line hidden
+            this.Write(" = Reader[\"");
+            
+            #line 250 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].Name));
+            
+            #line default
+            #line hidden
+            this.Write("\"] as string ?? \"\";\r\n");
+            
+            #line 251 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+ } 
+            
+            #line default
+            #line hidden
+            this.Write("                        }\r\n");
             
             #line 253 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
  } 
@@ -1199,57 +1073,202 @@ if (Columns.Find(x => x.Name == UpdateParameterName).Type == "string") {
             #line hidden
             
             #line 254 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
- } 
+ if (!Columns[i].IsNullable) { 
             
             #line default
             #line hidden
             
             #line 255 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
- if (!DataTypesWithoutString.Contains(Columns[i].Type)) { 
+ if (DataTypesWithoutString.Contains(Columns[i].Type)) { 
+            
+            #line default
+            #line hidden
+            
+            #line 256 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+ if (Columns[i].Name == FindParameterName) { 
             
             #line default
             #line hidden
             this.Write("                        ");
             
-            #line 256 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 257 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].Type));
+            
+            #line default
+            #line hidden
+            this.Write(".TryParse(Reader[\"");
+            
+            #line 257 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].Name));
+            
+            #line default
+            #line hidden
+            this.Write("\"].ToString(), out ");
+            
+            #line 257 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].Type));
+            
+            #line default
+            #line hidden
+            this.Write(" ");
+            
+            #line 257 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].NameWithout_));
+            
+            #line default
+            #line hidden
+            this.Write("2);\r\n                        ");
+            
+            #line 258 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
             
             #line default
             #line hidden
             this.Write(".");
             
-            #line 256 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 258 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].NameWithout_));
             
             #line default
             #line hidden
-            this.Write(" = Reader[\"");
-            
-            #line 256 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].Name));
-            
-            #line default
-            #line hidden
-            this.Write("\"] as string ?? \"\";\r\n");
-            
-            #line 257 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
- } 
-            
-            #line default
-            #line hidden
+            this.Write(" = ");
             
             #line 258 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
- } 
+            this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].NameWithout_));
             
             #line default
             #line hidden
+            this.Write("2;\r\n");
             
             #line 259 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
  } 
             
             #line default
             #line hidden
-            this.Write(@"                    }
+            
+            #line 260 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+ if (Columns[i].Name != FindParameterName) { 
+            
+            #line default
+            #line hidden
+            this.Write("                        ");
+            
+            #line 261 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].Type));
+            
+            #line default
+            #line hidden
+            this.Write(".TryParse(Reader[\"");
+            
+            #line 261 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].Name));
+            
+            #line default
+            #line hidden
+            this.Write("\"].ToString(), out ");
+            
+            #line 261 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].Type));
+            
+            #line default
+            #line hidden
+            this.Write(" ");
+            
+            #line 261 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].NameWithout_));
+            
+            #line default
+            #line hidden
+            this.Write(");\r\n                        ");
+            
+            #line 262 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
+            
+            #line default
+            #line hidden
+            this.Write(".");
+            
+            #line 262 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].NameWithout_));
+            
+            #line default
+            #line hidden
+            this.Write(" = ");
+            
+            #line 262 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].NameWithout_));
+            
+            #line default
+            #line hidden
+            this.Write(";\r\n");
+            
+            #line 263 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+ } 
+            
+            #line default
+            #line hidden
+            
+            #line 264 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+ } 
+            
+            #line default
+            #line hidden
+            
+            #line 265 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+ if (!DataTypesWithoutString.Contains(Columns[i].Type)) { 
+            
+            #line default
+            #line hidden
+            this.Write("                        ");
+            
+            #line 266 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
+            
+            #line default
+            #line hidden
+            this.Write(".");
+            
+            #line 266 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].NameWithout_));
+            
+            #line default
+            #line hidden
+            this.Write(" = Reader[\"");
+            
+            #line 266 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].Name));
+            
+            #line default
+            #line hidden
+            this.Write("\"] as string ?? \"\";\r\n");
+            
+            #line 267 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+ } 
+            
+            #line default
+            #line hidden
+            
+            #line 268 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+ } 
+            
+            #line default
+            #line hidden
+            
+            #line 269 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+ } 
+            
+            #line default
+            #line hidden
+            this.Write("                    }\r\n                }\r\n                catch (Exception ex)\r\n " +
+                    "               {\r\n                    clsEventLog.WriteToEventLog(ex.Message, en" +
+                    "LogType.Error);\r\n                    ");
+            
+            #line 275 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
+            
+            #line default
+            #line hidden
+            this.Write(@" = null;
                 }
                 finally
                 {
@@ -1274,56 +1293,56 @@ if (Columns.Find(x => x.Name == UpdateParameterName).Type == "string") {
 
             return  ");
             
-            #line 283 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 298 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
             
             #line default
             #line hidden
             this.Write(";\r\n        }\r\n");
             
-            #line 285 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 300 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 287 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 302 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
  if (IncludeGetAll) { 
             
             #line default
             #line hidden
             this.Write("        public static List<cls");
             
-            #line 288 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 303 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
             
             #line default
             #line hidden
             this.Write("> GetAll");
             
-            #line 288 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 303 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableName));
             
             #line default
             #line hidden
             this.Write("()\r\n        {\r\n            List<cls");
             
-            #line 290 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 305 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
             
             #line default
             #line hidden
             this.Write("> ListOf");
             
-            #line 290 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 305 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableName));
             
             #line default
             #line hidden
             this.Write(" = new List<cls");
             
-            #line 290 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 305 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
             
             #line default
@@ -1340,7 +1359,7 @@ if (Columns.Find(x => x.Name == UpdateParameterName).Type == "string") {
 
                 string GetAllQuery = @""select * from [");
             
-            #line 300 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 315 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableName));
             
             #line default
@@ -1350,55 +1369,55 @@ if (Columns.Find(x => x.Name == UpdateParameterName).Type == "string") {
                     "r();\r\n\r\n                while (Reader.Read())\r\n                {\r\n              " +
                     "      cls");
             
-            #line 310 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 325 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 310 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 325 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
             
             #line default
             #line hidden
             this.Write(" = new cls");
             
-            #line 310 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 325 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
             
             #line default
             #line hidden
             this.Write("();\r\n\r\n");
             
-            #line 312 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 327 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
  for (short i = 0; i < Columns.Count; i++) { 
             
             #line default
             #line hidden
             
-            #line 313 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 328 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
  if (Columns[i].IsNullable) { 
             
             #line default
             #line hidden
             this.Write("                    if (Reader[\"");
             
-            #line 314 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 329 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].Name));
             
             #line default
             #line hidden
             this.Write("\"] == DBNull.Value)\r\n                    {\r\n                         ");
             
-            #line 316 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 331 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
             
             #line default
             #line hidden
             this.Write(".");
             
-            #line 316 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 331 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].NameWithout_));
             
             #line default
@@ -1406,239 +1425,246 @@ if (Columns.Find(x => x.Name == UpdateParameterName).Type == "string") {
             this.Write(" = default;\r\n                    }\r\n                    else\r\n                   " +
                     " {\r\n");
             
-            #line 320 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 335 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
  if (DataTypesWithoutString.Contains(Columns[i].Type)) { 
             
             #line default
             #line hidden
             this.Write("                         ");
             
-            #line 321 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 336 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].Type));
             
             #line default
             #line hidden
             this.Write(".TryParse(Reader[\"");
             
-            #line 321 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 336 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].Name));
             
             #line default
             #line hidden
             this.Write("\"].ToString(), out ");
             
-            #line 321 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 336 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].Type));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 321 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 336 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].NameWithout_));
             
             #line default
             #line hidden
             this.Write(");\r\n                         ");
             
-            #line 322 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 337 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
             
             #line default
             #line hidden
             this.Write(".");
-            
-            #line 322 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].NameWithout_));
-            
-            #line default
-            #line hidden
-            this.Write(" = ");
-            
-            #line 322 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].NameWithout_));
-            
-            #line default
-            #line hidden
-            this.Write(";\r\n");
-            
-            #line 323 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
- } 
-            
-            #line default
-            #line hidden
-            
-            #line 324 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
- if (!DataTypesWithoutString.Contains(Columns[i].Type)) { 
-            
-            #line default
-            #line hidden
-            this.Write("                         ");
-            
-            #line 325 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
-            
-            #line default
-            #line hidden
-            this.Write(".");
-            
-            #line 325 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].NameWithout_));
-            
-            #line default
-            #line hidden
-            this.Write(" = Reader[\"");
-            
-            #line 325 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].Name));
-            
-            #line default
-            #line hidden
-            this.Write("\"] as string ?? \"\";\r\n");
-            
-            #line 326 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
- } 
-            
-            #line default
-            #line hidden
-            this.Write("                    }\r\n");
-            
-            #line 328 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
- } 
-            
-            #line default
-            #line hidden
-            
-            #line 329 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
- if (!Columns[i].IsNullable) { 
-            
-            #line default
-            #line hidden
-            
-            #line 330 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
- if (DataTypesWithoutString.Contains(Columns[i].Type)) { 
-            
-            #line default
-            #line hidden
-            this.Write("                    ");
-            
-            #line 331 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].Type));
-            
-            #line default
-            #line hidden
-            this.Write(".TryParse(Reader[\"");
-            
-            #line 331 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].Name));
-            
-            #line default
-            #line hidden
-            this.Write("\"].ToString(), out ");
-            
-            #line 331 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].Type));
-            
-            #line default
-            #line hidden
-            this.Write(" ");
-            
-            #line 331 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].NameWithout_));
-            
-            #line default
-            #line hidden
-            this.Write(");\r\n                    ");
-            
-            #line 332 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
-            
-            #line default
-            #line hidden
-            this.Write(".");
-            
-            #line 332 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].NameWithout_));
-            
-            #line default
-            #line hidden
-            this.Write(" = ");
-            
-            #line 332 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].NameWithout_));
-            
-            #line default
-            #line hidden
-            this.Write(";\r\n");
-            
-            #line 333 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
- } 
-            
-            #line default
-            #line hidden
-            
-            #line 334 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
- if (!DataTypesWithoutString.Contains(Columns[i].Type)) { 
-            
-            #line default
-            #line hidden
-            this.Write("                    ");
-            
-            #line 335 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
-            
-            #line default
-            #line hidden
-            this.Write(".");
-            
-            #line 335 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].NameWithout_));
-            
-            #line default
-            #line hidden
-            this.Write(" = Reader[\"");
-            
-            #line 335 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].Name));
-            
-            #line default
-            #line hidden
-            this.Write("\"] as string ?? \"\";\r\n");
-            
-            #line 336 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
- } 
-            
-            #line default
-            #line hidden
             
             #line 337 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
- } 
+            this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].NameWithout_));
             
             #line default
             #line hidden
+            this.Write(" = ");
+            
+            #line 337 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].NameWithout_));
+            
+            #line default
+            #line hidden
+            this.Write(";\r\n");
             
             #line 338 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("\r\n                    ListOf");
             
-            #line 340 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(TableName));
+            #line 339 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+ if (!DataTypesWithoutString.Contains(Columns[i].Type)) { 
             
             #line default
             #line hidden
-            this.Write(".Add(");
+            this.Write("                         ");
             
             #line 340 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
             
             #line default
             #line hidden
-            this.Write(@");
-                }
-
+            this.Write(".");
+            
+            #line 340 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].NameWithout_));
+            
+            #line default
+            #line hidden
+            this.Write(" = Reader[\"");
+            
+            #line 340 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].Name));
+            
+            #line default
+            #line hidden
+            this.Write("\"] as string ?? \"\";\r\n");
+            
+            #line 341 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+ } 
+            
+            #line default
+            #line hidden
+            this.Write("                    }\r\n");
+            
+            #line 343 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+ } 
+            
+            #line default
+            #line hidden
+            
+            #line 344 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+ if (!Columns[i].IsNullable) { 
+            
+            #line default
+            #line hidden
+            
+            #line 345 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+ if (DataTypesWithoutString.Contains(Columns[i].Type)) { 
+            
+            #line default
+            #line hidden
+            this.Write("                    ");
+            
+            #line 346 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].Type));
+            
+            #line default
+            #line hidden
+            this.Write(".TryParse(Reader[\"");
+            
+            #line 346 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].Name));
+            
+            #line default
+            #line hidden
+            this.Write("\"].ToString(), out ");
+            
+            #line 346 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].Type));
+            
+            #line default
+            #line hidden
+            this.Write(" ");
+            
+            #line 346 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].NameWithout_));
+            
+            #line default
+            #line hidden
+            this.Write(");\r\n                    ");
+            
+            #line 347 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
+            
+            #line default
+            #line hidden
+            this.Write(".");
+            
+            #line 347 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].NameWithout_));
+            
+            #line default
+            #line hidden
+            this.Write(" = ");
+            
+            #line 347 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].NameWithout_));
+            
+            #line default
+            #line hidden
+            this.Write(";\r\n");
+            
+            #line 348 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+ } 
+            
+            #line default
+            #line hidden
+            
+            #line 349 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+ if (!DataTypesWithoutString.Contains(Columns[i].Type)) { 
+            
+            #line default
+            #line hidden
+            this.Write("                    ");
+            
+            #line 350 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
+            
+            #line default
+            #line hidden
+            this.Write(".");
+            
+            #line 350 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].NameWithout_));
+            
+            #line default
+            #line hidden
+            this.Write(" = Reader[\"");
+            
+            #line 350 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].Name));
+            
+            #line default
+            #line hidden
+            this.Write("\"] as string ?? \"\";\r\n");
+            
+            #line 351 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+ } 
+            
+            #line default
+            #line hidden
+            
+            #line 352 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+ } 
+            
+            #line default
+            #line hidden
+            
+            #line 353 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+ } 
+            
+            #line default
+            #line hidden
+            this.Write("\r\n                    ListOf");
+            
+            #line 355 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(TableName));
+            
+            #line default
+            #line hidden
+            this.Write(".Add(");
+            
+            #line 355 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
+            
+            #line default
+            #line hidden
+            this.Write(");\r\n                }\r\n\r\n            }\r\n            catch (Exception ex)\r\n       " +
+                    "     {\r\n                clsEventLog.WriteToEventLog(ex.Message, enLogType.Error)" +
+                    ";\r\n                ListOf");
+            
+            #line 362 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(TableName));
+            
+            #line default
+            #line hidden
+            this.Write(@".Clear();
             }
             finally
             {
@@ -1663,35 +1689,35 @@ if (Columns.Find(x => x.Name == UpdateParameterName).Type == "string") {
 
             return ListOf");
             
-            #line 365 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 385 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableName));
             
             #line default
             #line hidden
             this.Write(";\r\n        }\r\n");
             
-            #line 367 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 387 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 369 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 389 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
  if (IncludeDelete) { 
             
             #line default
             #line hidden
             this.Write("        public static bool Delete(");
             
-            #line 370 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 390 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(HandleParameter(DeleteParameterName).Replace("_", "")));
             
             #line default
             #line hidden
             this.Write(")\r\n        {\r\n            bool Delete = false;\r\n\r\n            if (");
             
-            #line 374 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 394 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(HandleCorrectCheckParamerter(DeleteParameterName).Replace("_", "")));
             
             #line default
@@ -1707,21 +1733,21 @@ if (Columns.Find(x => x.Name == UpdateParameterName).Type == "string") {
 
                     string DeleteQuery = ""delete from [");
             
-            #line 383 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 403 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableName));
             
             #line default
             #line hidden
             this.Write("] where [");
             
-            #line 383 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 403 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DeleteParameterName));
             
             #line default
             #line hidden
             this.Write("] = @");
             
-            #line 383 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 403 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DeleteParameterName.Replace("_", "")));
             
             #line default
@@ -1729,14 +1755,14 @@ if (Columns.Find(x => x.Name == UpdateParameterName).Type == "string") {
             this.Write(";\";\r\n\r\n                    Command = new SqlCommand(DeleteQuery, Connection);\r\n\r\n" +
                     "                    Command.Parameters.AddWithValue(\"@");
             
-            #line 387 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 407 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DeleteParameterName.Replace("_", "")));
             
             #line default
             #line hidden
             this.Write("\", ");
             
-            #line 387 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 407 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DeleteParameterName.Replace("_", "")));
             
             #line default
@@ -1749,6 +1775,11 @@ if (Columns.Find(x => x.Name == UpdateParameterName).Type == "string") {
                     {
                         Delete = true;
                     }
+                }
+                catch (Exception ex)
+                {
+                    clsEventLog.WriteToEventLog(ex.Message, enLogType.Error);
+                    Delete = false;
                 }
                 finally
                 {
@@ -1769,28 +1800,28 @@ if (Columns.Find(x => x.Name == UpdateParameterName).Type == "string") {
         }
 ");
             
-            #line 413 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 438 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 415 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 440 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
  if (IncludeExist) { 
             
             #line default
             #line hidden
             this.Write("        public static bool IsExist(");
             
-            #line 416 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 441 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(HandleParameter(ExistParameterName).Replace("_", "")));
             
             #line default
             #line hidden
             this.Write(")\r\n        {\r\n            bool Exist = false;\r\n\r\n            if (");
             
-            #line 420 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 445 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(HandleCorrectCheckParamerter(ExistParameterName).Replace("_", "")));
             
             #line default
@@ -1807,28 +1838,28 @@ if (Columns.Find(x => x.Name == UpdateParameterName).Type == "string") {
 
                     string FindQuery = ""select [");
             
-            #line 430 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 455 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ExistParameterName));
             
             #line default
             #line hidden
             this.Write("] from [");
             
-            #line 430 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 455 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableName));
             
             #line default
             #line hidden
             this.Write("] where [");
             
-            #line 430 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 455 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ExistParameterName));
             
             #line default
             #line hidden
             this.Write("] = @");
             
-            #line 430 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 455 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ExistParameterName.Replace("_", "")));
             
             #line default
@@ -1836,14 +1867,14 @@ if (Columns.Find(x => x.Name == UpdateParameterName).Type == "string") {
             this.Write(";\";\r\n\r\n                    Command = new SqlCommand(FindQuery, Connection);\r\n\r\n  " +
                     "                  Command.Parameters.AddWithValue(\"@");
             
-            #line 434 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 459 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ExistParameterName.Replace("_", "")));
             
             #line default
             #line hidden
             this.Write("\", ");
             
-            #line 434 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 459 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ExistParameterName.Replace("_", "")));
             
             #line default
@@ -1858,6 +1889,11 @@ if (Columns.Find(x => x.Name == UpdateParameterName).Type == "string") {
                     {
                         Exist = true;
                     }
+                }
+                catch (Exception ex)
+                {
+                    clsEventLog.WriteToEventLog(ex.Message, enLogType.Error);
+                    Exist = false;
                 }
                 finally
                 {
@@ -1884,7 +1920,7 @@ if (Columns.Find(x => x.Name == UpdateParameterName).Type == "string") {
         }
 ");
             
-            #line 468 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+            #line 498 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
  } 
             
             #line default
@@ -1894,7 +1930,7 @@ if (Columns.Find(x => x.Name == UpdateParameterName).Type == "string") {
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 477 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
+        #line 507 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
 
 
 public string TableName { get; set; } = "";
@@ -1937,18 +1973,25 @@ string HandleParameter(string ParameterName)
 
 string HandleCorrectCheckParamerter(string ParameterName)
 {
-    if (DataTypesWithoutStringAndDateTimeAndBoolan.Contains(Columns.Find(x => x.Name == ParameterName).Type))
+    clsColumnDataDataAccessLayer Col = Columns.Find(x => x.Name == ParameterName);
+    
+    if (Col != null)
     {
-        return ParameterName + " > 0";
+        if (DataTypesWithoutStringAndDateTimeAndBoolan.Contains(Col.Type))
+        {
+            return ParameterName + " > 0";
+        }
+        else if (Col.Type == "DateTime")
+        {
+            return ParameterName + " != default";
+        }
+        else
+        {
+            return "!string.IsNullOrWhiteSpace(" + ParameterName + ")";
+        }
     }
-    else if (Columns.Find(x => x.Name == ParameterName).Type == "DateTime")
-    {
-        return ParameterName + " != default";
-    }
-    else
-    {
-        return "!string.IsNullOrWhiteSpace(" + ParameterName + ")";
-    }
+
+    return "";
 }
 
 

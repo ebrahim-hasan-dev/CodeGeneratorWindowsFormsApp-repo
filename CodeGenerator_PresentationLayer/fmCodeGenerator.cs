@@ -1,12 +1,13 @@
 ﻿
+using CodeGenerator_BusinessLayer;
+using CodeGenerator_Modules;
+using DLMApp_ModulesLayer;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using CodeGenerator_Modules;
-using CodeGenerator_BusinessLayer;
 
 
 namespace CodeGenerator_PresentationLayer
@@ -28,6 +29,9 @@ namespace CodeGenerator_PresentationLayer
         string _FindParameterName { get; set; } = "";
         string _ExistParameterName { get; set; } = "";
         string _DeleteParameterName { get; set; } = "";
+        
+        string _ExtensionTag { get; } = "// [EXTRA_METHODS_HERE]";
+        
         bool _SpecialParameter { get; set; }
 
         List<clsTableNameAndSingleName> _ListOfTableNameAndSingleName = new List<clsTableNameAndSingleName>();
@@ -40,6 +44,8 @@ namespace CodeGenerator_PresentationLayer
         public fmCodeGenerator()
         {
             InitializeComponent();
+
+            clsEventLog.WriteToEventLog("The program has been opened", enLogType.Information);
         }
 
 
@@ -82,8 +88,8 @@ namespace CodeGenerator_PresentationLayer
             else
             {
                 btBrowse.Enabled = false;
-
                 MessageBox.Show($"Not found data bases in this server name {txtbServerName.Text}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                clsEventLog.WriteToEventLog($"Not found data bases in this server name {txtbServerName.Text}", enLogType.Warning);
             }
         }
 
@@ -94,17 +100,7 @@ namespace CodeGenerator_PresentationLayer
             {
                 _ConnectionString = $"Server={txtbServerName.Text.Trim()};DataBase=master;User ID ={txtbUserID.Text.Trim()};Password={txtbPassword.Text.Trim()};";
 
-                List<string> ListOfDataBaseNames = null;
-
-                try
-                {
-                    ListOfDataBaseNames = DataBaseService.GetAllDatabases(_ConnectionString);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    ListOfDataBaseNames = null;
-                }
+                List<string> ListOfDataBaseNames = DataBaseService.GetAllDatabases(_ConnectionString);
 
                 if (ListOfDataBaseNames != null)
                 {
@@ -156,6 +152,7 @@ namespace CodeGenerator_PresentationLayer
             else
             {
                 MessageBox.Show($"Not found tables in this data base {cbDataBaseNames.Text}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                clsEventLog.WriteToEventLog($"Not found tables in this data base {cbDataBaseNames.Text}", enLogType.Warning);
             }
         }
 
@@ -163,21 +160,13 @@ namespace CodeGenerator_PresentationLayer
         {
             List<string> ListOfTableOrViewNames = null;
 
-            try
+            if (rbTables.Checked)
             {
-                if (rbTables.Checked)
-                {
-                    ListOfTableOrViewNames = TableService.GetAllTableNames(ConnectionString);
-                }
-                else if (rbViews.Checked)
-                {
-                    ListOfTableOrViewNames = ViewService.GetAllViewNames(ConnectionString);
-                }
+                ListOfTableOrViewNames = TableService.GetAllTableNames(ConnectionString);
             }
-            catch (Exception ex)
+            else if (rbViews.Checked)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                ListOfTableOrViewNames = null;
+                ListOfTableOrViewNames = ViewService.GetAllViewNames(ConnectionString);
             }
 
             return ListOfTableOrViewNames;
@@ -213,6 +202,7 @@ namespace CodeGenerator_PresentationLayer
             else
             {
                 MessageBox.Show("Not found columns in selected table", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                clsEventLog.WriteToEventLog("Not found columns in selected table", enLogType.Warning);
             }
         }
 
@@ -229,23 +219,6 @@ namespace CodeGenerator_PresentationLayer
             }
         }
 
-        List<clsColumnDataModulesLayer> GetListOfColumns(string TableName, string ConnectionString, bool IsGenerateModulesLayer)
-        {
-            List<clsColumnDataModulesLayer> ListOfColumns = null;
-
-            try
-            {
-                ListOfColumns = ColumnService.GetAllColumns(TableName, ConnectionString, IsGenerateModulesLayer);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                ListOfColumns = null;
-            }
-
-            return ListOfColumns;
-        }
-
         void listbTableNames_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (listbTableOrViewNames.Items.Count > 0)
@@ -256,7 +229,7 @@ namespace CodeGenerator_PresentationLayer
                 {
                     ShowTableSingleName(listbTableOrViewNames.SelectedItem.ToString());
 
-                    List<clsColumnDataModulesLayer> ListOfColumns = GetListOfColumns(listbTableOrViewNames.SelectedItem.ToString(), _ConnectionString, rbModuleLayer.Checked);
+                    List<clsColumnDataModulesLayer> ListOfColumns = ColumnService.GetAllColumns(listbTableOrViewNames.SelectedItem.ToString(), _ConnectionString, rbModuleLayer.Checked);
 
                     if (ListOfColumns != null)
                     {
@@ -272,6 +245,7 @@ namespace CodeGenerator_PresentationLayer
 
         void btClose_Click(object sender, EventArgs e)
         {
+            clsEventLog.WriteToEventLog("The program has been closed", enLogType.Information);
             this.Close();
         }
 
@@ -356,6 +330,27 @@ namespace CodeGenerator_PresentationLayer
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                clsEventLog.WriteToEventLog(ex.Message, enLogType.Error);
+                return false;
+            }
+
+            return true;
+        }
+
+        bool CreateNewFileAndWrite(string FilePath, RuntimeTextTemplateEventLogClass EventLogClass)
+        {
+            string ClassCode = EventLogClass.TransformText();
+
+            CaseIsReadOnlyHadle(FilePath);
+
+            try
+            {
+                File.WriteAllText(FilePath, ClassCode);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                clsEventLog.WriteToEventLog(ex.Message, enLogType.Error);
                 return false;
             }
 
@@ -411,7 +406,20 @@ namespace CodeGenerator_PresentationLayer
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                clsEventLog.WriteToEventLog(ex.Message, enLogType.Error);
                 return false;
+            }
+        }
+
+        void GenerateEventLogClass(string FolderPath, string NameSpaceName)
+        {
+            string FilePath = Path.Combine(FolderPath, "clsEventLog.cs");
+
+            if (!File.Exists(FilePath))
+            {
+                RuntimeTextTemplateEventLogClass EventLogClass = new RuntimeTextTemplateEventLogClass();
+                EventLogClass.NamespaceName = NameSpaceName;
+                CreateNewFileAndWrite(FilePath, EventLogClass);
             }
         }
 
@@ -425,11 +433,13 @@ namespace CodeGenerator_PresentationLayer
 
             if (HasWritePermission(lbFolderSelectedPath.Text))
             {
+                GenerateEventLogClass(lbFolderSelectedPath.Text, txtbModulesLayerNameSpace.Text);
+
                 if (listbTableOrViewNames.SelectedIndex == 0)
                 {
                     for (short i = 1; i < listbTableOrViewNames.Items.Count; i++)
                     {
-                        List<clsColumnDataModulesLayer> ListOfColumns = GetListOfColumns(listbTableOrViewNames.Items[i].ToString(), _ConnectionString, rbModuleLayer.Checked);
+                        List<clsColumnDataModulesLayer> ListOfColumns = ColumnService.GetAllColumns(listbTableOrViewNames.Items[i].ToString(), _ConnectionString, rbModuleLayer.Checked);
 
                         if (ListOfColumns != null)
                         {
@@ -441,7 +451,7 @@ namespace CodeGenerator_PresentationLayer
                 {
                     for (short i = 0; i < listbTableOrViewNames.SelectedItems.Count; i++)
                     {
-                        List<clsColumnDataModulesLayer> ListOfColumns = GetListOfColumns(listbTableOrViewNames.SelectedItems[i].ToString(), _ConnectionString, rbModuleLayer.Checked);
+                        List<clsColumnDataModulesLayer> ListOfColumns = ColumnService.GetAllColumns(listbTableOrViewNames.SelectedItems[i].ToString(), _ConnectionString, rbModuleLayer.Checked);
 
                         if (ListOfColumns != null)
                         {
@@ -501,15 +511,8 @@ namespace CodeGenerator_PresentationLayer
         {
             string PrimaryKeyName = "";
 
-            try
-            {
-                DataAccessLayerTemplate.Columns = ColumnService.GetAllColumnsDataAccessLayer(TableName, ref PrimaryKeyName, _ConnectionString, rbModuleLayer.Checked);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                DataAccessLayerTemplate.Columns = null;
-            }
+            DataAccessLayerTemplate.Columns = ColumnService.GetAllColumnsDataAccessLayer(TableName, ref PrimaryKeyName, _ConnectionString, rbModuleLayer.Checked);
+
 
             if (DataAccessLayerTemplate.Columns != null)
             {
@@ -573,7 +576,8 @@ namespace CodeGenerator_PresentationLayer
 
         void ShowMarkNotExistMessage()
         {
-            MessageBox.Show("The file already exists, but the tag for the extension has been removed\n\nplease write this comment into the class in the file\n\"// [EXTRA_METHODS_HERE]\"", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show($"The file already exists, but the tag for the extension has been removed\n\nplease write this comment into the class in the file\n\"{_ExtensionTag}\"", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            clsEventLog.WriteToEventLog($"The file already exists, but the tag for the extension has been removed\n\nplease write this comment into the class in the file\n\"{_ExtensionTag}\"", enLogType.Warning);
         }
 
         bool CreateNewFileAndWrite(string FilePath, RuntimeTextTemplateDataAccessLayer DataAccessLayerTemplate)
@@ -589,6 +593,7 @@ namespace CodeGenerator_PresentationLayer
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                clsEventLog.WriteToEventLog(ex.Message, enLogType.Error);
                 return false;
             }
 
@@ -606,6 +611,7 @@ namespace CodeGenerator_PresentationLayer
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                clsEventLog.WriteToEventLog(ex.Message, enLogType.Error);
                 return false;
             }
 
@@ -623,6 +629,7 @@ namespace CodeGenerator_PresentationLayer
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                clsEventLog.WriteToEventLog(ex.Message, enLogType.Error);
                 Lines = new List<string>();
             }
 
@@ -633,7 +640,7 @@ namespace CodeGenerator_PresentationLayer
         {
             List<string> Lines = ReadFileAndSetItIntoList(FilePath);
 
-            int Index = Lines.FindIndex(line => line.Contains("// [EXTRA_METHODS_HERE]"));
+            int Index = Lines.FindIndex(line => line.Contains(_ExtensionTag));
 
             if (Index != -1)
             {
@@ -769,15 +776,8 @@ namespace CodeGenerator_PresentationLayer
         {
             string PrimaryKeyName = "";
 
-            try
-            {
-                BusinessLayerTemplate.Columns = ColumnService.GetAllColumnsBusinessLayer(TableName, ref PrimaryKeyName, _ConnectionString, rbModuleLayer.Checked);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                BusinessLayerTemplate.Columns = null;
-            }
+            BusinessLayerTemplate.Columns = ColumnService.GetAllColumnsBusinessLayer(TableName, ref PrimaryKeyName, _ConnectionString, rbModuleLayer.Checked);
+           
 
             if (BusinessLayerTemplate.Columns != null)
             {
@@ -853,6 +853,7 @@ namespace CodeGenerator_PresentationLayer
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                clsEventLog.WriteToEventLog(ex.Message, enLogType.Error);
                 return false;
             }
 
@@ -863,7 +864,7 @@ namespace CodeGenerator_PresentationLayer
         {
             List<string> Lines = ReadFileAndSetItIntoList(FilePath);
 
-            int Index = Lines.FindIndex(line => line.Contains("// [EXTRA_METHODS_HERE]"));
+            int Index = Lines.FindIndex(line => line.Contains(_ExtensionTag));
 
             if (Index != -1)
             {
@@ -963,6 +964,7 @@ namespace CodeGenerator_PresentationLayer
         void ShowFaildMessage()
         {
             MessageBox.Show("One of the files was not successfully produced.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            clsEventLog.WriteToEventLog("One of the files was not successfully produced.", enLogType.Error);
         }
 
         void PerformCorrectGenerateLayer()
@@ -1317,13 +1319,9 @@ namespace CodeGenerator_PresentationLayer
             codeGeneratorUI.ShowDialog();
         }
 
-       
-
-
-
-
-
-
-
+        private void fmCodeGenerator_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            clsEventLog.WriteToEventLog("The program has been closed", enLogType.Information);
+        }
     }
 }

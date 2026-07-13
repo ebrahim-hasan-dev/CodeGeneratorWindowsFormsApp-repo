@@ -1,8 +1,9 @@
-﻿using System;
+﻿using CodeGenerator_Modules;
+using DLMApp_ModulesLayer;
+using System;
 using System.Collections.Generic;
-
 using System.Data.SqlClient;
-using CodeGenerator_Modules;
+using System.Windows.Forms;
 
 
 namespace CodeGenerator_DataAccessLayer
@@ -54,6 +55,12 @@ namespace CodeGenerator_DataAccessLayer
                             );
                         }
                     }
+                }
+                catch (Exception ex)
+                {
+                    clsEventLog.WriteToEventLog(ex.Message, enLogType.Error);
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    ListOfColumns = null;
                 }
                 finally
                 {
@@ -125,6 +132,12 @@ namespace CodeGenerator_DataAccessLayer
                         }
                     }
                 }
+                catch (Exception ex)
+                {
+                    clsEventLog.WriteToEventLog(ex.Message, enLogType.Error);
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    ListOfColumns = null;
+                }
                 finally
                 {
                     if (Reader != null)
@@ -193,6 +206,12 @@ namespace CodeGenerator_DataAccessLayer
                             );
                         }
                     }
+                }
+                catch (Exception ex)
+                {
+                    clsEventLog.WriteToEventLog(ex.Message, enLogType.Error);
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    ListOfColumns = null;
                 }
                 finally
                 {
@@ -269,6 +288,12 @@ namespace CodeGenerator_DataAccessLayer
                             );
                         }
                     }
+                }
+                catch (Exception ex)
+                {
+                    clsEventLog.WriteToEventLog(ex.Message, enLogType.Error);
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    ListOfColumns = null;
                 }
                 finally
                 {

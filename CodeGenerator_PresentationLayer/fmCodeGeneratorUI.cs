@@ -1,5 +1,6 @@
 ﻿using CodeGenerator_BusinessLayer;
 using CodeGenerator_Modules;
+using DLMApp_ModulesLayer;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -34,7 +35,7 @@ namespace CodeGenerator_PresentationLayer
 
             _TableName = TableName;
 
-            _ListOfColumns = GetListOfColumns(_TableName, ConnectionString);
+            _ListOfColumns = ColumnService.GetAllColumnsUILayer(_TableName, ConnectionString);
 
             if (string.IsNullOrWhiteSpace(TableSingleName))
             {
@@ -49,7 +50,7 @@ namespace CodeGenerator_PresentationLayer
         }
 
 
-        static void CaseIsReadOnlyHadle(string DesignerFilePath, string LogicFilePath, string XMLFilePath)
+        static void CaseIsReadOnlyHandle(string DesignerFilePath, string LogicFilePath, string XMLFilePath)
         {
             FileInfo fileInfoD = new FileInfo(DesignerFilePath);
             FileInfo fileInfoL = new FileInfo(LogicFilePath);
@@ -67,7 +68,7 @@ namespace CodeGenerator_PresentationLayer
         {
             string ClassCode = UITemplateDesigner.TransformText();
 
-            CaseIsReadOnlyHadle(DesignerFilePath, LogicFilePath, Path.Combine(lbFolderSelectedPath.Text, rbForm.Checked ? "fm" + _TableSingleName.Replace("_", "") + ".resx" : "uctrl" + _TableSingleName.Replace("_", "") + ".resx"));
+            CaseIsReadOnlyHandle(DesignerFilePath, LogicFilePath, Path.Combine(lbFolderSelectedPath.Text, rbForm.Checked ? "fm" + _TableSingleName.Replace("_", "") + ".resx" : "uctrl" + _TableSingleName.Replace("_", "") + ".resx"));
 
             try
             {
@@ -85,6 +86,7 @@ namespace CodeGenerator_PresentationLayer
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                clsEventLog.WriteToEventLog(ex.Message, enLogType.Error);
                 return false;
             }
 
@@ -188,6 +190,7 @@ namespace CodeGenerator_PresentationLayer
                 else
                 {
                     MessageBox.Show("Not found any columns", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    clsEventLog.WriteToEventLog("Not found any columns", enLogType.Warning);
                 }
             }
             else
@@ -225,23 +228,6 @@ namespace CodeGenerator_PresentationLayer
                     dgvColumns.Rows[IndexItem].Cells[6].Value = ListOfColumns[i].ControlName;
                 }
             }
-        }
-
-        List<clsColumnDataUILayer> GetListOfColumns(string TableName, string ConnectionString)
-        {
-            List<clsColumnDataUILayer> ListOfColumns = null;
-
-            try
-            {
-                ListOfColumns = ColumnService.GetAllColumnsUILayer(TableName, ConnectionString);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                ListOfColumns = null;
-            }
-
-            return ListOfColumns;
         }
 
         void SetControlColumn(string ControlName)

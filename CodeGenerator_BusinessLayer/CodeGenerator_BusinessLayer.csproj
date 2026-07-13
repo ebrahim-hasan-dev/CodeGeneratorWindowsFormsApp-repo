@@ -46,6 +46,11 @@
     <Compile Include="ColumnService.cs" />
     <Compile Include="DataBaseService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RuntimeTextTemplateEventLogClass.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RuntimeTextTemplateEventLogClass.tt</DependentUpon>
+    </Compile>
     <Compile Include="RuntimeTextTemplateUiLayerDesigner.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -95,6 +100,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="RuntimeTextTemplateEventLogClass.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>RuntimeTextTemplateEventLogClass.cs</LastGenOutput>
+    </Content>
     <Content Include="RuntimeTextTemplateUiLayerDesigner.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>RuntimeTextTemplateUiLayerDesigner.cs</LastGenOutput>

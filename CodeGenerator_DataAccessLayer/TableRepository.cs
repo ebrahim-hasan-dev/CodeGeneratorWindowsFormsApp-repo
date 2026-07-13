@@ -1,6 +1,9 @@
 ﻿
+using DLMApp_ModulesLayer;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Windows.Forms;
 
 
 namespace CodeGenerator_DataAccessLayer
@@ -38,6 +41,12 @@ namespace CodeGenerator_DataAccessLayer
                             ListOfTableNames.Add(Reader["TABLE_NAME"] as string ?? "");
                         }
                     }
+                }
+                catch (Exception ex)
+                {
+                    clsEventLog.WriteToEventLog(ex.Message, enLogType.Error);
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    ListOfTableNames = null;
                 }
                 finally
                 {

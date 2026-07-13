@@ -14,9 +14,12 @@ namespace CodeGenerator_BusinessLayer
             {
                 List<clsColumnDataModulesLayer> ListOfColumns = ColumnRepository.GetAllColumns(TableName, ConnectionString);
 
-                for (short i = 0; i < ListOfColumns.Count; i++)
+                if (ListOfColumns != null)
                 {
-                    ListOfColumns[i].Type = MapSqlTypeToCSharpType(ListOfColumns[i].Type, ListOfColumns[i].IsNullable, IsGenerateModulesLayer);
+                    for (short i = 0; i < ListOfColumns.Count; i++)
+                    {
+                        ListOfColumns[i].Type = MapSqlTypeToCSharpType(ListOfColumns[i].Type, ListOfColumns[i].IsNullable, IsGenerateModulesLayer);
+                    }
                 }
 
                 return ListOfColumns;
@@ -33,13 +36,16 @@ namespace CodeGenerator_BusinessLayer
             {
                 List<clsColumnDataDataAccessLayer> ListOfColumns = ColumnRepository.GetAllColumnsDataAccessLayer(TableName, ConnectionString);
 
-                for (short i = 0; i < ListOfColumns.Count; i++)
+                if (ListOfColumns != null)
                 {
-                    ListOfColumns[i].Type = MapSqlTypeToCSharpType(ListOfColumns[i].Type, ListOfColumns[i].IsNullable, IsGenerateModulesLayer);
-
-                    if (ListOfColumns[i].IsPrimaryKey)
+                    for (short i = 0; i < ListOfColumns.Count; i++)
                     {
-                        PrimaryKeyName = ListOfColumns[i].Name;
+                        ListOfColumns[i].Type = MapSqlTypeToCSharpType(ListOfColumns[i].Type, ListOfColumns[i].IsNullable, IsGenerateModulesLayer);
+
+                        if (ListOfColumns[i].IsPrimaryKey)
+                        {
+                            PrimaryKeyName = ListOfColumns[i].Name;
+                        }
                     }
                 }
 
@@ -57,13 +63,16 @@ namespace CodeGenerator_BusinessLayer
             {
                 List<clsColumnDataBusinessLayer> ListOfColumns = ColumnRepository.GetAllColumnsBusinessLayer(TableName, ConnectionString);
 
-                for (short i = 0; i < ListOfColumns.Count; i++)
+                if (ListOfColumns != null)
                 {
-                    ListOfColumns[i].Type = MapSqlTypeToCSharpType(ListOfColumns[i].Type, false, IsGenerateModulesLayer);
-
-                    if (ListOfColumns[i].IsPrimaryKey)
+                    for (short i = 0; i < ListOfColumns.Count; i++)
                     {
-                        PrimaryKeyName = ListOfColumns[i].Name;
+                        ListOfColumns[i].Type = MapSqlTypeToCSharpType(ListOfColumns[i].Type, false, IsGenerateModulesLayer);
+
+                        if (ListOfColumns[i].IsPrimaryKey)
+                        {
+                            PrimaryKeyName = ListOfColumns[i].Name;
+                        }
                     }
                 }
 
@@ -142,9 +151,12 @@ namespace CodeGenerator_BusinessLayer
             {
                 List<clsColumnDataUILayer> ListOfColumns = ColumnRepository.GetAllColumnsUILayer(TableName, ConnectionString);
 
-                for (short i = 0; i < ListOfColumns.Count; i++)
+                if (ListOfColumns != null)
                 {
-                    ListOfColumns[i].ControlName = MapSqlTypeToControl(ListOfColumns[i].Type);
+                    for (short i = 0; i < ListOfColumns.Count; i++)
+                    {
+                        ListOfColumns[i].ControlName = MapSqlTypeToControl(ListOfColumns[i].Type);
+                    }
                 }
 
                 return ListOfColumns;

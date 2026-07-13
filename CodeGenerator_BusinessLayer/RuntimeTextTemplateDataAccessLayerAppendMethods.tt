@@ -77,6 +77,11 @@ if (Columns[i].IsPrimaryKey) { #>
 <# } #>
                     }
                 }
+                catch (Exception ex)
+                {
+                    clsEventLog.WriteToEventLog(ex.Message, enLogType.Error);
+                    Add = false;
+                }
                 finally
                 {
                     if (Command != null)
@@ -161,6 +166,11 @@ if (Columns[i].IsPrimaryKey) { #>
                     {
                         Update = true;
                     }
+                }
+                catch (Exception ex)
+                {
+                    clsEventLog.WriteToEventLog(ex.Message, enLogType.Error);
+                    Update = false;
                 }
                 finally
                 {
@@ -251,6 +261,11 @@ if (Columns[i].IsPrimaryKey) { #>
 <# } #>
                     }
                 }
+                catch (Exception ex)
+                {
+                    clsEventLog.WriteToEventLog(ex.Message, enLogType.Error);
+                    <#= TableSingleName #> = null;
+                }
                 finally
                 {
                     if (Reader != null)
@@ -333,6 +348,11 @@ if (Columns[i].IsPrimaryKey) { #>
                 }
 
             }
+            catch (Exception ex)
+            {
+                clsEventLog.WriteToEventLog(ex.Message, enLogType.Error);
+                ListOf<#= TableName #>.Clear();
+            }
             finally
             {
                 if (Reader != null)
@@ -385,6 +405,11 @@ if (Columns[i].IsPrimaryKey) { #>
                         Delete = true;
                     }
                 }
+                catch (Exception ex)
+                {
+                    clsEventLog.WriteToEventLog(ex.Message, enLogType.Error);
+                    Delete = false;
+                }
                 finally
                 {
                     if (Command != null)
@@ -433,6 +458,11 @@ if (Columns[i].IsPrimaryKey) { #>
                     {
                         Exist = true;
                     }
+                }
+                catch (Exception ex)
+                {
+                    clsEventLog.WriteToEventLog(ex.Message, enLogType.Error);
+                    Exist = false;
                 }
                 finally
                 {
@@ -506,18 +536,25 @@ string HandleParameter(string ParameterName)
 
 string HandleCorrectCheckParamerter(string ParameterName)
 {
-    if (DataTypesWithoutStringAndDateTimeAndBoolan.Contains(Columns.Find(x => x.Name == ParameterName).Type))
+    clsColumnDataDataAccessLayer Col = Columns.Find(x => x.Name == ParameterName);
+
+    if (Col != null)
     {
-        return ParameterName + " > 0";
+        if (DataTypesWithoutStringAndDateTimeAndBoolan.Contains(Col.Type))
+        {
+            return ParameterName + " > 0";
+        }
+        else if (Col.Type == "DateTime")
+        {
+            return ParameterName + " != default";
+        }
+        else
+        {
+            return "!string.IsNullOrWhiteSpace(" + ParameterName + ")";
+        }
     }
-    else if (Columns.Find(x => x.Name == ParameterName).Type == "DateTime")
-    {
-        return ParameterName + " != default";
-    }
-    else
-    {
-        return "!string.IsNullOrWhiteSpace(" + ParameterName + ")";
-    }
+
+    return "";
 }
 
 #>

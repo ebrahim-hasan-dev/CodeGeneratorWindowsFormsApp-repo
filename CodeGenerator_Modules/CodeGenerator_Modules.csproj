@@ -45,6 +45,7 @@
     <Compile Include="clsColumnDataDataAccessLayer.cs" />
     <Compile Include="clsColumnDataModulesLayer.cs" />
     <Compile Include="clsColumnDataUILayer.cs" />
+    <Compile Include="clsEventLog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

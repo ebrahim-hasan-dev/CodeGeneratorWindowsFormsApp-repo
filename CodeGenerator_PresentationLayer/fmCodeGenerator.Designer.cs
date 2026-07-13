@@ -590,6 +590,7 @@
             this.Name = "fmCodeGenerator";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Code Generator";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.fmCodeGenerator_FormClosed);
             this.Load += new System.EventHandler(this.fmCodeGenerator_Load);
             this.contextMenuStrip2.ResumeLayout(false);
             this.contextMenuStrip1.ResumeLayout(false);
