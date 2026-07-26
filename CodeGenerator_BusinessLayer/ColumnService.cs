@@ -2,17 +2,18 @@
 using CodeGenerator_DataAccessLayer;
 using CodeGenerator_Modules;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 
 namespace CodeGenerator_BusinessLayer
 {
     public class ColumnService
     {
-        public static List<clsColumnDataModulesLayer> GetAllColumns(string TableName, string ConnectionString, bool IsGenerateModulesLayer)
+        public static async Task<List<clsColumnDataModulesLayer>> GetAllColumns(string TableName, string ConnectionString, bool IsGenerateModulesLayer)
         {
             if (!string.IsNullOrWhiteSpace(TableName) && !string.IsNullOrWhiteSpace(ConnectionString))
             {
-                List<clsColumnDataModulesLayer> ListOfColumns = ColumnRepository.GetAllColumns(TableName, ConnectionString);
+                List<clsColumnDataModulesLayer> ListOfColumns = await ColumnRepository.GetAllColumns(TableName, ConnectionString);
 
                 if (ListOfColumns != null)
                 {
@@ -30,22 +31,17 @@ namespace CodeGenerator_BusinessLayer
             }
         }
 
-        public static List<clsColumnDataDataAccessLayer> GetAllColumnsDataAccessLayer(string TableName, ref string PrimaryKeyName, string ConnectionString, bool IsGenerateModulesLayer)
+        public static async Task<List<clsColumnDataDataAccessLayer>> GetAllColumnsDataAccessLayer(string TableName, string ConnectionString, bool IsGenerateModulesLayer)
         {
             if (!string.IsNullOrWhiteSpace(TableName) && !string.IsNullOrWhiteSpace(ConnectionString))
             {
-                List<clsColumnDataDataAccessLayer> ListOfColumns = ColumnRepository.GetAllColumnsDataAccessLayer(TableName, ConnectionString);
+                List<clsColumnDataDataAccessLayer> ListOfColumns = await ColumnRepository.GetAllColumnsDataAccessLayer(TableName, ConnectionString);
 
                 if (ListOfColumns != null)
                 {
                     for (short i = 0; i < ListOfColumns.Count; i++)
                     {
                         ListOfColumns[i].Type = MapSqlTypeToCSharpType(ListOfColumns[i].Type, ListOfColumns[i].IsNullable, IsGenerateModulesLayer);
-
-                        if (ListOfColumns[i].IsPrimaryKey)
-                        {
-                            PrimaryKeyName = ListOfColumns[i].Name;
-                        }
                     }
                 }
 
@@ -57,22 +53,17 @@ namespace CodeGenerator_BusinessLayer
             }
         }
 
-        public static List<clsColumnDataBusinessLayer> GetAllColumnsBusinessLayer(string TableName, ref string PrimaryKeyName, string ConnectionString, bool IsGenerateModulesLayer)
+        public static async Task<List<clsColumnDataBusinessLayer>> GetAllColumnsBusinessLayer(string TableName, string ConnectionString, bool IsGenerateModulesLayer)
         {
             if (!string.IsNullOrWhiteSpace(TableName) && !string.IsNullOrWhiteSpace(ConnectionString))
             {
-                List<clsColumnDataBusinessLayer> ListOfColumns = ColumnRepository.GetAllColumnsBusinessLayer(TableName, ConnectionString);
+                List<clsColumnDataBusinessLayer> ListOfColumns = await ColumnRepository.GetAllColumnsBusinessLayer(TableName, ConnectionString);
 
                 if (ListOfColumns != null)
                 {
                     for (short i = 0; i < ListOfColumns.Count; i++)
                     {
                         ListOfColumns[i].Type = MapSqlTypeToCSharpType(ListOfColumns[i].Type, false, IsGenerateModulesLayer);
-
-                        if (ListOfColumns[i].IsPrimaryKey)
-                        {
-                            PrimaryKeyName = ListOfColumns[i].Name;
-                        }
                     }
                 }
 
@@ -145,11 +136,11 @@ namespace CodeGenerator_BusinessLayer
             return cSharpType;
         }
 
-        public static List<clsColumnDataUILayer> GetAllColumnsUILayer(string TableName, string ConnectionString)
+        public static async Task<List<clsColumnDataUILayer>> GetAllColumnsUILayer(string TableName, string ConnectionString)
         {
             if (!string.IsNullOrWhiteSpace(TableName) && !string.IsNullOrWhiteSpace(ConnectionString))
             {
-                List<clsColumnDataUILayer> ListOfColumns = ColumnRepository.GetAllColumnsUILayer(TableName, ConnectionString);
+                List<clsColumnDataUILayer> ListOfColumns = await ColumnRepository.GetAllColumnsUILayer(TableName, ConnectionString);
 
                 if (ListOfColumns != null)
                 {

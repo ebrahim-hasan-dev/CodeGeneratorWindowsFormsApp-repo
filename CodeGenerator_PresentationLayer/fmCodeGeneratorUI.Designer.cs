@@ -377,6 +377,7 @@
             this.Name = "fmCodeGeneratorUI";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Code Generator UI";
+            this.Load += new System.EventHandler(this.fmCodeGeneratorUI_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvColumns)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

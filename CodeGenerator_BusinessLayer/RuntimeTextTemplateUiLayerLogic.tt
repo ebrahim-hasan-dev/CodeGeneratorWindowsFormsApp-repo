@@ -2,11 +2,12 @@
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="CodeGenerator_Modules" #>
 <#@ import namespace="System.Collections.Generic" #>
-
 using System.Windows.Forms;
 using System.ComponentModel;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using ModulesLayer;
 
 
 namespace <#= NameSpace #>
@@ -54,7 +55,7 @@ namespace <#= NameSpace #>
         }
 
 <# if (ListInputOfControlsNotAllowNull.Count > 0) { #>
-        void InputControls_ValidatingHelper(MaskedTextBox maskedtextBox, CancelEventArgs e)
+        void InputControls_ValidatingHelper(MaskedTextBox? maskedtextBox, CancelEventArgs e)
         {
             if (maskedtextBox != null)
             {
@@ -76,7 +77,7 @@ namespace <#= NameSpace #>
             }
         }
 
-        void InputControls_ValidatingHelper(TextBox textBox, CancelEventArgs e)
+        void InputControls_ValidatingHelper(TextBox? textBox, CancelEventArgs e)
         {
             if (textBox != null)
             {
@@ -93,7 +94,7 @@ namespace <#= NameSpace #>
             }
         }
 
-        void InputControls_ValidatingHelper(ComboBox comboBox, CancelEventArgs e)
+        void InputControls_ValidatingHelper(ComboBox? comboBox, CancelEventArgs e)
         {
             if (comboBox != null)
             {
@@ -114,19 +115,19 @@ namespace <#= NameSpace #>
         {
             if (sender is TextBox)
             {
-                TextBox textBox = sender as TextBox;
+                TextBox? textBox = sender as TextBox;
 
                 InputControls_ValidatingHelper(textBox, e);
             }
             else if (sender is MaskedTextBox)
             {
-                MaskedTextBox maskedtextBox = sender as MaskedTextBox;
+                MaskedTextBox? maskedtextBox = sender as MaskedTextBox;
 
                 InputControls_ValidatingHelper(maskedtextBox, e);
             }
             else if (sender is ComboBox)
             {
-                ComboBox comboBox = sender as ComboBox;
+                ComboBox? comboBox = sender as ComboBox;
 
                 InputControls_ValidatingHelper(comboBox, e);
             }

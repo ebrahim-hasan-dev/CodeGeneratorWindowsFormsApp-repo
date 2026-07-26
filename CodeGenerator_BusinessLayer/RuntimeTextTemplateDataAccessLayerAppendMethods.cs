@@ -36,7 +36,7 @@ namespace CodeGenerator_BusinessLayer
             
             #line default
             #line hidden
-            this.Write("        public static bool Add(cls");
+            this.Write("        public static async Task<bool> Add(cls");
             
             #line 9 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayerAppendMethods.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
@@ -59,8 +59,8 @@ namespace CodeGenerator_BusinessLayer
             #line hidden
             this.Write(@".IsFull())
             {
-                SqlConnection Connection = null;
-                SqlCommand Command = null;
+                SqlConnection? Connection = null;
+                SqlCommand? Command = null;
 
                 try
                 {
@@ -291,9 +291,9 @@ namespace CodeGenerator_BusinessLayer
             
             #line default
             #line hidden
-            this.Write("\r\n                    Connection.Open();\r\n\r\n                    object ID = Comma" +
-                    "nd.ExecuteScalar();\r\n\r\n                    if (ID != null)\r\n                    " +
-                    "{\r\n");
+            this.Write("\r\n                    await Connection.OpenAsync();\r\n\r\n                    object" +
+                    "? ID = await Command.ExecuteScalarAsync();\r\n\r\n                    if (ID != null" +
+                    ")\r\n                    {\r\n");
             
             #line 72 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayerAppendMethods.tt"
  for (short i = 0; i < Columns.Count; i++) { 
@@ -366,7 +366,7 @@ if (Columns[i].IsPrimaryKey) {
             
             #line default
             #line hidden
-            this.Write("        public static bool Update(cls");
+            this.Write("        public static async Task<bool> Update(cls");
             
             #line 105 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayerAppendMethods.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
@@ -450,8 +450,8 @@ if (Columns.Find(x => x.Name == UpdateParameterName).Type == "string") {
             #line default
             #line hidden
             this.Write(@"            {
-                SqlConnection Connection = null;
-                SqlCommand Command = null;
+                SqlConnection? Connection = null;
+                SqlCommand? Command = null;
 
                 try
                 {
@@ -696,9 +696,9 @@ if (Columns.Find(x => x.Name == UpdateParameterName).Type == "string") {
             #line default
             #line hidden
             this.Write(@"
-                    Connection.Open();
+                    await Connection.OpenAsync();
 
-                    if (Command.ExecuteNonQuery() > 0)
+                    if (await Command.ExecuteNonQueryAsync() > 0)
                     {
                         Update = true;
                     }
@@ -739,14 +739,14 @@ if (Columns.Find(x => x.Name == UpdateParameterName).Type == "string") {
             
             #line default
             #line hidden
-            this.Write("        public static cls");
+            this.Write("        public static async Task<cls");
             
             #line 195 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayerAppendMethods.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
             
             #line default
             #line hidden
-            this.Write(" Find(");
+            this.Write("> Find(");
             
             #line 195 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayerAppendMethods.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(HandleParameter(FindParameterName).Replace("_", "")));
@@ -760,7 +760,7 @@ if (Columns.Find(x => x.Name == UpdateParameterName).Type == "string") {
             
             #line default
             #line hidden
-            this.Write(" ");
+            this.Write("? ");
             
             #line 197 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayerAppendMethods.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
@@ -776,9 +776,9 @@ if (Columns.Find(x => x.Name == UpdateParameterName).Type == "string") {
             #line hidden
             this.Write(@")
             {
-                SqlConnection Connection = null;
-                SqlCommand Command = null;
-                SqlDataReader Reader = null;
+                SqlConnection? Connection = null;
+                SqlCommand? Command = null;
+                SqlDataReader? Reader = null;
 
                 try
                 {
@@ -820,9 +820,9 @@ if (Columns.Find(x => x.Name == UpdateParameterName).Type == "string") {
             
             #line default
             #line hidden
-            this.Write(");\r\n\r\n                    Connection.Open();\r\n\r\n                    Reader = Comm" +
-                    "and.ExecuteReader();\r\n\r\n                    if (Reader.Read())\r\n                " +
-                    "    {\r\n                        ");
+            this.Write(");\r\n\r\n                    await Connection.OpenAsync();\r\n\r\n                    Re" +
+                    "ader = await Command.ExecuteReaderAsync();\r\n\r\n                    if (await Read" +
+                    "er.ReadAsync())\r\n                    {\r\n                        ");
             
             #line 221 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayerAppendMethods.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
@@ -1290,14 +1290,14 @@ if (Columns.Find(x => x.Name == UpdateParameterName).Type == "string") {
             
             #line default
             #line hidden
-            this.Write("        public static List<cls");
+            this.Write("        public static async Task<List<cls");
             
             #line 295 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayerAppendMethods.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
             
             #line default
             #line hidden
-            this.Write("> GetAll");
+            this.Write(">> GetAll");
             
             #line 295 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayerAppendMethods.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableName));
@@ -1327,9 +1327,9 @@ if (Columns.Find(x => x.Name == UpdateParameterName).Type == "string") {
             #line hidden
             this.Write(@">();
            
-            SqlConnection Connection = null;
-            SqlCommand Command = null;
-            SqlDataReader Reader = null;
+            SqlConnection? Connection = null;
+            SqlCommand? Command = null;
+            SqlDataReader? Reader = null;
 
             try
             {
@@ -1342,10 +1342,17 @@ if (Columns.Find(x => x.Name == UpdateParameterName).Type == "string") {
             
             #line default
             #line hidden
-            this.Write("];\";\r\n\r\n                Command = new SqlCommand(GetAllQuery, Connection);\r\n\r\n   " +
-                    "             Connection.Open();\r\n\r\n                Reader = Command.ExecuteReade" +
-                    "r();\r\n\r\n                while (Reader.Read())\r\n                {\r\n              " +
-                    "      cls");
+            this.Write(@"];"";
+
+                Command = new SqlCommand(GetAllQuery, Connection);
+
+                await Connection.OpenAsync();
+
+                Reader = await Command.ExecuteReaderAsync();
+
+                while (await Reader.ReadAsync())
+                {
+                    cls");
             
             #line 317 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayerAppendMethods.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
@@ -1686,7 +1693,7 @@ if (Columns.Find(x => x.Name == UpdateParameterName).Type == "string") {
             
             #line default
             #line hidden
-            this.Write("        public static bool Delete(");
+            this.Write("        public static async Task<bool> Delete(");
             
             #line 382 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayerAppendMethods.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(HandleParameter(DeleteParameterName).Replace("_", "")));
@@ -1702,8 +1709,8 @@ if (Columns.Find(x => x.Name == UpdateParameterName).Type == "string") {
             #line hidden
             this.Write(@")
             {
-                SqlConnection Connection = null;
-                SqlCommand Command = null;
+                SqlConnection? Connection = null;
+                SqlCommand? Command = null;
 
                 try
                 {
@@ -1747,9 +1754,9 @@ if (Columns.Find(x => x.Name == UpdateParameterName).Type == "string") {
             #line hidden
             this.Write(@");
 
-                    Connection.Open();
+                    await Connection.OpenAsync();
 
-                    if (Command.ExecuteNonQuery() > 0)
+                    if (await Command.ExecuteNonQueryAsync() > 0)
                     {
                         Delete = true;
                     }
@@ -1790,7 +1797,7 @@ if (Columns.Find(x => x.Name == UpdateParameterName).Type == "string") {
             
             #line default
             #line hidden
-            this.Write("        public static bool IsExist(");
+            this.Write("        public static async Task<bool> IsExist(");
             
             #line 433 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayerAppendMethods.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(HandleParameter(ExistParameterName).Replace("_", "")));
@@ -1806,9 +1813,9 @@ if (Columns.Find(x => x.Name == UpdateParameterName).Type == "string") {
             #line hidden
             this.Write(@")
             {
-                SqlConnection Connection = null;
-                SqlCommand Command = null;
-                SqlDataReader Reader = null;
+                SqlConnection? Connection = null;
+                SqlCommand? Command = null;
+                SqlDataReader? Reader = null;
 
                 try
                 {
@@ -1859,9 +1866,9 @@ if (Columns.Find(x => x.Name == UpdateParameterName).Type == "string") {
             #line hidden
             this.Write(@");
 
-                    Connection.Open();
+                    await Connection.OpenAsync();
 
-                    Reader = Command.ExecuteReader();
+                    Reader = await Command.ExecuteReaderAsync();
 
                     if (Reader.HasRows)
                     {

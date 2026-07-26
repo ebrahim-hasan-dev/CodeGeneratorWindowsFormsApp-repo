@@ -1,5 +1,4 @@
-﻿
-using CodeGenerator_BusinessLayer;
+﻿using CodeGenerator_BusinessLayer;
 using CodeGenerator_Modules;
 using DLMApp_ModulesLayer;
 using System;
@@ -7,6 +6,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
@@ -93,14 +93,23 @@ namespace CodeGenerator_PresentationLayer
             }
         }
 
-        void btConnect_Click(object sender, EventArgs e)
+        async void btConnect_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrWhiteSpace(txtbServerName.Text) && !string.IsNullOrWhiteSpace(txtbPassword.Text) &&
                 !string.IsNullOrWhiteSpace(txtbUserID.Text))
             {
                 _ConnectionString = $"Server={txtbServerName.Text.Trim()};DataBase=master;User ID ={txtbUserID.Text.Trim()};Password={txtbPassword.Text.Trim()};";
 
-                List<string> ListOfDataBaseNames = DataBaseService.GetAllDatabases(_ConnectionString);
+                List<string> ListOfDataBaseNames = null;
+
+                try
+                {
+                    ListOfDataBaseNames = await DataBaseService.GetAllDatabases(_ConnectionString);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
 
                 if (ListOfDataBaseNames != null)
                 {
@@ -156,27 +165,41 @@ namespace CodeGenerator_PresentationLayer
             }
         }
 
-        List<string> GetListOfTableOrViewNames(string ConnectionString)
+        async Task<List<string>> GetListOfTableOrViewNames(string ConnectionString)
         {
             List<string> ListOfTableOrViewNames = null;
 
             if (rbTables.Checked)
             {
-                ListOfTableOrViewNames = TableService.GetAllTableNames(ConnectionString);
+                try
+                {
+                    ListOfTableOrViewNames = await TableService.GetAllTableNames(ConnectionString);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             else if (rbViews.Checked)
             {
-                ListOfTableOrViewNames = ViewService.GetAllViewNames(ConnectionString);
+                try
+                {
+                    ListOfTableOrViewNames = await ViewService.GetAllViewNames(ConnectionString);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
 
             return ListOfTableOrViewNames;
         }
 
-        void cbDataBaseNames_SelectedIndexChanged(object sender, EventArgs e)
+        async void cbDataBaseNames_SelectedIndexChanged(object sender, EventArgs e)
         {
             _ConnectionString = $"Server={txtbServerName.Text.Trim()};DataBase={cbDataBaseNames.Text};User ID ={txtbUserID.Text.Trim()};Password={txtbPassword.Text.Trim()};";
 
-            List<string> ListOfTableOrViewNames = GetListOfTableOrViewNames(_ConnectionString);
+            List<string> ListOfTableOrViewNames = await GetListOfTableOrViewNames(_ConnectionString);
 
             if (ListOfTableOrViewNames != null)
             {
@@ -219,7 +242,23 @@ namespace CodeGenerator_PresentationLayer
             }
         }
 
-        void listbTableNames_SelectedIndexChanged(object sender, EventArgs e)
+        static async Task<List<clsColumnDataModulesLayer>> GetAllColumns(string TableName, string ConnectionString, bool IsGenerateModulesLayer)
+        {
+            List<clsColumnDataModulesLayer> ListOfColumns = null;
+
+            try
+            {
+                ListOfColumns = await ColumnService.GetAllColumns(TableName, ConnectionString, IsGenerateModulesLayer);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            return ListOfColumns;
+        }
+
+        async void listbTableNames_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (listbTableOrViewNames.Items.Count > 0)
             {
@@ -229,7 +268,7 @@ namespace CodeGenerator_PresentationLayer
                 {
                     ShowTableSingleName(listbTableOrViewNames.SelectedItem.ToString());
 
-                    List<clsColumnDataModulesLayer> ListOfColumns = ColumnService.GetAllColumns(listbTableOrViewNames.SelectedItem.ToString(), _ConnectionString, rbModuleLayer.Checked);
+                    List<clsColumnDataModulesLayer> ListOfColumns = await GetAllColumns(listbTableOrViewNames.SelectedItem.ToString(), _ConnectionString, rbModuleLayer.Checked);
 
                     if (ListOfColumns != null)
                     {
@@ -317,7 +356,7 @@ namespace CodeGenerator_PresentationLayer
             }
         }
 
-        bool CreateNewFileAndWrite(string FilePath, RuntimeTextTemplateModulesLayer ModuleLayerTemplate)
+        async Task<bool> CreateNewFileAndWrite(string FilePath, RuntimeTextTemplateModulesLayer ModuleLayerTemplate)
         {
             string ClassCode = ModuleLayerTemplate.TransformText();
 
@@ -325,7 +364,10 @@ namespace CodeGenerator_PresentationLayer
 
             try
             {
-                File.WriteAllText(FilePath, ClassCode);
+                using (StreamWriter writer = new StreamWriter(FilePath))
+                {
+                    await writer.WriteAsync(ClassCode);
+                }
             }
             catch (Exception ex)
             {
@@ -337,7 +379,7 @@ namespace CodeGenerator_PresentationLayer
             return true;
         }
 
-        bool CreateNewFileAndWrite(string FilePath, RuntimeTextTemplateEventLogClass EventLogClass)
+        async Task<bool> CreateNewFileAndWrite(string FilePath, RuntimeTextTemplateEventLogClass EventLogClass)
         {
             string ClassCode = EventLogClass.TransformText();
 
@@ -345,7 +387,10 @@ namespace CodeGenerator_PresentationLayer
 
             try
             {
-                File.WriteAllText(FilePath, ClassCode);
+                using (StreamWriter writer = new StreamWriter(FilePath))
+                {
+                    await writer.WriteAsync(ClassCode);
+                }
             }
             catch (Exception ex)
             {
@@ -372,7 +417,7 @@ namespace CodeGenerator_PresentationLayer
             return TableName;
         }
 
-        bool GenerateModulesLayerHelper(string TableName, List<clsColumnDataModulesLayer> ListOfColumns)
+        async Task<bool> GenerateModulesLayerHelper(string TableName, List<clsColumnDataModulesLayer> ListOfColumns)
         {
             RuntimeTextTemplateModulesLayer ModuleLayerTemplate = new RuntimeTextTemplateModulesLayer();
 
@@ -391,7 +436,7 @@ namespace CodeGenerator_PresentationLayer
                 }
             }
 
-            return CreateNewFileAndWrite(FilePath, ModuleLayerTemplate);
+            return await CreateNewFileAndWrite(FilePath, ModuleLayerTemplate);
         }
 
         public static bool HasWritePermission(string FolderSelectedPath)
@@ -411,7 +456,7 @@ namespace CodeGenerator_PresentationLayer
             }
         }
 
-        void GenerateEventLogClass(string FolderPath, string NameSpaceName)
+        async Task GenerateEventLogClass(string FolderPath, string NameSpaceName)
         {
             string FilePath = Path.Combine(FolderPath, "clsEventLog.cs");
 
@@ -419,11 +464,11 @@ namespace CodeGenerator_PresentationLayer
             {
                 RuntimeTextTemplateEventLogClass EventLogClass = new RuntimeTextTemplateEventLogClass();
                 EventLogClass.NamespaceName = NameSpaceName;
-                CreateNewFileAndWrite(FilePath, EventLogClass);
+                await CreateNewFileAndWrite(FilePath, EventLogClass);
             }
         }
 
-        bool GenerateModulesLayer()
+        async Task<bool> GenerateModulesLayer()
         {
             List<bool> ListOfResults = new List<bool>();
 
@@ -433,17 +478,17 @@ namespace CodeGenerator_PresentationLayer
 
             if (HasWritePermission(lbFolderSelectedPath.Text))
             {
-                GenerateEventLogClass(lbFolderSelectedPath.Text, txtbModulesLayerNameSpace.Text);
+                await GenerateEventLogClass(lbFolderSelectedPath.Text, txtbModulesLayerNameSpace.Text);
 
                 if (listbTableOrViewNames.SelectedIndex == 0)
                 {
                     for (short i = 1; i < listbTableOrViewNames.Items.Count; i++)
                     {
-                        List<clsColumnDataModulesLayer> ListOfColumns = ColumnService.GetAllColumns(listbTableOrViewNames.Items[i].ToString(), _ConnectionString, rbModuleLayer.Checked);
+                        List<clsColumnDataModulesLayer> ListOfColumns = await GetAllColumns(listbTableOrViewNames.Items[i].ToString(), _ConnectionString, rbModuleLayer.Checked);
 
                         if (ListOfColumns != null)
                         {
-                            ListOfResults.Add(GenerateModulesLayerHelper(listbTableOrViewNames.Items[i].ToString(), ListOfColumns));
+                            ListOfResults.Add(await GenerateModulesLayerHelper(listbTableOrViewNames.Items[i].ToString(), ListOfColumns));
                         }
                     }
                 }
@@ -451,11 +496,11 @@ namespace CodeGenerator_PresentationLayer
                 {
                     for (short i = 0; i < listbTableOrViewNames.SelectedItems.Count; i++)
                     {
-                        List<clsColumnDataModulesLayer> ListOfColumns = ColumnService.GetAllColumns(listbTableOrViewNames.SelectedItems[i].ToString(), _ConnectionString, rbModuleLayer.Checked);
+                        List<clsColumnDataModulesLayer> ListOfColumns = await GetAllColumns(listbTableOrViewNames.SelectedItems[i].ToString(), _ConnectionString, rbModuleLayer.Checked);
 
                         if (ListOfColumns != null)
                         {
-                            ListOfResults.Add(GenerateModulesLayerHelper(listbTableOrViewNames.SelectedItems[i].ToString(), ListOfColumns));
+                            ListOfResults.Add(await GenerateModulesLayerHelper(listbTableOrViewNames.SelectedItems[i].ToString(), ListOfColumns));
                         }
                     }
                 }
@@ -507,15 +552,21 @@ namespace CodeGenerator_PresentationLayer
             return CorrectParameter;
         }
 
-        bool SelectCorrectParameter(RuntimeTextTemplateDataAccessLayer DataAccessLayerTemplate, string TableName)
+        async Task<bool> SelectCorrectParameter(RuntimeTextTemplateDataAccessLayer DataAccessLayerTemplate, string TableName)
         {
-            string PrimaryKeyName = "";
-
-            DataAccessLayerTemplate.Columns = ColumnService.GetAllColumnsDataAccessLayer(TableName, ref PrimaryKeyName, _ConnectionString, rbModuleLayer.Checked);
-
+            try
+            {
+                DataAccessLayerTemplate.Columns = await ColumnService.GetAllColumnsDataAccessLayer(TableName, _ConnectionString, rbModuleLayer.Checked);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
             if (DataAccessLayerTemplate.Columns != null)
             {
+                string PrimaryKeyName = DataAccessLayerTemplate.Columns.Find(x => x.IsPrimaryKey)?.Name ?? "";
+
                 if (chListBoxFunctions.GetItemChecked((byte)enFunctions.Updata) == true)
                 {
                     DataAccessLayerTemplate.IncludeUpdate = true;
@@ -580,7 +631,7 @@ namespace CodeGenerator_PresentationLayer
             clsEventLog.WriteToEventLog($"The file already exists, but the tag for the extension has been removed\n\nplease write this comment into the class in the file\n\"{_ExtensionTag}\"", enLogType.Warning);
         }
 
-        bool CreateNewFileAndWrite(string FilePath, RuntimeTextTemplateDataAccessLayer DataAccessLayerTemplate)
+        async Task<bool> CreateNewFileAndWrite(string FilePath, RuntimeTextTemplateDataAccessLayer DataAccessLayerTemplate)
         {
             string ClassCode = DataAccessLayerTemplate.TransformText();
 
@@ -588,7 +639,10 @@ namespace CodeGenerator_PresentationLayer
 
             try
             {
-                File.WriteAllText(FilePath, ClassCode);
+                using (StreamWriter writer = new StreamWriter(FilePath))
+                {
+                    await writer.WriteAsync(ClassCode);
+                }
             }
             catch (Exception ex)
             {
@@ -600,13 +654,19 @@ namespace CodeGenerator_PresentationLayer
             return true;
         }
 
-        bool WriteListIntoFile(string FilePath, List<string> Lines)
+        async Task<bool> WriteListIntoFile(string FilePath, List<string> Lines)
         {
             CaseIsReadOnlyHadle(FilePath);
 
             try
             {
-                File.WriteAllLines(FilePath, Lines);
+                using (StreamWriter writer = new StreamWriter(FilePath))
+                {
+                    // دمج السطور مع وضع "علامة سطر جديد" بين كل سطر والآخر
+                    string FullText = string.Join(Environment.NewLine, Lines);
+                    
+                    await writer.WriteAsync(FullText);
+                }
             }
             catch (Exception ex)
             {
@@ -618,27 +678,35 @@ namespace CodeGenerator_PresentationLayer
             return true;
         }
 
-        List<string> ReadFileAndSetItIntoList(string FilePath)
+        async Task<List<string>> ReadFileAndSetItIntoList(string FilePath)
         {
-            List<string> Lines;
+            List<string> Lines = new List<string>();
 
             try
             {
-                Lines = File.ReadAllLines(FilePath).ToList();
+                string LinesAsString = "";
+               
+                using (StreamReader reader = new StreamReader(FilePath))
+                {
+                    LinesAsString = await reader.ReadToEndAsync();
+
+                    // تقسيم النص الكامل إلى سطور بناءً على علامات النزول لسطر جديد، ثم تحويلها لقائمة
+                    Lines = LinesAsString?.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None)?.ToList();
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 clsEventLog.WriteToEventLog(ex.Message, enLogType.Error);
-                Lines = new List<string>();
+                Lines.Clear();
             }
 
             return Lines;
         }
 
-        bool FileExistHandle(string FilePath, string TableName, RuntimeTextTemplateDataAccessLayer DataAccessLayerTemplate)
+        async Task<bool> FileExistHandle(string FilePath, string TableName, RuntimeTextTemplateDataAccessLayer DataAccessLayerTemplate)
         {
-            List<string> Lines = ReadFileAndSetItIntoList(FilePath);
+            List<string> Lines = await ReadFileAndSetItIntoList(FilePath);
 
             int Index = Lines.FindIndex(line => line.Contains(_ExtensionTag));
 
@@ -654,18 +722,18 @@ namespace CodeGenerator_PresentationLayer
 
                     Lines.Insert(Index, MethodsCode);
 
-                    return WriteListIntoFile(FilePath, Lines);
+                    return await WriteListIntoFile(FilePath, Lines);
                 }
                 else
                 {
-                    return CreateNewFileAndWrite(FilePath, DataAccessLayerTemplate);
+                    return await CreateNewFileAndWrite(FilePath, DataAccessLayerTemplate);
                 }
             }
             else
             {
                 if (Lines.Count == 0)
                 {
-                    return CreateNewFileAndWrite(FilePath, DataAccessLayerTemplate);
+                    return CreateNewFileAndWrite(FilePath, DataAccessLayerTemplate).Result;
                 }
                 else
                 {
@@ -676,11 +744,11 @@ namespace CodeGenerator_PresentationLayer
             return false;
         }
 
-        bool GenerateDataAccessLayerHelper(string TableName)
+        async Task<bool> GenerateDataAccessLayerHelper(string TableName)
         {
             RuntimeTextTemplateDataAccessLayer DataAccessLayerTemplate = new RuntimeTextTemplateDataAccessLayer();
 
-            if (SelectCorrectParameter(DataAccessLayerTemplate, TableName) == true)
+            if (await SelectCorrectParameter(DataAccessLayerTemplate, TableName) == true)
             {
                 DataAccessLayerTemplate.NamespaceName = _NameSpaceModulesOrDataAccessLayer;
                 DataAccessLayerTemplate.TableName = TableName;
@@ -694,18 +762,53 @@ namespace CodeGenerator_PresentationLayer
 
                 if (File.Exists(FilePath))
                 {
-                    return FileExistHandle(FilePath, TableName, DataAccessLayerTemplate);
+                    return await FileExistHandle(FilePath, TableName, DataAccessLayerTemplate);
                 }
                 else
                 {
-                    return CreateNewFileAndWrite(FilePath, DataAccessLayerTemplate);
+                    return await CreateNewFileAndWrite(FilePath, DataAccessLayerTemplate);
                 }
             }
 
             return false;
         }
 
-        bool GenerateDataAccessLayer()
+        async Task<bool> CreateNewFileAndWrite(string FilePath, RuntimeTextTemplateConnectionStringClass ConnectionStringTemplate)
+        {
+            string ClassCode = ConnectionStringTemplate.TransformText();
+
+            CaseIsReadOnlyHadle(FilePath);
+
+            try
+            {
+                using (StreamWriter writer = new StreamWriter(FilePath))
+                {
+                    await writer.WriteAsync(ClassCode);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                clsEventLog.WriteToEventLog(ex.Message, enLogType.Error);
+                return false;
+            }
+
+            return true;
+        }
+
+        async Task GenerateConnectionStringClass(string FolderPath)
+        {
+            string FilePath = Path.Combine(FolderPath, "clsConnectionString.cs");
+
+            if (!File.Exists(FilePath))
+            {
+                RuntimeTextTemplateConnectionStringClass ConnectionStringClass = new RuntimeTextTemplateConnectionStringClass();
+                ConnectionStringClass.NamespaceName = _NameSpaceModulesOrDataAccessLayer;
+                await CreateNewFileAndWrite(FilePath, ConnectionStringClass);
+            }
+        }
+
+        async Task<bool> GenerateDataAccessLayer()
         {
             List<bool> ListOfResults = new List<bool>();
 
@@ -713,18 +816,20 @@ namespace CodeGenerator_PresentationLayer
 
             if (HasWritePermission(lbFolderSelectedPath.Text))
             {
+                await GenerateConnectionStringClass(lbFolderSelectedPath.Text);
+
                 if (listbTableOrViewNames.SelectedIndex == 0)
                 {
                     for (short i = 1; i < listbTableOrViewNames.Items.Count; i++)
                     {
-                        ListOfResults.Add(GenerateDataAccessLayerHelper(listbTableOrViewNames.Items[i].ToString()));
+                        ListOfResults.Add(await GenerateDataAccessLayerHelper(listbTableOrViewNames.Items[i].ToString()));
                     }
                 }
                 else
                 {
                     for (short i = 0; i < listbTableOrViewNames.SelectedItems.Count; i++)
                     {
-                        ListOfResults.Add(GenerateDataAccessLayerHelper(listbTableOrViewNames.SelectedItems[i].ToString()));
+                        ListOfResults.Add(await GenerateDataAccessLayerHelper(listbTableOrViewNames.SelectedItems[i].ToString()));
                     }
                 }
             }
@@ -772,15 +877,21 @@ namespace CodeGenerator_PresentationLayer
             return CorrectParameter;
         }
 
-        bool SelectCorrectParameter(RuntimeTextTemplateBusinessLayer BusinessLayerTemplate, string TableName)
+        async Task<bool> SelectCorrectParameter(RuntimeTextTemplateBusinessLayer BusinessLayerTemplate, string TableName)
         {
-            string PrimaryKeyName = "";
-
-            BusinessLayerTemplate.Columns = ColumnService.GetAllColumnsBusinessLayer(TableName, ref PrimaryKeyName, _ConnectionString, rbModuleLayer.Checked);
-           
+            try
+            {
+                BusinessLayerTemplate.Columns = await ColumnService.GetAllColumnsBusinessLayer(TableName, _ConnectionString, rbModuleLayer.Checked);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
             if (BusinessLayerTemplate.Columns != null)
             {
+                string PrimaryKeyName = BusinessLayerTemplate.Columns.Find(x => x.IsPrimaryKey)?.Name ?? "";
+
                 if (chListBoxFunctions.GetItemChecked((byte)enFunctions.Updata) == true)
                 {
                     BusinessLayerTemplate.IncludeUpdate = true;
@@ -840,7 +951,7 @@ namespace CodeGenerator_PresentationLayer
             return RuntimeTextTemplateBusinessLayerAppendMethods;
         }
 
-        bool CreateNewFileAndWrite(string FilePath, RuntimeTextTemplateBusinessLayer BusinessLayerTemplate)
+        async Task<bool> CreateNewFileAndWrite(string FilePath, RuntimeTextTemplateBusinessLayer BusinessLayerTemplate)
         {
             string ClassCode = BusinessLayerTemplate.TransformText();
 
@@ -848,7 +959,10 @@ namespace CodeGenerator_PresentationLayer
 
             try
             {
-                File.WriteAllText(FilePath, ClassCode);
+                using (StreamWriter writer = new StreamWriter(FilePath))
+                {
+                    await writer.WriteAsync(ClassCode);
+                }
             }
             catch (Exception ex)
             {
@@ -860,9 +974,9 @@ namespace CodeGenerator_PresentationLayer
             return true;
         }
 
-        bool FileExistHandle(string FilePath, string TableName, RuntimeTextTemplateBusinessLayer BusinessLayerTemplate)
+        async Task<bool> FileExistHandle(string FilePath, string TableName, RuntimeTextTemplateBusinessLayer BusinessLayerTemplate)
         {
-            List<string> Lines = ReadFileAndSetItIntoList(FilePath);
+            List<string> Lines = await ReadFileAndSetItIntoList(FilePath);
 
             int Index = Lines.FindIndex(line => line.Contains(_ExtensionTag));
 
@@ -878,18 +992,18 @@ namespace CodeGenerator_PresentationLayer
 
                     Lines.Insert(Index, MethodsCode);
 
-                    return WriteListIntoFile(FilePath, Lines);
+                    return await WriteListIntoFile(FilePath, Lines);
                 }
                 else
                 {
-                    return CreateNewFileAndWrite(FilePath, BusinessLayerTemplate);
+                    return await CreateNewFileAndWrite(FilePath, BusinessLayerTemplate);
                 }
             }
             else
             {
                 if (Lines.Count == 0)
                 {
-                    return CreateNewFileAndWrite(FilePath, BusinessLayerTemplate);
+                    return await CreateNewFileAndWrite(FilePath, BusinessLayerTemplate);
                 }
                 else
                 {
@@ -900,11 +1014,11 @@ namespace CodeGenerator_PresentationLayer
             return false;
         }
 
-        bool GenerateBusinessLayerHelper(string TableName)
+        async Task<bool> GenerateBusinessLayerHelper(string TableName)
         {
             RuntimeTextTemplateBusinessLayer BusinessLayerTemplate = new RuntimeTextTemplateBusinessLayer();
 
-            if (SelectCorrectParameter(BusinessLayerTemplate, TableName) == true)
+            if (await SelectCorrectParameter(BusinessLayerTemplate, TableName) == true)
             {
                 BusinessLayerTemplate.NamespaceName = _NameSpaceBusinessLayer;
                 BusinessLayerTemplate.TableName = TableName;
@@ -919,18 +1033,18 @@ namespace CodeGenerator_PresentationLayer
 
                 if (File.Exists(FilePath))
                 {
-                    return FileExistHandle(FilePath, TableName, BusinessLayerTemplate);
+                    return await FileExistHandle(FilePath, TableName, BusinessLayerTemplate);
                 }
                 else
                 {
-                    return CreateNewFileAndWrite(FilePath, BusinessLayerTemplate);
+                    return await CreateNewFileAndWrite(FilePath, BusinessLayerTemplate);
                 }
             }
 
             return false;
         }
 
-        bool GenerateBusinessLayer()
+        async Task<bool> GenerateBusinessLayer()
         {
             List<bool> ListOfResults = new List<bool>();
 
@@ -942,14 +1056,14 @@ namespace CodeGenerator_PresentationLayer
                 {
                     for (short i = 1; i < listbTableOrViewNames.Items.Count; i++)
                     {
-                        ListOfResults.Add(GenerateBusinessLayerHelper(listbTableOrViewNames.Items[i].ToString()));
+                        ListOfResults.Add(await GenerateBusinessLayerHelper(listbTableOrViewNames.Items[i].ToString()));
                     }
                 }
                 else
                 {
                     for (short i = 0; i < listbTableOrViewNames.SelectedItems.Count; i++)
                     {
-                        ListOfResults.Add(GenerateBusinessLayerHelper(listbTableOrViewNames.SelectedItems[i].ToString()));
+                        ListOfResults.Add(await GenerateBusinessLayerHelper(listbTableOrViewNames.SelectedItems[i].ToString()));
                     }
                 }
             }
@@ -967,11 +1081,11 @@ namespace CodeGenerator_PresentationLayer
             clsEventLog.WriteToEventLog("One of the files was not successfully produced.", enLogType.Error);
         }
 
-        void PerformCorrectGenerateLayer()
+        async Task PerformCorrectGenerateLayer()
         {
             if (rbModuleLayer.Checked)
             {
-                if (GenerateModulesLayer())
+                if (await GenerateModulesLayer())
                 {
                     ShowSuccessfullyMessage();
                 }
@@ -989,8 +1103,8 @@ namespace CodeGenerator_PresentationLayer
                     {
                         if (!string.IsNullOrWhiteSpace(txtbModulesLayerNameSpace.Text))
                         {
-                            bool ResultDataAccessLayer = GenerateDataAccessLayer();
-                            bool ResultBusinessLayer = GenerateBusinessLayer();
+                            bool ResultDataAccessLayer = await GenerateDataAccessLayer();
+                            bool ResultBusinessLayer = await GenerateBusinessLayer();
 
                             if (!ResultDataAccessLayer || !ResultBusinessLayer)
                             {
@@ -1035,7 +1149,7 @@ namespace CodeGenerator_PresentationLayer
             MessageBox.Show("You must choice a layer", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        void btGenerate_Click(object sender, EventArgs e)
+        async void btGenerate_Click(object sender, EventArgs e)
         {
             if (_SpecialParameter == true)
             {
@@ -1054,7 +1168,7 @@ namespace CodeGenerator_PresentationLayer
                 !string.IsNullOrWhiteSpace(lbFolderSelectedPath.Text) &&
                 lbFolderSelectedPath.Text != "???")
             {
-                PerformCorrectGenerateLayer();
+                await PerformCorrectGenerateLayer();
             }
             else
             {

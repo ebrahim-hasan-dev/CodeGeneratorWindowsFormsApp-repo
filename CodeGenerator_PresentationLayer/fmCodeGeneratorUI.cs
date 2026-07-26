@@ -20,6 +20,7 @@ namespace CodeGenerator_PresentationLayer
         // =================================================================
 
         string _TableName { get; set; }
+        string _ConnectionString { get; set; }
         string _TableSingleName { get; set; }
         string _NameSpaceUILayer { get; set; }
         List<clsColumnDataUILayer> _ListOfColumns { get; set; }
@@ -35,7 +36,7 @@ namespace CodeGenerator_PresentationLayer
 
             _TableName = TableName;
 
-            _ListOfColumns = ColumnService.GetAllColumnsUILayer(_TableName, ConnectionString);
+            _ConnectionString = ConnectionString;
 
             if (string.IsNullOrWhiteSpace(TableSingleName))
             {
@@ -49,7 +50,7 @@ namespace CodeGenerator_PresentationLayer
             }
         }
 
-
+        
         static void CaseIsReadOnlyHandle(string DesignerFilePath, string LogicFilePath, string XMLFilePath)
         {
             FileInfo fileInfoD = new FileInfo(DesignerFilePath);
@@ -64,7 +65,7 @@ namespace CodeGenerator_PresentationLayer
             }
         }
 
-        bool CreateFilesAndWrite(string DesignerFilePath, string LogicFilePath, RuntimeTextTemplateUiLayerDesigner UITemplateDesigner, RuntimeTextTemplateUiLayerLogic UITemplateLogic)
+        async Task<bool> CreateFilesAndWrite(string DesignerFilePath, string LogicFilePath, RuntimeTextTemplateUiLayerDesigner UITemplateDesigner, RuntimeTextTemplateUiLayerLogic UITemplateLogic)
         {
             string ClassCode = UITemplateDesigner.TransformText();
 
@@ -72,12 +73,18 @@ namespace CodeGenerator_PresentationLayer
 
             try
             {
-                File.WriteAllText(DesignerFilePath, ClassCode);
+                
+                using (StreamWriter writer = new StreamWriter(DesignerFilePath))
+                {
+                    await writer.WriteAsync(ClassCode);
+                }
 
                 ClassCode = UITemplateLogic.TransformText();
 
-                File.WriteAllText(LogicFilePath, ClassCode);
-
+                using (StreamWriter writer = new StreamWriter(LogicFilePath))
+                {
+                    await writer.WriteAsync(ClassCode);
+                }
                 // هنا هيتم انشاء ملف xml مع امتداد .resx
                 using (ResXResourceWriter resx = new ResXResourceWriter(Path.Combine(lbFolderSelectedPath.Text, rbForm.Checked ? "fm" + _TableSingleName.Replace("_", "") + ".resx" : "uctrl" + _TableSingleName.Replace("_", "") + ".resx")))
                 { }
@@ -115,7 +122,7 @@ namespace CodeGenerator_PresentationLayer
             return ListOfColumnData;
         }
 
-        bool GeneratePerform()
+        async Task<bool> GeneratePerform()
         {
             fmCodeGenerator.CheckFromFolderPath(lbFolderSelectedPath.Text);
 
@@ -158,17 +165,17 @@ namespace CodeGenerator_PresentationLayer
                     }
                 }
 
-                return CreateFilesAndWrite(DesignerFilePath, LogicFilePath, UITemplateDesigner, UITemplateLogic);
+                return await CreateFilesAndWrite(DesignerFilePath, LogicFilePath, UITemplateDesigner, UITemplateLogic);
             }
 
             return false;
         }
 
-        void GenerateUILayer()
+        async Task GenerateUILayer()
         {
             if (rbForm.Checked || rbUserControl.Checked)
             {
-                if (GeneratePerform())
+                if (await GeneratePerform())
                 {
                     fmCodeGenerator.ShowSuccessfullyMessage();
                 }
@@ -179,13 +186,13 @@ namespace CodeGenerator_PresentationLayer
             }
         }
 
-        void btGenerate_Click(object sender, EventArgs e)
+        async void btGenerate_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrWhiteSpace(lbFolderSelectedPath.Text) && lbFolderSelectedPath.Text != "???" && !string.IsNullOrWhiteSpace(_NameSpaceUILayer))
             {
                 if (dgvColumns.Rows.Count > 0)
                 {
-                    GenerateUILayer();
+                    await GenerateUILayer();
                 }
                 else
                 {
@@ -349,6 +356,22 @@ namespace CodeGenerator_PresentationLayer
             lbNumberOfRows.Text = "# " + dgvColumns.Rows.Count + " Rows";
         }
 
+        async void fmCodeGeneratorUI_Load(object sender, EventArgs e)
+        {
+            await SetListOfColumnsUILayer();
+        }
+
+        async Task SetListOfColumnsUILayer()
+        {
+            try
+            {
+                _ListOfColumns = await ColumnService.GetAllColumnsUILayer(_TableName, _ConnectionString);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
 
 

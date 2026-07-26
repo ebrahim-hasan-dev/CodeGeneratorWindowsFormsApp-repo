@@ -36,7 +36,7 @@ namespace CodeGenerator_BusinessLayer
             
             #line default
             #line hidden
-            this.Write("        public static bool Add(cls");
+            this.Write("        public static async Task<bool> Add(cls");
             
             #line 9 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayerAppendMethods.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
@@ -57,7 +57,7 @@ namespace CodeGenerator_BusinessLayer
             
             #line default
             #line hidden
-            this.Write(".IsFull())\r\n            {\r\n                return ");
+            this.Write(".IsFull())\r\n            {\r\n                return await ");
             
             #line 13 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayerAppendMethods.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
@@ -86,7 +86,7 @@ namespace CodeGenerator_BusinessLayer
             
             #line default
             #line hidden
-            this.Write("        public static bool Update(cls");
+            this.Write("        public static async Task<bool> Update(cls");
             
             #line 23 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayerAppendMethods.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
@@ -169,7 +169,7 @@ namespace CodeGenerator_BusinessLayer
             
             #line default
             #line hidden
-            this.Write("            {\r\n                return ");
+            this.Write("            {\r\n                return await ");
             
             #line 32 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayerAppendMethods.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
@@ -198,14 +198,14 @@ namespace CodeGenerator_BusinessLayer
             
             #line default
             #line hidden
-            this.Write("        static public cls");
+            this.Write("        public static async Task<cls");
             
             #line 42 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayerAppendMethods.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
             
             #line default
             #line hidden
-            this.Write(" Find(");
+            this.Write("> Find(");
             
             #line 42 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayerAppendMethods.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(HandleParameter(FindParameterName).Replace("_", "")));
@@ -219,7 +219,7 @@ namespace CodeGenerator_BusinessLayer
             
             #line default
             #line hidden
-            this.Write(")\r\n            {\r\n                return ");
+            this.Write(")\r\n            {\r\n                return await ");
             
             #line 46 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayerAppendMethods.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
@@ -248,7 +248,7 @@ namespace CodeGenerator_BusinessLayer
             
             #line default
             #line hidden
-            this.Write("        public static bool Delete(");
+            this.Write("        public static async Task<bool> Delete(");
             
             #line 56 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayerAppendMethods.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(HandleParameter(DeleteParameterName).Replace("_", "")));
@@ -262,7 +262,7 @@ namespace CodeGenerator_BusinessLayer
             
             #line default
             #line hidden
-            this.Write(")\r\n            {\r\n                return ");
+            this.Write(")\r\n            {\r\n                return await ");
             
             #line 60 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayerAppendMethods.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
@@ -291,21 +291,21 @@ namespace CodeGenerator_BusinessLayer
             
             #line default
             #line hidden
-            this.Write("        static public List<cls");
+            this.Write("        public static async Task<List<cls");
             
             #line 70 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayerAppendMethods.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
             
             #line default
             #line hidden
-            this.Write("> GetAll");
+            this.Write(">> GetAll");
             
             #line 70 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayerAppendMethods.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableName));
             
             #line default
             #line hidden
-            this.Write("()\r\n        {\r\n            return ");
+            this.Write("()\r\n        {\r\n            return await ");
             
             #line 72 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayerAppendMethods.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
@@ -333,7 +333,7 @@ namespace CodeGenerator_BusinessLayer
             
             #line default
             #line hidden
-            this.Write("        public static bool IsExist(");
+            this.Write("        public static async Task<bool> IsExist(");
             
             #line 77 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayerAppendMethods.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(HandleParameter(ExistParameterName).Replace("_", "")));
@@ -347,7 +347,7 @@ namespace CodeGenerator_BusinessLayer
             
             #line default
             #line hidden
-            this.Write(")\r\n            {\r\n                return ");
+            this.Write(")\r\n            {\r\n                return await ");
             
             #line 81 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayerAppendMethods.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));

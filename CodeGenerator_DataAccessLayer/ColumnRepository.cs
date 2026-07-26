@@ -3,14 +3,14 @@ using DLMApp_ModulesLayer;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Windows.Forms;
+using System.Threading.Tasks;
 
 
 namespace CodeGenerator_DataAccessLayer
 {
     public class ColumnRepository
     {
-        public static List<clsColumnDataModulesLayer> GetAllColumns(string TableName, string ConnectionString)
+        public static async Task<List<clsColumnDataModulesLayer>> GetAllColumns(string TableName, string ConnectionString)
         {
             List<clsColumnDataModulesLayer> ListOfColumns = null;
 
@@ -35,15 +35,15 @@ namespace CodeGenerator_DataAccessLayer
 
                     Command.Parameters.AddWithValue("@TableName", TableName);
 
-                    Connection.Open();
+                    await Connection.OpenAsync();
 
-                    Reader = Command.ExecuteReader();
+                    Reader = await Command.ExecuteReaderAsync();
 
                     if (Reader.HasRows)
                     {
                         ListOfColumns = new List<clsColumnDataModulesLayer>();
 
-                        while (Reader.Read())
+                        while (await Reader.ReadAsync())
                         {
                             ListOfColumns.Add(new clsColumnDataModulesLayer
                             {
@@ -59,8 +59,8 @@ namespace CodeGenerator_DataAccessLayer
                 catch (Exception ex)
                 {
                     clsEventLog.WriteToEventLog(ex.Message, enLogType.Error);
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     ListOfColumns = null;
+                    throw;
                 }
                 finally
                 {
@@ -86,7 +86,7 @@ namespace CodeGenerator_DataAccessLayer
             return ListOfColumns;
         }
 
-        public static List<clsColumnDataDataAccessLayer> GetAllColumnsDataAccessLayer(string TableName, string ConnectionString)
+        public static async Task<List<clsColumnDataDataAccessLayer>> GetAllColumnsDataAccessLayer(string TableName, string ConnectionString)
         {
             List<clsColumnDataDataAccessLayer> ListOfColumns = null;
 
@@ -111,15 +111,15 @@ namespace CodeGenerator_DataAccessLayer
 
                     Command.Parameters.AddWithValue("@TableName", TableName);
 
-                    Connection.Open();
+                    await Connection.OpenAsync();
 
-                    Reader = Command.ExecuteReader();
+                    Reader = await Command.ExecuteReaderAsync();
 
                     if (Reader.HasRows)
                     {
                         ListOfColumns = new List<clsColumnDataDataAccessLayer>();
 
-                        while (Reader.Read())
+                        while (await Reader.ReadAsync())
                         {
                             ListOfColumns.Add(new clsColumnDataDataAccessLayer
                             {
@@ -135,8 +135,8 @@ namespace CodeGenerator_DataAccessLayer
                 catch (Exception ex)
                 {
                     clsEventLog.WriteToEventLog(ex.Message, enLogType.Error);
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     ListOfColumns = null;
+                    throw;
                 }
                 finally
                 {
@@ -162,7 +162,7 @@ namespace CodeGenerator_DataAccessLayer
             return ListOfColumns;
         }
 
-        public static List<clsColumnDataBusinessLayer> GetAllColumnsBusinessLayer(string TableName, string ConnectionString)
+        public static async Task<List<clsColumnDataBusinessLayer>> GetAllColumnsBusinessLayer(string TableName, string ConnectionString)
         {
             List<clsColumnDataBusinessLayer> ListOfColumns = null;
 
@@ -187,15 +187,15 @@ namespace CodeGenerator_DataAccessLayer
 
                     Command.Parameters.AddWithValue("@TableName", TableName);
 
-                    Connection.Open();
+                    await Connection.OpenAsync();
 
-                    Reader = Command.ExecuteReader();
+                    Reader = await Command.ExecuteReaderAsync();
 
                     if (Reader.HasRows)
                     {
                         ListOfColumns = new List<clsColumnDataBusinessLayer>();
 
-                        while (Reader.Read())
+                        while (await Reader.ReadAsync())
                         {
                             ListOfColumns.Add(new clsColumnDataBusinessLayer
                             {
@@ -210,8 +210,8 @@ namespace CodeGenerator_DataAccessLayer
                 catch (Exception ex)
                 {
                     clsEventLog.WriteToEventLog(ex.Message, enLogType.Error);
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     ListOfColumns = null;
+                    throw;
                 }
                 finally
                 {
@@ -237,7 +237,7 @@ namespace CodeGenerator_DataAccessLayer
             return ListOfColumns;
         }
 
-        public static List<clsColumnDataUILayer> GetAllColumnsUILayer(string TableName, string ConnectionString)
+        public static async Task<List<clsColumnDataUILayer>> GetAllColumnsUILayer(string TableName, string ConnectionString)
         {
             List<clsColumnDataUILayer> ListOfColumns = null;
 
@@ -267,15 +267,15 @@ namespace CodeGenerator_DataAccessLayer
 
                     Command.Parameters.AddWithValue("@TableName", TableName);
 
-                    Connection.Open();
+                    await Connection.OpenAsync();
 
-                    Reader = Command.ExecuteReader();
+                    Reader = await Command.ExecuteReaderAsync();
 
                     if (Reader.HasRows)
                     {
                         ListOfColumns = new List<clsColumnDataUILayer>();
 
-                        while (Reader.Read())
+                        while (await Reader.ReadAsync())
                         {
                             ListOfColumns.Add(new clsColumnDataUILayer
                             {
@@ -292,8 +292,8 @@ namespace CodeGenerator_DataAccessLayer
                 catch (Exception ex)
                 {
                     clsEventLog.WriteToEventLog(ex.Message, enLogType.Error);
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     ListOfColumns = null;
+                    throw;
                 }
                 finally
                 {
@@ -319,10 +319,8 @@ namespace CodeGenerator_DataAccessLayer
             return ListOfColumns;
         }
 
+        
        
-
-
-
 
 
     }

@@ -1,5 +1,4 @@
-﻿
-<#@ template language="C#" #>
+﻿<#@ template language="C#" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="CodeGenerator_Modules" #>
@@ -11,7 +10,12 @@ namespace <#= NamespaceName #>
     public class cls<#= TableSingleName #>
     {
 <# for (short i = 0; i < Columns.Count; i++) { #>
+<# if (numericTypes.Contains(Columns[i].Type) || Columns[i].Type == "DateTime") { #>
         public <#= Columns[i].Type #> <#= Columns[i].NameWithout_ #> { get; set; }
+<# } #>
+<# else if (!numericTypes.Contains(Columns[i].Type)) { #>
+        public <#= Columns[i].Type #>? <#= Columns[i].NameWithout_ #> { get; set; }
+<# } #>
 <# } #>
         
 
@@ -21,8 +25,6 @@ namespace <#= NamespaceName #>
 <# 
     // قائمة لتخزين أجزاء الشرط التي سنولدها
     List<string> conditions = new List<string>();
-    List<string> numericTypes = new List<string> { "int", "double", "float", "short", "decimal", "long", "byte" };
-
 
     for (short i = 0; i < Columns.Count; i++) 
     {
@@ -69,7 +71,7 @@ namespace <#= NamespaceName #>
 }
 <#+
 
-
+List<string> numericTypes = new List<string> { "int", "double", "float", "short", "decimal", "long", "byte" };
 public string NamespaceName { get; set; } = "";
 public List<clsColumnDataModulesLayer> Columns { get; set; }
 public string TableSingleName { get; set; } = "";

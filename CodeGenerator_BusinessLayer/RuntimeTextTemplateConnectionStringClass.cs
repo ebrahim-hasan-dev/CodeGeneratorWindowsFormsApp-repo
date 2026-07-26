@@ -9,18 +9,18 @@
 // ------------------------------------------------------------------------------
 namespace CodeGenerator_BusinessLayer
 {
-    using System.Collections.Generic;
     using System.Linq;
-    using CodeGenerator_Modules;
+    using System.Text;
+    using System.Collections.Generic;
     using System;
     
     /// <summary>
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateModulesLayer.tt"
+    #line 1 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateConnectionStringClass.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
-    public partial class RuntimeTextTemplateModulesLayer : RuntimeTextTemplateModulesLayerBase
+    public partial class RuntimeTextTemplateConnectionStringClass : RuntimeTextTemplateConnectionStringClassBase
     {
 #line hidden
         /// <summary>
@@ -28,163 +28,32 @@ namespace CodeGenerator_BusinessLayer
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("using System;\r\n\r\n\r\nnamespace ");
+            this.Write("﻿using Microsoft.Extensions.Configuration;\r\n\r\nnamespace ");
             
-            #line 8 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateModulesLayer.tt"
+            #line 8 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateConnectionStringClass.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(NamespaceName));
             
             #line default
             #line hidden
-            this.Write("\r\n{\r\n    public class cls");
-            
-            #line 10 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateModulesLayer.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
-            
-            #line default
-            #line hidden
-            this.Write("\r\n    {\r\n");
-            
-            #line 12 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateModulesLayer.tt"
- for (short i = 0; i < Columns.Count; i++) { 
-            
-            #line default
-            #line hidden
-            
-            #line 13 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateModulesLayer.tt"
- if (numericTypes.Contains(Columns[i].Type) || Columns[i].Type == "DateTime") { 
-            
-            #line default
-            #line hidden
-            this.Write("        public ");
-            
-            #line 14 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateModulesLayer.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].Type));
-            
-            #line default
-            #line hidden
-            this.Write(" ");
-            
-            #line 14 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateModulesLayer.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].NameWithout_));
-            
-            #line default
-            #line hidden
-            this.Write(" { get; set; }\r\n");
-            
-            #line 15 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateModulesLayer.tt"
- } 
-            
-            #line default
-            #line hidden
-            
-            #line 16 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateModulesLayer.tt"
- else if (!numericTypes.Contains(Columns[i].Type)) { 
-            
-            #line default
-            #line hidden
-            this.Write("        public ");
-            
-            #line 17 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateModulesLayer.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].Type));
-            
-            #line default
-            #line hidden
-            this.Write("? ");
-            
-            #line 17 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateModulesLayer.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Columns[i].NameWithout_));
-            
-            #line default
-            #line hidden
-            this.Write(" { get; set; }\r\n");
-            
-            #line 18 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateModulesLayer.tt"
- } 
-            
-            #line default
-            #line hidden
-            
-            #line 19 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateModulesLayer.tt"
- } 
-            
-            #line default
-            #line hidden
-            this.Write("        \r\n\r\n        public bool IsFull()\r\n        {\r\n            return \r\n");
-            
-            #line 25 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateModulesLayer.tt"
- 
-    // قائمة لتخزين أجزاء الشرط التي سنولدها
-    List<string> conditions = new List<string>();
-
-    for (short i = 0; i < Columns.Count; i++) 
+            this.Write(@"
+{
+    internal class clsConnectionString
     {
-        if (Columns[i].IsPrimaryKey || Columns[i].IsNullable)
-        {
-            continue;
-        }
-
-        string condition = "";
-
-        if (Columns[i].Type == "string") 
-        {
-            condition = $"!string.IsNullOrWhiteSpace(this.{Columns[i].NameWithout_})";
-        }
-        else if (Columns[i].Type == "DateTime") 
-        {
-            condition = $"this.{Columns[i].NameWithout_} != default(DateTime)";
-        }
-       else if (numericTypes.Contains(Columns[i].Type)) 
-        {
-            condition = $"this.{Columns[i].NameWithout_} > 0";
-        }
-
-        if (!string.IsNullOrEmpty(condition))
-        {
-            conditions.Add(condition);
-        }
+        private static IConfigurationRoot config = new ConfigurationBuilder().AddJsonFile(""appsettings.json"", optional: true, reloadOnChange: true).Build();
+            
+        public static string ConnectionString = config.GetConnectionString(""DefaultConnection"") ?? ""Server=.;DataBase=MyDLM;Integrated Security=True;"";
     }
+}
 
-    
-    for (short j = 0; j < conditions.Count; j++)
-    {
 
-            
-            #line default
-            #line hidden
-            this.Write("                ");
-            
-            #line 61 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateModulesLayer.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(conditions[j]));
-            
-            #line default
-            #line hidden
-            
-            #line 61 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateModulesLayer.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture((j < conditions.Count - 1) ? " &&" : ";"));
-            
-            #line default
-            #line hidden
-            this.Write("\r\n");
-            
-            #line 62 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateModulesLayer.tt"
- 
-    } 
-
-            
-            #line default
-            #line hidden
-            this.Write("        }\r\n\r\n\r\n\r\n\r\n    }\r\n}\r\n");
+");
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 72 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateModulesLayer.tt"
+        #line 19 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateConnectionStringClass.tt"
 
 
-List<string> numericTypes = new List<string> { "int", "double", "float", "short", "decimal", "long", "byte" };
 public string NamespaceName { get; set; } = "";
-public List<clsColumnDataModulesLayer> Columns { get; set; }
-public string TableSingleName { get; set; } = "";
-
 
 
         
@@ -199,7 +68,7 @@ public string TableSingleName { get; set; } = "";
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
-    public class RuntimeTextTemplateModulesLayerBase
+    public class RuntimeTextTemplateConnectionStringClassBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

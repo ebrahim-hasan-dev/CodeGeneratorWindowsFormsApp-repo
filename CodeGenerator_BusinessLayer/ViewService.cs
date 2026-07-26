@@ -1,17 +1,18 @@
 ﻿
 using CodeGenerator_DataAccessLayer;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 
 namespace CodeGenerator_BusinessLayer
 {
     public class ViewService
     {
-        public static List<string> GetAllViewNames(string ConnectionString)
+        public static async Task<List<string>> GetAllViewNames(string ConnectionString)
         {
             if (!string.IsNullOrWhiteSpace(ConnectionString))
             {
-                return ViewRepository.GetAllViewNames(ConnectionString);
+                return await ViewRepository.GetAllViewNames(ConnectionString);
             }
             else
             {

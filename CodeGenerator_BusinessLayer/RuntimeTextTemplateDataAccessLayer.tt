@@ -5,7 +5,8 @@
 <#@ import namespace="CodeGenerator_Modules" #>
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
+using System.Threading.Tasks;
+using Microsoft.Data.SqlClient;
 using <#= ModulesLayerNameSpace #>;
 
 
@@ -14,14 +15,14 @@ namespace <#= NamespaceName #>
     public class <#= TableSingleName #>Repository
     {
 <# if (IncludeAdd) { #>
-        public static bool Add(cls<#= TableSingleName #> <#= TableSingleName #>)
+        public static async Task<bool> Add(cls<#= TableSingleName #> <#= TableSingleName #>)
         {
             bool Add = false;
 
             if (<#= TableSingleName #>.IsFull())
             {
-                SqlConnection Connection = null;
-                SqlCommand Command = null;
+                SqlConnection? Connection = null;
+                SqlCommand? Command = null;
 
                 try
                 {
@@ -71,9 +72,9 @@ namespace <#= NamespaceName #>
 <# } #>
 <# } #>
 
-                    Connection.Open();
+                    await Connection.OpenAsync();
 
-                    object ID = Command.ExecuteScalar();
+                    object? ID = await Command.ExecuteScalarAsync();
 
                     if (ID != null)
                     {
@@ -110,7 +111,7 @@ if (Columns[i].IsPrimaryKey) { #>
 <# } #>
 
 <# if (IncludeUpdate) { #>
-        public static bool Update(cls<#= TableSingleName #> <#= TableSingleName #>)
+        public static async Task<bool> Update(cls<#= TableSingleName #> <#= TableSingleName #>)
         {
             bool Update = false;
 
@@ -121,8 +122,8 @@ if (Columns[i].IsPrimaryKey) { #>
             if (<#= TableSingleName #>.<#= HandleCorrectCheckParamerter(UpdateParameterName).Replace("_", "") #> && <#= TableSingleName #>.IsFull())
 <# } #>
             {
-                SqlConnection Connection = null;
-                SqlCommand Command = null;
+                SqlConnection? Connection = null;
+                SqlCommand? Command = null;
 
                 try
                 {
@@ -168,9 +169,9 @@ if (Columns[i].IsPrimaryKey) { #>
 <# } #>
 <# } #>
 
-                    Connection.Open();
+                    await Connection.OpenAsync();
 
-                    if (Command.ExecuteNonQuery() > 0)
+                    if (await Command.ExecuteNonQueryAsync() > 0)
                     {
                         Update = true;
                     }
@@ -200,15 +201,15 @@ if (Columns[i].IsPrimaryKey) { #>
 <# } #>
 
 <# if (IncludeFind) { #>
-        public static cls<#= TableSingleName #> Find(<#= HandleParameter(FindParameterName).Replace("_", "") #>)
+        public static async Task<cls<#= TableSingleName #>> Find(<#= HandleParameter(FindParameterName).Replace("_", "") #>)
         {
-            cls<#= TableSingleName #> <#= TableSingleName #> = null;
+            cls<#= TableSingleName #>? <#= TableSingleName #> = null;
 
             if (<#= HandleCorrectCheckParamerter(FindParameterName).Replace("_", "") #>)
             {
-                SqlConnection Connection = null;
-                SqlCommand Command = null;
-                SqlDataReader Reader = null;
+                SqlConnection? Connection = null;
+                SqlCommand? Command = null;
+                SqlDataReader? Reader = null;
 
                 try
                 {
@@ -220,11 +221,11 @@ if (Columns[i].IsPrimaryKey) { #>
 
                     Command.Parameters.AddWithValue("@<#= FindParameterName.Replace("_", "") #>", <#= FindParameterName.Replace("_", "") #>);
 
-                    Connection.Open();
+                    await Connection.OpenAsync();
 
-                    Reader = Command.ExecuteReader();
+                    Reader = await Command.ExecuteReaderAsync();
 
-                    if (Reader.Read())
+                    if (await Reader.ReadAsync())
                     {
                         <#= TableSingleName #> = new cls<#= TableSingleName #>();
 
@@ -300,13 +301,13 @@ if (Columns[i].IsPrimaryKey) { #>
 <# } #>
 
 <# if (IncludeGetAll) { #>
-        public static List<cls<#= TableSingleName #>> GetAll<#= TableName #>()
+        public static async Task<List<cls<#= TableSingleName #>>> GetAll<#= TableName #>()
         {
             List<cls<#= TableSingleName #>> ListOf<#= TableName #> = new List<cls<#= TableSingleName #>>();
            
-            SqlConnection Connection = null;
-            SqlCommand Command = null;
-            SqlDataReader Reader = null;
+            SqlConnection? Connection = null;
+            SqlCommand? Command = null;
+            SqlDataReader? Reader = null;
 
             try
             {
@@ -316,11 +317,11 @@ if (Columns[i].IsPrimaryKey) { #>
 
                 Command = new SqlCommand(GetAllQuery, Connection);
 
-                Connection.Open();
+                await Connection.OpenAsync();
 
-                Reader = Command.ExecuteReader();
+                Reader = await Command.ExecuteReaderAsync();
 
-                while (Reader.Read())
+                while (await Reader.ReadAsync())
                 {
                     cls<#= TableSingleName #> <#= TableSingleName #> = new cls<#= TableSingleName #>();
 
@@ -387,14 +388,14 @@ if (Columns[i].IsPrimaryKey) { #>
 <# } #>
 
 <# if (IncludeDelete) { #>
-        public static bool Delete(<#= HandleParameter(DeleteParameterName).Replace("_", "") #>)
+        public static async Task<bool> Delete(<#= HandleParameter(DeleteParameterName).Replace("_", "") #>)
         {
             bool Delete = false;
 
             if (<#= HandleCorrectCheckParamerter(DeleteParameterName).Replace("_", "") #>)
             {
-                SqlConnection Connection = null;
-                SqlCommand Command = null;
+                SqlConnection? Connection = null;
+                SqlCommand? Command = null;
 
                 try
                 {
@@ -406,9 +407,9 @@ if (Columns[i].IsPrimaryKey) { #>
 
                     Command.Parameters.AddWithValue("@<#= DeleteParameterName.Replace("_", "") #>", <#= DeleteParameterName.Replace("_", "") #>);
 
-                    Connection.Open();
+                    await Connection.OpenAsync();
 
-                    if (Command.ExecuteNonQuery() > 0)
+                    if (await Command.ExecuteNonQueryAsync() > 0)
                     {
                         Delete = true;
                     }
@@ -438,15 +439,15 @@ if (Columns[i].IsPrimaryKey) { #>
 <# } #>
 
 <# if (IncludeExist) { #>
-        public static bool IsExist(<#= HandleParameter(ExistParameterName).Replace("_", "") #>)
+        public static async Task<bool> IsExist(<#= HandleParameter(ExistParameterName).Replace("_", "") #>)
         {
             bool Exist = false;
 
             if (<#= HandleCorrectCheckParamerter(ExistParameterName).Replace("_", "") #>)
             {
-                SqlConnection Connection = null;
-                SqlCommand Command = null;
-                SqlDataReader Reader = null;
+                SqlConnection? Connection = null;
+                SqlCommand? Command = null;
+                SqlDataReader? Reader = null;
 
                 try
                 {
@@ -458,9 +459,9 @@ if (Columns[i].IsPrimaryKey) { #>
 
                     Command.Parameters.AddWithValue("@<#= ExistParameterName.Replace("_", "") #>", <#= ExistParameterName.Replace("_", "") #>);
 
-                    Connection.Open();
+                    await Connection.OpenAsync();
 
-                    Reader = Command.ExecuteReader();
+                    Reader = await Command.ExecuteReaderAsync();
 
                     if (Reader.HasRows)
                     {

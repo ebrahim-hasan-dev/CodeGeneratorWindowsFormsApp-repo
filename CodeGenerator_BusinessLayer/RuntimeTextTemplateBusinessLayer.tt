@@ -4,6 +4,7 @@
 <#@ import namespace="CodeGenerator_Modules" #>
 <#@ import namespace="System.Linq" #>
 using System;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using <#= ModulesLayerNameSpace #>;
 using <#= DataAccessLayerNameSpace #>;
@@ -14,11 +15,11 @@ namespace <#= NamespaceName #>
     public class <#= TableSingleName #>Service
     {
 <# if (IncludeAdd) { #>
-        public static bool Add(cls<#= TableSingleName #> <#= TableSingleName #>)
+        public static async Task<bool> Add(cls<#= TableSingleName #> <#= TableSingleName #>)
         {
             if (<#= TableSingleName #>.IsFull())
             {
-                return <#= TableSingleName #>Repository.Add(<#= TableSingleName #>);
+                return await <#= TableSingleName #>Repository.Add(<#= TableSingleName #>);
             }
             else
             {
@@ -28,7 +29,7 @@ namespace <#= NamespaceName #>
 <# } #>
 
 <# if (IncludeUpdate) { #>
-        public static bool Update(cls<#= TableSingleName #> <#= TableSingleName #>)
+        public static async Task<bool> Update(cls<#= TableSingleName #> <#= TableSingleName #>)
         {
 <# if (Columns.Find(x => x.Name == UpdateParameterName).Type == "string") { #>
             if (!string.IsNullOrWhiteSpace(<#= TableSingleName #>.<#= UpdateParameterName.Replace("_", "") #>) && <#= TableSingleName #>.IsFull())
@@ -37,7 +38,7 @@ namespace <#= NamespaceName #>
             if (<#= TableSingleName #>.<#= HandleCorrectCheckParamerter(UpdateParameterName).Replace("_", "") #> && <#= TableSingleName #>.IsFull())
 <# } #>
             {
-                return <#= TableSingleName #>Repository.Update(<#= TableSingleName #>);
+                return await <#= TableSingleName #>Repository.Update(<#= TableSingleName #>);
             }
             else
             {
@@ -47,11 +48,11 @@ namespace <#= NamespaceName #>
 <# } #>
 
 <# if (IncludeFind) { #>
-        static public cls<#= TableSingleName #> Find(<#= HandleParameter(FindParameterName).Replace("_", "") #>)
+        public static async Task<cls<#= TableSingleName #>> Find(<#= HandleParameter(FindParameterName).Replace("_", "") #>)
         {
             if (<#= HandleCorrectCheckParamerter(FindParameterName).Replace("_", "") #>)
             {
-                return <#= TableSingleName #>Repository.Find(<#= FindParameterName.Replace("_", "") #>);
+                return await <#= TableSingleName #>Repository.Find(<#= FindParameterName.Replace("_", "") #>);
             }
             else
             {
@@ -61,11 +62,11 @@ namespace <#= NamespaceName #>
 <# } #>
 
 <# if (IncludeDelete) { #>
-        public static bool Delete(<#= HandleParameter(DeleteParameterName).Replace("_", "") #>)
+        public static async Task<bool> Delete(<#= HandleParameter(DeleteParameterName).Replace("_", "") #>)
         {
             if (<#= HandleCorrectCheckParamerter(DeleteParameterName).Replace("_", "") #>)
             {
-                return <#= TableSingleName #>Repository.Delete(<#= DeleteParameterName.Replace("_", "") #>);
+                return await <#= TableSingleName #>Repository.Delete(<#= DeleteParameterName.Replace("_", "") #>);
             }
             else
             {
@@ -75,18 +76,18 @@ namespace <#= NamespaceName #>
 <# } #>
 
 <# if (IncludeGetAll) { #>
-        static public List<cls<#= TableSingleName #>> GetAll<#= TableName #>()
+        public static async Task<List<cls<#= TableSingleName #>>> GetAll<#= TableName #>()
         {
-            return <#= TableSingleName #>Repository.GetAll<#= TableName #>();
+            return await <#= TableSingleName #>Repository.GetAll<#= TableName #>();
         }
 <# } #>
 
 <# if (IncludeExist) { #>
-        public static bool IsExist(<#= HandleParameter(ExistParameterName).Replace("_", "") #>)
+        public static async Task<bool> IsExist(<#= HandleParameter(ExistParameterName).Replace("_", "") #>)
         {
             if (<#= HandleCorrectCheckParamerter(ExistParameterName).Replace("_", "") #>)
             {
-                return <#= TableSingleName #>Repository.IsExist(<#= ExistParameterName.Replace("_", "") #>);
+                return await <#= TableSingleName #>Repository.IsExist(<#= ExistParameterName.Replace("_", "") #>);
             }
             else
             {
@@ -105,9 +106,9 @@ namespace <#= NamespaceName #>
 
 <#+
 
-public string TableName { get; set; }= "";
-public string NamespaceName { get; set; }= "";
-public string ModulesLayerNameSpace { get; set; }= "";
+public string TableName { get; set; } = "";
+public string NamespaceName { get; set; } = "";
+public string ModulesLayerNameSpace { get; set; } = "";
 public string DataAccessLayerNameSpace { get; set; } = "";
 public List<clsColumnDataBusinessLayer> Columns { get; set; }
 public string TableSingleName { get; set; } = "";

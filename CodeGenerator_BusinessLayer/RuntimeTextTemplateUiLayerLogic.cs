@@ -28,50 +28,51 @@ namespace CodeGenerator_BusinessLayer
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("\r\nusing System.Windows.Forms;\r\nusing System.ComponentModel;\r\nusing System;\r\nusing" +
-                    " System.Collections.Generic;\r\n\r\n\r\nnamespace ");
+            this.Write("using System.Windows.Forms;\r\nusing System.ComponentModel;\r\nusing System;\r\nusing S" +
+                    "ystem.Collections.Generic;\r\nusing System.Threading.Tasks;\r\nusing ModulesLayer;\r\n" +
+                    "\r\n\r\nnamespace ");
             
-            #line 12 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
+            #line 13 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(NameSpace));
             
             #line default
             #line hidden
             this.Write("\r\n{\r\n    public partial class ");
             
-            #line 14 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
+            #line 15 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture((IsForm) ? "fm" : "uctrl"));
             
             #line default
             #line hidden
             
-            #line 14 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
+            #line 15 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
             
             #line default
             #line hidden
             this.Write(" : ");
             
-            #line 14 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
+            #line 15 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture((IsForm) ? "Form" : "UserControl"));
             
             #line default
             #line hidden
             this.Write("\r\n    {\r\n        public  ");
             
-            #line 16 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
+            #line 17 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture((IsForm) ? "fm" : "uctrl"));
             
             #line default
             #line hidden
             
-            #line 16 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
+            #line 17 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
             
             #line default
             #line hidden
             this.Write("()\r\n        {\r\n            InitializeComponent();\r\n        }\r\n\r\n");
             
-            #line 21 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
+            #line 22 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
  if (IsInput && IsForm) { 
             
             #line default
@@ -79,14 +80,14 @@ namespace CodeGenerator_BusinessLayer
             this.Write(" \r\n        void btCancel_Click(object sender, EventArgs e)\r\n        {\r\n          " +
                     "  this.Close();\r\n        }\r\n");
             
-            #line 26 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
+            #line 27 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 28 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
+            #line 29 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
  if (IsInput) { 
             
             #line default
@@ -107,27 +108,27 @@ namespace CodeGenerator_BusinessLayer
             if (
 ");
             
-            #line 43 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
+            #line 44 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
  for (short i = 0; i < ListInputOfControlsNotAllowNull.Count; i++) { 
             
             #line default
             #line hidden
             this.Write("                ");
             
-            #line 44 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
+            #line 45 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ListInputOfControlsNotAllowNull[i]));
             
             #line default
             #line hidden
             
-            #line 44 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
+            #line 45 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture((i < ListInputOfControlsNotAllowNull.Count - 1) ? " &&" : ""));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 45 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
+            #line 46 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
  } 
             
             #line default
@@ -136,50 +137,44 @@ namespace CodeGenerator_BusinessLayer
                     "e\r\n            {\r\n                ShowMissingMessage();\r\n            }\r\n        " +
                     "}\r\n\r\n");
             
-            #line 56 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
+            #line 57 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
  if (ListInputOfControlsNotAllowNull.Count > 0) { 
             
             #line default
             #line hidden
-            this.Write("        void InputControls_ValidatingHelper(MaskedTextBox maskedtextBox, CancelEv" +
-                    "entArgs e)\r\n        {\r\n            if (maskedtextBox != null)\r\n            {\r\n  " +
-                    "              if (string.IsNullOrWhiteSpace(maskedtextBox.Text))\r\n              " +
-                    "  {\r\n                    errorProvider1.SetError(maskedtextBox, \"This box should" +
-                    " not be empty!\");\r\n                    e.Cancel = true;\r\n                }\r\n    " +
-                    "            else if (!maskedtextBox.MaskCompleted)\r\n                {\r\n         " +
-                    "           errorProvider1.SetError(maskedtextBox, \"The requirements for this box" +
-                    " are not complete!\");\r\n                    e.Cancel = true;\r\n                }\r\n" +
-                    "                else\r\n                {\r\n                    errorProvider1.SetE" +
-                    "rror(maskedtextBox, \"\");\r\n                    e.Cancel = false;\r\n               " +
-                    " }\r\n            }\r\n        }\r\n\r\n        void InputControls_ValidatingHelper(Text" +
-                    "Box textBox, CancelEventArgs e)\r\n        {\r\n            if (textBox != null)\r\n  " +
-                    "          {\r\n                if (string.IsNullOrWhiteSpace(textBox.Text))\r\n     " +
-                    "           {\r\n                    errorProvider1.SetError(textBox, \"This box sho" +
-                    "uld not be empty!\");\r\n                    e.Cancel = true;\r\n                }\r\n " +
-                    "               else\r\n                {\r\n                    errorProvider1.SetEr" +
-                    "ror(textBox, \"\");\r\n                    e.Cancel = false;\r\n                }\r\n   " +
-                    "         }\r\n        }\r\n\r\n        void InputControls_ValidatingHelper(ComboBox co" +
-                    "mboBox, CancelEventArgs e)\r\n        {\r\n            if (comboBox != null)\r\n      " +
-                    "      {\r\n                if (string.IsNullOrWhiteSpace(comboBox.Text))\r\n        " +
-                    "        {\r\n                    errorProvider1.SetError(comboBox, \"This box shoul" +
+            this.Write("        void InputControls_ValidatingHelper(MaskedTextBox? maskedtextBox, CancelE" +
+                    "ventArgs e)\r\n        {\r\n            if (maskedtextBox != null)\r\n            {\r\n " +
+                    "               if (string.IsNullOrWhiteSpace(maskedtextBox.Text))\r\n             " +
+                    "   {\r\n                    errorProvider1.SetError(maskedtextBox, \"This box shoul" +
                     "d not be empty!\");\r\n                    e.Cancel = true;\r\n                }\r\n   " +
-                    "             else\r\n                {\r\n                    errorProvider1.SetErro" +
-                    "r(comboBox, \"\");\r\n                    e.Cancel = false;\r\n                }\r\n    " +
-                    "        }\r\n        }\r\n\r\n        void InputControls_Validating(object sender, Can" +
-                    "celEventArgs e)\r\n        {\r\n            if (sender is TextBox)\r\n            {\r\n " +
-                    "               TextBox textBox = sender as TextBox;\r\n\r\n                InputCont" +
-                    "rols_ValidatingHelper(textBox, e);\r\n            }\r\n            else if (sender i" +
-                    "s MaskedTextBox)\r\n            {\r\n                MaskedTextBox maskedtextBox = s" +
-                    "ender as MaskedTextBox;\r\n\r\n                InputControls_ValidatingHelper(masked" +
-                    "textBox, e);\r\n            }\r\n            else if (sender is ComboBox)\r\n         " +
-                    "   {\r\n                ComboBox comboBox = sender as ComboBox;\r\n\r\n               " +
-                    " InputControls_ValidatingHelper(comboBox, e);\r\n            }\r\n        }\r\n");
-            
-            #line 134 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
- } 
-            
-            #line default
-            #line hidden
+                    "             else if (!maskedtextBox.MaskCompleted)\r\n                {\r\n        " +
+                    "            errorProvider1.SetError(maskedtextBox, \"The requirements for this bo" +
+                    "x are not complete!\");\r\n                    e.Cancel = true;\r\n                }\r" +
+                    "\n                else\r\n                {\r\n                    errorProvider1.Set" +
+                    "Error(maskedtextBox, \"\");\r\n                    e.Cancel = false;\r\n              " +
+                    "  }\r\n            }\r\n        }\r\n\r\n        void InputControls_ValidatingHelper(Tex" +
+                    "tBox? textBox, CancelEventArgs e)\r\n        {\r\n            if (textBox != null)\r\n" +
+                    "            {\r\n                if (string.IsNullOrWhiteSpace(textBox.Text))\r\n   " +
+                    "             {\r\n                    errorProvider1.SetError(textBox, \"This box s" +
+                    "hould not be empty!\");\r\n                    e.Cancel = true;\r\n                }\r" +
+                    "\n                else\r\n                {\r\n                    errorProvider1.Set" +
+                    "Error(textBox, \"\");\r\n                    e.Cancel = false;\r\n                }\r\n " +
+                    "           }\r\n        }\r\n\r\n        void InputControls_ValidatingHelper(ComboBox?" +
+                    " comboBox, CancelEventArgs e)\r\n        {\r\n            if (comboBox != null)\r\n   " +
+                    "         {\r\n                if (string.IsNullOrWhiteSpace(comboBox.Text))\r\n     " +
+                    "           {\r\n                    errorProvider1.SetError(comboBox, \"This box sh" +
+                    "ould not be empty!\");\r\n                    e.Cancel = true;\r\n                }\r\n" +
+                    "                else\r\n                {\r\n                    errorProvider1.SetE" +
+                    "rror(comboBox, \"\");\r\n                    e.Cancel = false;\r\n                }\r\n " +
+                    "           }\r\n        }\r\n\r\n        void InputControls_Validating(object sender, " +
+                    "CancelEventArgs e)\r\n        {\r\n            if (sender is TextBox)\r\n            {" +
+                    "\r\n                TextBox? textBox = sender as TextBox;\r\n\r\n                Input" +
+                    "Controls_ValidatingHelper(textBox, e);\r\n            }\r\n            else if (send" +
+                    "er is MaskedTextBox)\r\n            {\r\n                MaskedTextBox? maskedtextBo" +
+                    "x = sender as MaskedTextBox;\r\n\r\n                InputControls_ValidatingHelper(m" +
+                    "askedtextBox, e);\r\n            }\r\n            else if (sender is ComboBox)\r\n    " +
+                    "        {\r\n                ComboBox? comboBox = sender as ComboBox;\r\n\r\n         " +
+                    "       InputControls_ValidatingHelper(comboBox, e);\r\n            }\r\n        }\r\n");
             
             #line 135 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
  } 
@@ -188,89 +183,95 @@ namespace CodeGenerator_BusinessLayer
             #line hidden
             
             #line 136 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
+ } 
+            
+            #line default
+            #line hidden
+            
+            #line 137 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
  if (IsView) { 
             
             #line default
             #line hidden
             this.Write("        void FillDataGirdView(List<cls");
             
-            #line 137 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
+            #line 138 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
             
             #line default
             #line hidden
             this.Write("> ListOf");
             
-            #line 137 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
+            #line 138 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableName));
             
             #line default
             #line hidden
             this.Write(")\r\n        {\r\n            if (ListOf");
             
-            #line 139 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
+            #line 140 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableName));
             
             #line default
             #line hidden
             this.Write(".Count > 0)\r\n            {\r\n                lbNumberOfRowsResult.Text = ListOf");
             
-            #line 141 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
+            #line 142 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableName));
             
             #line default
             #line hidden
             this.Write(".Count.ToString();\r\n\r\n                dgv");
             
-            #line 143 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
+            #line 144 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableName));
             
             #line default
             #line hidden
             this.Write(".Rows.Clear();\r\n\r\n                for (int i = 0; i < ListOf");
             
-            #line 145 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
+            #line 146 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableName));
             
             #line default
             #line hidden
             this.Write(".Count; i++)\r\n                {\r\n                    dgv");
             
-            #line 147 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
+            #line 148 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableName));
             
             #line default
             #line hidden
             this.Write(".Rows.Add(new object[] {\r\n");
             
-            #line 148 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
+            #line 149 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
  for (short i = 0; i < ListOfColunmData.Count; i++) { 
             
             #line default
             #line hidden
             this.Write("                     ListOf");
             
-            #line 149 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
+            #line 150 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableName));
             
             #line default
             #line hidden
             this.Write("[i].");
             
-            #line 149 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
+            #line 150 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ListOfColunmData[i].NameWithout_));
             
             #line default
             #line hidden
             
-            #line 149 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
+            #line 150 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture((i == ListOfColunmData.Count - 1) ? "" : ","));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 150 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
+            #line 151 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
  } 
             
             #line default
@@ -279,21 +280,21 @@ namespace CodeGenerator_BusinessLayer
                     "    void FillComboBox()\r\n        {\r\n            //cbFilter.Items.Add(\"All\");\r\n\r\n" +
                     "\r\n            //cbFilter.SelectedIndex = 0;\r\n        }\r\n\r\n        void fm");
             
-            #line 164 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
+            #line 165 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
             
             #line default
             #line hidden
             this.Write("_Load(object sender, EventArgs e)\r\n        {\r\n            //FillDataGirdView(");
             
-            #line 166 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
+            #line 167 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
             
             #line default
             #line hidden
             this.Write("Service.GetAll");
             
-            #line 166 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
+            #line 167 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableName));
             
             #line default
@@ -316,7 +317,7 @@ namespace CodeGenerator_BusinessLayer
         }
 ");
             
-            #line 182 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
+            #line 183 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
  } 
             
             #line default
@@ -325,7 +326,7 @@ namespace CodeGenerator_BusinessLayer
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 190 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
+        #line 191 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerLogic.tt"
 
 
 

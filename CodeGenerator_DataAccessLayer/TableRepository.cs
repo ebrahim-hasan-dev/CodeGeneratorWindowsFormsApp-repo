@@ -3,14 +3,14 @@ using DLMApp_ModulesLayer;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Windows.Forms;
+using System.Threading.Tasks;
 
 
 namespace CodeGenerator_DataAccessLayer
 {
     public class TableRepository
     {
-        public static List<string> GetAllTableNames(string ConnectionString)
+        public static async Task<List<string>> GetAllTableNames(string ConnectionString)
         {
             List<string> ListOfTableNames = null;
 
@@ -28,15 +28,15 @@ namespace CodeGenerator_DataAccessLayer
 
                     Command = new SqlCommand(Query, Connection);
 
-                    Connection.Open();
+                    await Connection.OpenAsync();
 
-                    Reader = Command.ExecuteReader();
+                    Reader = await Command.ExecuteReaderAsync();
 
                     if (Reader.HasRows)
                     {
                         ListOfTableNames = new List<string>();
 
-                        while (Reader.Read())
+                        while (await Reader.ReadAsync())
                         {
                             ListOfTableNames.Add(Reader["TABLE_NAME"] as string ?? "");
                         }
@@ -45,8 +45,8 @@ namespace CodeGenerator_DataAccessLayer
                 catch (Exception ex)
                 {
                     clsEventLog.WriteToEventLog(ex.Message, enLogType.Error);
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     ListOfTableNames = null;
+                    throw;
                 }
                 finally
                 {
