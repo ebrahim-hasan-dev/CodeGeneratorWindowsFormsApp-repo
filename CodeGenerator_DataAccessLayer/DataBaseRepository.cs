@@ -10,7 +10,7 @@ namespace CodeGenerator_DataAccessLayer
 {
     public class DataBaseRepository
     {
-        public static async Task<List<string>> GetAllDatabases(string ConnectionString)
+        public static async Task<List<string>> GetAllDatabasesAsync(string ConnectionString)
         {
             List<string> ListOfDataBaseNames = null;
 

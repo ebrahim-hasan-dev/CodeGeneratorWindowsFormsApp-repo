@@ -104,7 +104,7 @@ namespace CodeGenerator_PresentationLayer
 
                 try
                 {
-                    ListOfDataBaseNames = await DataBaseService.GetAllDatabases(_ConnectionString);
+                    ListOfDataBaseNames = await DataBaseService.GetAllDatabasesAsync(_ConnectionString);
                 }
                 catch (Exception ex)
                 {
@@ -165,7 +165,7 @@ namespace CodeGenerator_PresentationLayer
             }
         }
 
-        async Task<List<string>> GetListOfTableOrViewNames(string ConnectionString)
+        async Task<List<string>> GetListOfTableOrViewNamesAsync(string ConnectionString)
         {
             List<string> ListOfTableOrViewNames = null;
 
@@ -173,7 +173,7 @@ namespace CodeGenerator_PresentationLayer
             {
                 try
                 {
-                    ListOfTableOrViewNames = await TableService.GetAllTableNames(ConnectionString);
+                    ListOfTableOrViewNames = await TableService.GetAllTableNamesAsync(ConnectionString);
                 }
                 catch (Exception ex)
                 {
@@ -184,7 +184,7 @@ namespace CodeGenerator_PresentationLayer
             {
                 try
                 {
-                    ListOfTableOrViewNames = await ViewService.GetAllViewNames(ConnectionString);
+                    ListOfTableOrViewNames = await ViewService.GetAllViewNamesAsync(ConnectionString);
                 }
                 catch (Exception ex)
                 {
@@ -199,7 +199,7 @@ namespace CodeGenerator_PresentationLayer
         {
             _ConnectionString = $"Server={txtbServerName.Text.Trim()};DataBase={cbDataBaseNames.Text};User ID ={txtbUserID.Text.Trim()};Password={txtbPassword.Text.Trim()};";
 
-            List<string> ListOfTableOrViewNames = await GetListOfTableOrViewNames(_ConnectionString);
+            List<string> ListOfTableOrViewNames = await GetListOfTableOrViewNamesAsync(_ConnectionString);
 
             if (ListOfTableOrViewNames != null)
             {
@@ -242,13 +242,13 @@ namespace CodeGenerator_PresentationLayer
             }
         }
 
-        static async Task<List<clsColumnDataModulesLayer>> GetAllColumns(string TableName, string ConnectionString, bool IsGenerateModulesLayer)
+        static async Task<List<clsColumnDataModulesLayer>> GetAllColumnsAsync(string TableName, string ConnectionString, bool IsGenerateModulesLayer)
         {
             List<clsColumnDataModulesLayer> ListOfColumns = null;
 
             try
             {
-                ListOfColumns = await ColumnService.GetAllColumns(TableName, ConnectionString, IsGenerateModulesLayer);
+                ListOfColumns = await ColumnService.GetAllColumnsAsync(TableName, ConnectionString, IsGenerateModulesLayer);
             }
             catch (Exception ex)
             {
@@ -268,7 +268,7 @@ namespace CodeGenerator_PresentationLayer
                 {
                     ShowTableSingleName(listbTableOrViewNames.SelectedItem.ToString());
 
-                    List<clsColumnDataModulesLayer> ListOfColumns = await GetAllColumns(listbTableOrViewNames.SelectedItem.ToString(), _ConnectionString, rbModuleLayer.Checked);
+                    List<clsColumnDataModulesLayer> ListOfColumns = await GetAllColumnsAsync(listbTableOrViewNames.SelectedItem.ToString(), _ConnectionString, rbModuleLayer.Checked);
 
                     if (ListOfColumns != null)
                     {
@@ -356,7 +356,7 @@ namespace CodeGenerator_PresentationLayer
             }
         }
 
-        async Task<bool> CreateNewFileAndWrite(string FilePath, RuntimeTextTemplateModulesLayer ModuleLayerTemplate)
+        async Task<bool> CreateNewFileAndWriteAsync(string FilePath, RuntimeTextTemplateModulesLayer ModuleLayerTemplate)
         {
             string ClassCode = ModuleLayerTemplate.TransformText();
 
@@ -379,7 +379,7 @@ namespace CodeGenerator_PresentationLayer
             return true;
         }
 
-        async Task<bool> CreateNewFileAndWrite(string FilePath, RuntimeTextTemplateEventLogClass EventLogClass)
+        async Task<bool> CreateNewFileAndWriteAsync(string FilePath, RuntimeTextTemplateEventLogClass EventLogClass)
         {
             string ClassCode = EventLogClass.TransformText();
 
@@ -417,7 +417,7 @@ namespace CodeGenerator_PresentationLayer
             return TableName;
         }
 
-        async Task<bool> GenerateModulesLayerHelper(string TableName, List<clsColumnDataModulesLayer> ListOfColumns)
+        async Task<bool> GenerateModulesLayerHelperAsync(string TableName, List<clsColumnDataModulesLayer> ListOfColumns)
         {
             RuntimeTextTemplateModulesLayer ModuleLayerTemplate = new RuntimeTextTemplateModulesLayer();
 
@@ -436,7 +436,7 @@ namespace CodeGenerator_PresentationLayer
                 }
             }
 
-            return await CreateNewFileAndWrite(FilePath, ModuleLayerTemplate);
+            return await CreateNewFileAndWriteAsync(FilePath, ModuleLayerTemplate);
         }
 
         public static bool HasWritePermission(string FolderSelectedPath)
@@ -456,7 +456,7 @@ namespace CodeGenerator_PresentationLayer
             }
         }
 
-        async Task GenerateEventLogClass(string FolderPath, string NameSpaceName)
+        async Task GenerateEventLogClassAsync(string FolderPath, string NameSpaceName)
         {
             string FilePath = Path.Combine(FolderPath, "clsEventLog.cs");
 
@@ -464,11 +464,11 @@ namespace CodeGenerator_PresentationLayer
             {
                 RuntimeTextTemplateEventLogClass EventLogClass = new RuntimeTextTemplateEventLogClass();
                 EventLogClass.NamespaceName = NameSpaceName;
-                await CreateNewFileAndWrite(FilePath, EventLogClass);
+                await CreateNewFileAndWriteAsync(FilePath, EventLogClass);
             }
         }
 
-        async Task<bool> GenerateModulesLayer()
+        async Task<bool> GenerateModulesLayerAsync()
         {
             List<bool> ListOfResults = new List<bool>();
 
@@ -478,17 +478,17 @@ namespace CodeGenerator_PresentationLayer
 
             if (HasWritePermission(lbFolderSelectedPath.Text))
             {
-                await GenerateEventLogClass(lbFolderSelectedPath.Text, txtbModulesLayerNameSpace.Text);
+                await GenerateEventLogClassAsync(lbFolderSelectedPath.Text, txtbModulesLayerNameSpace.Text);
 
                 if (listbTableOrViewNames.SelectedIndex == 0)
                 {
                     for (short i = 1; i < listbTableOrViewNames.Items.Count; i++)
                     {
-                        List<clsColumnDataModulesLayer> ListOfColumns = await GetAllColumns(listbTableOrViewNames.Items[i].ToString(), _ConnectionString, rbModuleLayer.Checked);
+                        List<clsColumnDataModulesLayer> ListOfColumns = await GetAllColumnsAsync(listbTableOrViewNames.Items[i].ToString(), _ConnectionString, rbModuleLayer.Checked);
 
                         if (ListOfColumns != null)
                         {
-                            ListOfResults.Add(await GenerateModulesLayerHelper(listbTableOrViewNames.Items[i].ToString(), ListOfColumns));
+                            ListOfResults.Add(await GenerateModulesLayerHelperAsync(listbTableOrViewNames.Items[i].ToString(), ListOfColumns));
                         }
                     }
                 }
@@ -496,11 +496,11 @@ namespace CodeGenerator_PresentationLayer
                 {
                     for (short i = 0; i < listbTableOrViewNames.SelectedItems.Count; i++)
                     {
-                        List<clsColumnDataModulesLayer> ListOfColumns = await GetAllColumns(listbTableOrViewNames.SelectedItems[i].ToString(), _ConnectionString, rbModuleLayer.Checked);
+                        List<clsColumnDataModulesLayer> ListOfColumns = await GetAllColumnsAsync(listbTableOrViewNames.SelectedItems[i].ToString(), _ConnectionString, rbModuleLayer.Checked);
 
                         if (ListOfColumns != null)
                         {
-                            ListOfResults.Add(await GenerateModulesLayerHelper(listbTableOrViewNames.SelectedItems[i].ToString(), ListOfColumns));
+                            ListOfResults.Add(await GenerateModulesLayerHelperAsync(listbTableOrViewNames.SelectedItems[i].ToString(), ListOfColumns));
                         }
                     }
                 }
@@ -552,11 +552,11 @@ namespace CodeGenerator_PresentationLayer
             return CorrectParameter;
         }
 
-        async Task<bool> SelectCorrectParameter(RuntimeTextTemplateDataAccessLayer DataAccessLayerTemplate, string TableName)
+        async Task<bool> SelectCorrectParameterAsync(RuntimeTextTemplateDataAccessLayer DataAccessLayerTemplate, string TableName)
         {
             try
             {
-                DataAccessLayerTemplate.Columns = await ColumnService.GetAllColumnsDataAccessLayer(TableName, _ConnectionString, rbModuleLayer.Checked);
+                DataAccessLayerTemplate.Columns = await ColumnService.GetAllColumnsDataAccessLayerAsync(TableName, _ConnectionString, rbModuleLayer.Checked);
             }
             catch (Exception ex)
             {
@@ -631,7 +631,7 @@ namespace CodeGenerator_PresentationLayer
             clsEventLog.WriteToEventLog($"The file already exists, but the tag for the extension has been removed\n\nplease write this comment into the class in the file\n\"{_ExtensionTag}\"", enLogType.Warning);
         }
 
-        async Task<bool> CreateNewFileAndWrite(string FilePath, RuntimeTextTemplateDataAccessLayer DataAccessLayerTemplate)
+        async Task<bool> CreateNewFileAndWriteAsync(string FilePath, RuntimeTextTemplateDataAccessLayer DataAccessLayerTemplate)
         {
             string ClassCode = DataAccessLayerTemplate.TransformText();
 
@@ -654,7 +654,7 @@ namespace CodeGenerator_PresentationLayer
             return true;
         }
 
-        async Task<bool> WriteListIntoFile(string FilePath, List<string> Lines)
+        async Task<bool> WriteListIntoFileAsync(string FilePath, List<string> Lines)
         {
             CaseIsReadOnlyHadle(FilePath);
 
@@ -678,7 +678,7 @@ namespace CodeGenerator_PresentationLayer
             return true;
         }
 
-        async Task<List<string>> ReadFileAndSetItIntoList(string FilePath)
+        async Task<List<string>> ReadFileAndSetItIntoListAsync(string FilePath)
         {
             List<string> Lines = new List<string>();
 
@@ -704,9 +704,9 @@ namespace CodeGenerator_PresentationLayer
             return Lines;
         }
 
-        async Task<bool> FileExistHandle(string FilePath, string TableName, RuntimeTextTemplateDataAccessLayer DataAccessLayerTemplate)
+        async Task<bool> FileExistHandleAsync(string FilePath, string TableName, RuntimeTextTemplateDataAccessLayer DataAccessLayerTemplate)
         {
-            List<string> Lines = await ReadFileAndSetItIntoList(FilePath);
+            List<string> Lines = await ReadFileAndSetItIntoListAsync(FilePath);
 
             int Index = Lines.FindIndex(line => line.Contains(_ExtensionTag));
 
@@ -722,18 +722,18 @@ namespace CodeGenerator_PresentationLayer
 
                     Lines.Insert(Index, MethodsCode);
 
-                    return await WriteListIntoFile(FilePath, Lines);
+                    return await WriteListIntoFileAsync(FilePath, Lines);
                 }
                 else
                 {
-                    return await CreateNewFileAndWrite(FilePath, DataAccessLayerTemplate);
+                    return await CreateNewFileAndWriteAsync(FilePath, DataAccessLayerTemplate);
                 }
             }
             else
             {
                 if (Lines.Count == 0)
                 {
-                    return CreateNewFileAndWrite(FilePath, DataAccessLayerTemplate).Result;
+                    return CreateNewFileAndWriteAsync(FilePath, DataAccessLayerTemplate).Result;
                 }
                 else
                 {
@@ -744,11 +744,11 @@ namespace CodeGenerator_PresentationLayer
             return false;
         }
 
-        async Task<bool> GenerateDataAccessLayerHelper(string TableName)
+        async Task<bool> GenerateDataAccessLayerHelperAsync(string TableName)
         {
             RuntimeTextTemplateDataAccessLayer DataAccessLayerTemplate = new RuntimeTextTemplateDataAccessLayer();
 
-            if (await SelectCorrectParameter(DataAccessLayerTemplate, TableName) == true)
+            if (await SelectCorrectParameterAsync(DataAccessLayerTemplate, TableName) == true)
             {
                 DataAccessLayerTemplate.NamespaceName = _NameSpaceModulesOrDataAccessLayer;
                 DataAccessLayerTemplate.TableName = TableName;
@@ -762,18 +762,18 @@ namespace CodeGenerator_PresentationLayer
 
                 if (File.Exists(FilePath))
                 {
-                    return await FileExistHandle(FilePath, TableName, DataAccessLayerTemplate);
+                    return await FileExistHandleAsync(FilePath, TableName, DataAccessLayerTemplate);
                 }
                 else
                 {
-                    return await CreateNewFileAndWrite(FilePath, DataAccessLayerTemplate);
+                    return await CreateNewFileAndWriteAsync(FilePath, DataAccessLayerTemplate);
                 }
             }
 
             return false;
         }
 
-        async Task<bool> CreateNewFileAndWrite(string FilePath, RuntimeTextTemplateConnectionStringClass ConnectionStringTemplate)
+        async Task<bool> CreateNewFileAndWriteAsync(string FilePath, RuntimeTextTemplateConnectionStringClass ConnectionStringTemplate)
         {
             string ClassCode = ConnectionStringTemplate.TransformText();
 
@@ -796,7 +796,7 @@ namespace CodeGenerator_PresentationLayer
             return true;
         }
 
-        async Task GenerateConnectionStringClass(string FolderPath)
+        async Task GenerateConnectionStringClassAsync(string FolderPath)
         {
             string FilePath = Path.Combine(FolderPath, "clsConnectionString.cs");
 
@@ -804,11 +804,11 @@ namespace CodeGenerator_PresentationLayer
             {
                 RuntimeTextTemplateConnectionStringClass ConnectionStringClass = new RuntimeTextTemplateConnectionStringClass();
                 ConnectionStringClass.NamespaceName = _NameSpaceModulesOrDataAccessLayer;
-                await CreateNewFileAndWrite(FilePath, ConnectionStringClass);
+                await CreateNewFileAndWriteAsync(FilePath, ConnectionStringClass);
             }
         }
 
-        async Task<bool> GenerateDataAccessLayer()
+        async Task<bool> GenerateDataAccessLayerAsync()
         {
             List<bool> ListOfResults = new List<bool>();
 
@@ -816,20 +816,20 @@ namespace CodeGenerator_PresentationLayer
 
             if (HasWritePermission(lbFolderSelectedPath.Text))
             {
-                await GenerateConnectionStringClass(lbFolderSelectedPath.Text);
+                await GenerateConnectionStringClassAsync(lbFolderSelectedPath.Text);
 
                 if (listbTableOrViewNames.SelectedIndex == 0)
                 {
                     for (short i = 1; i < listbTableOrViewNames.Items.Count; i++)
                     {
-                        ListOfResults.Add(await GenerateDataAccessLayerHelper(listbTableOrViewNames.Items[i].ToString()));
+                        ListOfResults.Add(await GenerateDataAccessLayerHelperAsync(listbTableOrViewNames.Items[i].ToString()));
                     }
                 }
                 else
                 {
                     for (short i = 0; i < listbTableOrViewNames.SelectedItems.Count; i++)
                     {
-                        ListOfResults.Add(await GenerateDataAccessLayerHelper(listbTableOrViewNames.SelectedItems[i].ToString()));
+                        ListOfResults.Add(await GenerateDataAccessLayerHelperAsync(listbTableOrViewNames.SelectedItems[i].ToString()));
                     }
                 }
             }
@@ -877,11 +877,11 @@ namespace CodeGenerator_PresentationLayer
             return CorrectParameter;
         }
 
-        async Task<bool> SelectCorrectParameter(RuntimeTextTemplateBusinessLayer BusinessLayerTemplate, string TableName)
+        async Task<bool> SelectCorrectParameterAsync(RuntimeTextTemplateBusinessLayer BusinessLayerTemplate, string TableName)
         {
             try
             {
-                BusinessLayerTemplate.Columns = await ColumnService.GetAllColumnsBusinessLayer(TableName, _ConnectionString, rbModuleLayer.Checked);
+                BusinessLayerTemplate.Columns = await ColumnService.GetAllColumnsBusinessLayerAsync(TableName, _ConnectionString, rbModuleLayer.Checked);
             }
             catch (Exception ex)
             {
@@ -951,7 +951,7 @@ namespace CodeGenerator_PresentationLayer
             return RuntimeTextTemplateBusinessLayerAppendMethods;
         }
 
-        async Task<bool> CreateNewFileAndWrite(string FilePath, RuntimeTextTemplateBusinessLayer BusinessLayerTemplate)
+        async Task<bool> CreateNewFileAndWriteAsync(string FilePath, RuntimeTextTemplateBusinessLayer BusinessLayerTemplate)
         {
             string ClassCode = BusinessLayerTemplate.TransformText();
 
@@ -974,9 +974,9 @@ namespace CodeGenerator_PresentationLayer
             return true;
         }
 
-        async Task<bool> FileExistHandle(string FilePath, string TableName, RuntimeTextTemplateBusinessLayer BusinessLayerTemplate)
+        async Task<bool> FileExistHandleAsync(string FilePath, string TableName, RuntimeTextTemplateBusinessLayer BusinessLayerTemplate)
         {
-            List<string> Lines = await ReadFileAndSetItIntoList(FilePath);
+            List<string> Lines = await ReadFileAndSetItIntoListAsync(FilePath);
 
             int Index = Lines.FindIndex(line => line.Contains(_ExtensionTag));
 
@@ -992,18 +992,18 @@ namespace CodeGenerator_PresentationLayer
 
                     Lines.Insert(Index, MethodsCode);
 
-                    return await WriteListIntoFile(FilePath, Lines);
+                    return await WriteListIntoFileAsync(FilePath, Lines);
                 }
                 else
                 {
-                    return await CreateNewFileAndWrite(FilePath, BusinessLayerTemplate);
+                    return await CreateNewFileAndWriteAsync(FilePath, BusinessLayerTemplate);
                 }
             }
             else
             {
                 if (Lines.Count == 0)
                 {
-                    return await CreateNewFileAndWrite(FilePath, BusinessLayerTemplate);
+                    return await CreateNewFileAndWriteAsync(FilePath, BusinessLayerTemplate);
                 }
                 else
                 {
@@ -1014,11 +1014,11 @@ namespace CodeGenerator_PresentationLayer
             return false;
         }
 
-        async Task<bool> GenerateBusinessLayerHelper(string TableName)
+        async Task<bool> GenerateBusinessLayerHelperAsync(string TableName)
         {
             RuntimeTextTemplateBusinessLayer BusinessLayerTemplate = new RuntimeTextTemplateBusinessLayer();
 
-            if (await SelectCorrectParameter(BusinessLayerTemplate, TableName) == true)
+            if (await SelectCorrectParameterAsync(BusinessLayerTemplate, TableName) == true)
             {
                 BusinessLayerTemplate.NamespaceName = _NameSpaceBusinessLayer;
                 BusinessLayerTemplate.TableName = TableName;
@@ -1033,18 +1033,18 @@ namespace CodeGenerator_PresentationLayer
 
                 if (File.Exists(FilePath))
                 {
-                    return await FileExistHandle(FilePath, TableName, BusinessLayerTemplate);
+                    return await FileExistHandleAsync(FilePath, TableName, BusinessLayerTemplate);
                 }
                 else
                 {
-                    return await CreateNewFileAndWrite(FilePath, BusinessLayerTemplate);
+                    return await CreateNewFileAndWriteAsync(FilePath, BusinessLayerTemplate);
                 }
             }
 
             return false;
         }
 
-        async Task<bool> GenerateBusinessLayer()
+        async Task<bool> GenerateBusinessLayerAsync()
         {
             List<bool> ListOfResults = new List<bool>();
 
@@ -1056,14 +1056,14 @@ namespace CodeGenerator_PresentationLayer
                 {
                     for (short i = 1; i < listbTableOrViewNames.Items.Count; i++)
                     {
-                        ListOfResults.Add(await GenerateBusinessLayerHelper(listbTableOrViewNames.Items[i].ToString()));
+                        ListOfResults.Add(await GenerateBusinessLayerHelperAsync(listbTableOrViewNames.Items[i].ToString()));
                     }
                 }
                 else
                 {
                     for (short i = 0; i < listbTableOrViewNames.SelectedItems.Count; i++)
                     {
-                        ListOfResults.Add(await GenerateBusinessLayerHelper(listbTableOrViewNames.SelectedItems[i].ToString()));
+                        ListOfResults.Add(await GenerateBusinessLayerHelperAsync(listbTableOrViewNames.SelectedItems[i].ToString()));
                     }
                 }
             }
@@ -1081,11 +1081,11 @@ namespace CodeGenerator_PresentationLayer
             clsEventLog.WriteToEventLog("One of the files was not successfully produced.", enLogType.Error);
         }
 
-        async Task PerformCorrectGenerateLayer()
+        async Task PerformCorrectGenerateLayerAsync()
         {
             if (rbModuleLayer.Checked)
             {
-                if (await GenerateModulesLayer())
+                if (await GenerateModulesLayerAsync())
                 {
                     ShowSuccessfullyMessage();
                 }
@@ -1103,8 +1103,8 @@ namespace CodeGenerator_PresentationLayer
                     {
                         if (!string.IsNullOrWhiteSpace(txtbModulesLayerNameSpace.Text))
                         {
-                            bool ResultDataAccessLayer = await GenerateDataAccessLayer();
-                            bool ResultBusinessLayer = await GenerateBusinessLayer();
+                            bool ResultDataAccessLayer = await GenerateDataAccessLayerAsync();
+                            bool ResultBusinessLayer = await GenerateBusinessLayerAsync();
 
                             if (!ResultDataAccessLayer || !ResultBusinessLayer)
                             {
@@ -1168,7 +1168,7 @@ namespace CodeGenerator_PresentationLayer
                 !string.IsNullOrWhiteSpace(lbFolderSelectedPath.Text) &&
                 lbFolderSelectedPath.Text != "???")
             {
-                await PerformCorrectGenerateLayer();
+                await PerformCorrectGenerateLayerAsync();
             }
             else
             {

@@ -6,11 +6,11 @@
 
 
 <# if (IncludeAdd) { #>
-        public static async Task<bool> Add(cls<#= TableSingleName #> <#= TableSingleName #>)
+        public static async Task<bool> AddAsync(cls<#= TableSingleName #> <#= TableSingleName #>)
         {
             if (<#= TableSingleName #>.IsFull())
             {
-                return await <#= TableSingleName #>Repository.Add(<#= TableSingleName #>);
+                return await <#= TableSingleName #>Repository.AddAsync(<#= TableSingleName #>);
             }
             else
             {
@@ -20,7 +20,7 @@
 <# } #>
 
 <# if (IncludeUpdate) { #>
-        public static async Task<bool> Update(cls<#= TableSingleName #> <#= TableSingleName #>)
+        public static async Task<bool> UpdateAsync(cls<#= TableSingleName #> <#= TableSingleName #>)
         {
 <# if (Columns.Find(x => x.Name == UpdateParameterName).Type == "string") { #>
             if (!string.IsNullOrWhiteSpace(<#= TableSingleName #>.<#= UpdateParameterName.Replace("_", "") #>) && <#= TableSingleName #>.IsFull())
@@ -29,7 +29,7 @@
             if (<#= TableSingleName #>.<#= HandleCorrectCheckParamerter(UpdateParameterName).Replace("_", "") #> && <#= TableSingleName #>.IsFull())
 <# } #>
             {
-                return await <#= TableSingleName #>Repository.Update(<#= TableSingleName.Replace("_", "") #>);
+                return await <#= TableSingleName #>Repository.UpdateAsync(<#= TableSingleName.Replace("_", "") #>);
             }
             else
             {
@@ -39,11 +39,11 @@
 <# } #>
 
 <# if (IncludeFind) { #>
-        public static async Task<cls<#= TableSingleName #>> Find(<#= HandleParameter(FindParameterName).Replace("_", "") #>)
+        public static async Task<cls<#= TableSingleName #>> FindAsync(<#= HandleParameter(FindParameterName).Replace("_", "") #>)
         {
             if (<#= HandleCorrectCheckParamerter(FindParameterName).Replace("_", "") #>)
             {
-                return await <#= TableSingleName #>Repository.Find(<#= FindParameterName.Replace("_", "") #>);
+                return await <#= TableSingleName #>Repository.FindAsync(<#= FindParameterName.Replace("_", "") #>);
             }
             else
             {
@@ -53,11 +53,11 @@
 <# } #>
 
 <# if (IncludeDelete) { #>
-        public static async Task<bool> Delete(<#= HandleParameter(DeleteParameterName).Replace("_", "") #>)
+        public static async Task<bool> DeleteAsync(<#= HandleParameter(DeleteParameterName).Replace("_", "") #>)
         {
             if (<#= HandleCorrectCheckParamerter(DeleteParameterName).Replace("_", "") #>)
             {
-                return await <#= TableSingleName #>Repository.Delete(<#= DeleteParameterName.Replace("_", "") #>);
+                return await <#= TableSingleName #>Repository.DeleteAsync(<#= DeleteParameterName.Replace("_", "") #>);
             }
             else
             {
@@ -67,18 +67,18 @@
 <# } #>
 
 <# if (IncludeGetAll) { #>
-        public static async Task<List<cls<#= TableSingleName #>>> GetAll<#= TableName #>()
+        public static async Task<List<cls<#= TableSingleName #>>> GetAll<#= TableName #>Async()
         {
-            return await <#= TableSingleName #>Repository.GetAll<#= TableName #>();
+            return await <#= TableSingleName #>Repository.GetAll<#= TableName #>Async();
         }
 <# } #>
 
 <# if (IncludeExist) { #>
-        public static async Task<bool> IsExist(<#= HandleParameter(ExistParameterName).Replace("_", "") #>)
+        public static async Task<bool> IsExistAsync(<#= HandleParameter(ExistParameterName).Replace("_", "") #>)
         {
             if (<#= HandleCorrectCheckParamerter(ExistParameterName).Replace("_", "") #>)
             {
-                return await <#= TableSingleName #>Repository.IsExist(<#= ExistParameterName.Replace("_", "") #>);
+                return await <#= TableSingleName #>Repository.IsExistAsync(<#= ExistParameterName.Replace("_", "") #>);
             }
             else
             {

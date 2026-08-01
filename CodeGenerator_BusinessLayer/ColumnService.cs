@@ -9,11 +9,11 @@ namespace CodeGenerator_BusinessLayer
 {
     public class ColumnService
     {
-        public static async Task<List<clsColumnDataModulesLayer>> GetAllColumns(string TableName, string ConnectionString, bool IsGenerateModulesLayer)
+        public static async Task<List<clsColumnDataModulesLayer>> GetAllColumnsAsync(string TableName, string ConnectionString, bool IsGenerateModulesLayer)
         {
             if (!string.IsNullOrWhiteSpace(TableName) && !string.IsNullOrWhiteSpace(ConnectionString))
             {
-                List<clsColumnDataModulesLayer> ListOfColumns = await ColumnRepository.GetAllColumns(TableName, ConnectionString);
+                List<clsColumnDataModulesLayer> ListOfColumns = await ColumnRepository.GetAllColumnsAsync(TableName, ConnectionString);
 
                 if (ListOfColumns != null)
                 {
@@ -31,11 +31,11 @@ namespace CodeGenerator_BusinessLayer
             }
         }
 
-        public static async Task<List<clsColumnDataDataAccessLayer>> GetAllColumnsDataAccessLayer(string TableName, string ConnectionString, bool IsGenerateModulesLayer)
+        public static async Task<List<clsColumnDataDataAccessLayer>> GetAllColumnsDataAccessLayerAsync(string TableName, string ConnectionString, bool IsGenerateModulesLayer)
         {
             if (!string.IsNullOrWhiteSpace(TableName) && !string.IsNullOrWhiteSpace(ConnectionString))
             {
-                List<clsColumnDataDataAccessLayer> ListOfColumns = await ColumnRepository.GetAllColumnsDataAccessLayer(TableName, ConnectionString);
+                List<clsColumnDataDataAccessLayer> ListOfColumns = await ColumnRepository.GetAllColumnsDataAccessLayerAsync(TableName, ConnectionString);
 
                 if (ListOfColumns != null)
                 {
@@ -53,11 +53,11 @@ namespace CodeGenerator_BusinessLayer
             }
         }
 
-        public static async Task<List<clsColumnDataBusinessLayer>> GetAllColumnsBusinessLayer(string TableName, string ConnectionString, bool IsGenerateModulesLayer)
+        public static async Task<List<clsColumnDataBusinessLayer>> GetAllColumnsBusinessLayerAsync(string TableName, string ConnectionString, bool IsGenerateModulesLayer)
         {
             if (!string.IsNullOrWhiteSpace(TableName) && !string.IsNullOrWhiteSpace(ConnectionString))
             {
-                List<clsColumnDataBusinessLayer> ListOfColumns = await ColumnRepository.GetAllColumnsBusinessLayer(TableName, ConnectionString);
+                List<clsColumnDataBusinessLayer> ListOfColumns = await ColumnRepository.GetAllColumnsBusinessLayerAsync(TableName, ConnectionString);
 
                 if (ListOfColumns != null)
                 {
@@ -136,11 +136,11 @@ namespace CodeGenerator_BusinessLayer
             return cSharpType;
         }
 
-        public static async Task<List<clsColumnDataUILayer>> GetAllColumnsUILayer(string TableName, string ConnectionString)
+        public static async Task<List<clsColumnDataUILayer>> GetAllColumnsUILayerAsync(string TableName, string ConnectionString)
         {
             if (!string.IsNullOrWhiteSpace(TableName) && !string.IsNullOrWhiteSpace(ConnectionString))
             {
-                List<clsColumnDataUILayer> ListOfColumns = await ColumnRepository.GetAllColumnsUILayer(TableName, ConnectionString);
+                List<clsColumnDataUILayer> ListOfColumns = await ColumnRepository.GetAllColumnsUILayerAsync(TableName, ConnectionString);
 
                 if (ListOfColumns != null)
                 {

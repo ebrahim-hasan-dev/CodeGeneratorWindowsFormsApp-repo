@@ -15,7 +15,7 @@ namespace <#= NamespaceName #>
     public class <#= TableSingleName #>Repository
     {
 <# if (IncludeAdd) { #>
-        public static async Task<bool> Add(cls<#= TableSingleName #> <#= TableSingleName #>)
+        public static async Task<bool> AddAsync(cls<#= TableSingleName #> <#= TableSingleName #>)
         {
             bool Add = false;
 
@@ -111,7 +111,7 @@ if (Columns[i].IsPrimaryKey) { #>
 <# } #>
 
 <# if (IncludeUpdate) { #>
-        public static async Task<bool> Update(cls<#= TableSingleName #> <#= TableSingleName #>)
+        public static async Task<bool> UpdateAsync(cls<#= TableSingleName #> <#= TableSingleName #>)
         {
             bool Update = false;
 
@@ -201,7 +201,7 @@ if (Columns[i].IsPrimaryKey) { #>
 <# } #>
 
 <# if (IncludeFind) { #>
-        public static async Task<cls<#= TableSingleName #>> Find(<#= HandleParameter(FindParameterName).Replace("_", "") #>)
+        public static async Task<cls<#= TableSingleName #>> FindAsync(<#= HandleParameter(FindParameterName).Replace("_", "") #>)
         {
             cls<#= TableSingleName #>? <#= TableSingleName #> = null;
 
@@ -301,7 +301,7 @@ if (Columns[i].IsPrimaryKey) { #>
 <# } #>
 
 <# if (IncludeGetAll) { #>
-        public static async Task<List<cls<#= TableSingleName #>>> GetAll<#= TableName #>()
+        public static async Task<List<cls<#= TableSingleName #>>> GetAll<#= TableName #>Async()
         {
             List<cls<#= TableSingleName #>> ListOf<#= TableName #> = new List<cls<#= TableSingleName #>>();
            
@@ -388,7 +388,7 @@ if (Columns[i].IsPrimaryKey) { #>
 <# } #>
 
 <# if (IncludeDelete) { #>
-        public static async Task<bool> Delete(<#= HandleParameter(DeleteParameterName).Replace("_", "") #>)
+        public static async Task<bool> DeleteAsync(<#= HandleParameter(DeleteParameterName).Replace("_", "") #>)
         {
             bool Delete = false;
 
@@ -439,7 +439,7 @@ if (Columns[i].IsPrimaryKey) { #>
 <# } #>
 
 <# if (IncludeExist) { #>
-        public static async Task<bool> IsExist(<#= HandleParameter(ExistParameterName).Replace("_", "") #>)
+        public static async Task<bool> IsExistAsync(<#= HandleParameter(ExistParameterName).Replace("_", "") #>)
         {
             bool Exist = false;
 

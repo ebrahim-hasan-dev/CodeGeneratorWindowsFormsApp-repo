@@ -25,9 +25,9 @@ namespace CodeGenerator_BusinessLayer
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("\r\nusing System;\r\nusing System.Diagnostics;\r\n\r\n\r\nnamespace ");
+            this.Write("using System;\r\nusing System.Diagnostics;\r\n\r\n\r\nnamespace ");
             
-            #line 7 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateEventLogClass.tt"
+            #line 6 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateEventLogClass.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(NamespaceName));
             
             #line default
@@ -80,7 +80,7 @@ namespace CodeGenerator_BusinessLayer
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 51 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateEventLogClass.tt"
+        #line 50 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateEventLogClass.tt"
 
 
 public string NamespaceName { get; set; } = "";

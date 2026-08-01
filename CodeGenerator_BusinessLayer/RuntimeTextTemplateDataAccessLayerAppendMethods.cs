@@ -36,7 +36,7 @@ namespace CodeGenerator_BusinessLayer
             
             #line default
             #line hidden
-            this.Write("        public static async Task<bool> Add(cls");
+            this.Write("        public static async Task<bool> AddAsync(cls");
             
             #line 9 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayerAppendMethods.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
@@ -366,7 +366,7 @@ if (Columns[i].IsPrimaryKey) {
             
             #line default
             #line hidden
-            this.Write("        public static async Task<bool> Update(cls");
+            this.Write("        public static async Task<bool> UpdateAsync(cls");
             
             #line 105 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayerAppendMethods.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
@@ -746,7 +746,7 @@ if (Columns.Find(x => x.Name == UpdateParameterName).Type == "string") {
             
             #line default
             #line hidden
-            this.Write("> Find(");
+            this.Write("> FindAsync(");
             
             #line 195 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayerAppendMethods.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(HandleParameter(FindParameterName).Replace("_", "")));
@@ -1304,7 +1304,7 @@ if (Columns.Find(x => x.Name == UpdateParameterName).Type == "string") {
             
             #line default
             #line hidden
-            this.Write("()\r\n        {\r\n            List<cls");
+            this.Write("Async()\r\n        {\r\n            List<cls");
             
             #line 297 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayerAppendMethods.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
@@ -1693,7 +1693,7 @@ if (Columns.Find(x => x.Name == UpdateParameterName).Type == "string") {
             
             #line default
             #line hidden
-            this.Write("        public static async Task<bool> Delete(");
+            this.Write("        public static async Task<bool> DeleteAsync(");
             
             #line 382 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayerAppendMethods.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(HandleParameter(DeleteParameterName).Replace("_", "")));
@@ -1797,7 +1797,7 @@ if (Columns.Find(x => x.Name == UpdateParameterName).Type == "string") {
             
             #line default
             #line hidden
-            this.Write("        public static async Task<bool> IsExist(");
+            this.Write("        public static async Task<bool> IsExistAsync(");
             
             #line 433 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayerAppendMethods.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(HandleParameter(ExistParameterName).Replace("_", "")));

@@ -8,11 +8,11 @@ namespace CodeGenerator_BusinessLayer
 {
     public class ViewService
     {
-        public static async Task<List<string>> GetAllViewNames(string ConnectionString)
+        public static async Task<List<string>> GetAllViewNamesAsync(string ConnectionString)
         {
             if (!string.IsNullOrWhiteSpace(ConnectionString))
             {
-                return await ViewRepository.GetAllViewNames(ConnectionString);
+                return await ViewRepository.GetAllViewNamesAsync(ConnectionString);
             }
             else
             {

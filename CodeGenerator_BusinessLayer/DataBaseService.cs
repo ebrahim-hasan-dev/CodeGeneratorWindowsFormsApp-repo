@@ -8,11 +8,11 @@ namespace CodeGenerator_BusinessLayer
 {
     public class DataBaseService
     {
-        public static async Task<List<string>> GetAllDatabases(string ConnectionString)
+        public static async Task<List<string>> GetAllDatabasesAsync(string ConnectionString)
         {
             if (!string.IsNullOrWhiteSpace(ConnectionString))
             {
-                return await DataBaseRepository.GetAllDatabases(ConnectionString);
+                return await DataBaseRepository.GetAllDatabasesAsync(ConnectionString);
             }
             else
             {

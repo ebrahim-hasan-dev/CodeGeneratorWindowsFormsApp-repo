@@ -36,7 +36,7 @@ namespace CodeGenerator_BusinessLayer
             
             #line default
             #line hidden
-            this.Write("        public static async Task<bool> Add(cls");
+            this.Write("        public static async Task<bool> AddAsync(cls");
             
             #line 9 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayerAppendMethods.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
@@ -64,7 +64,7 @@ namespace CodeGenerator_BusinessLayer
             
             #line default
             #line hidden
-            this.Write("Repository.Add(");
+            this.Write("Repository.AddAsync(");
             
             #line 13 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayerAppendMethods.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
@@ -86,7 +86,7 @@ namespace CodeGenerator_BusinessLayer
             
             #line default
             #line hidden
-            this.Write("        public static async Task<bool> Update(cls");
+            this.Write("        public static async Task<bool> UpdateAsync(cls");
             
             #line 23 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayerAppendMethods.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
@@ -176,7 +176,7 @@ namespace CodeGenerator_BusinessLayer
             
             #line default
             #line hidden
-            this.Write("Repository.Update(");
+            this.Write("Repository.UpdateAsync(");
             
             #line 32 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayerAppendMethods.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName.Replace("_", "")));
@@ -205,7 +205,7 @@ namespace CodeGenerator_BusinessLayer
             
             #line default
             #line hidden
-            this.Write("> Find(");
+            this.Write("> FindAsync(");
             
             #line 42 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayerAppendMethods.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(HandleParameter(FindParameterName).Replace("_", "")));
@@ -226,7 +226,7 @@ namespace CodeGenerator_BusinessLayer
             
             #line default
             #line hidden
-            this.Write("Repository.Find(");
+            this.Write("Repository.FindAsync(");
             
             #line 46 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayerAppendMethods.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(FindParameterName.Replace("_", "")));
@@ -248,7 +248,7 @@ namespace CodeGenerator_BusinessLayer
             
             #line default
             #line hidden
-            this.Write("        public static async Task<bool> Delete(");
+            this.Write("        public static async Task<bool> DeleteAsync(");
             
             #line 56 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayerAppendMethods.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(HandleParameter(DeleteParameterName).Replace("_", "")));
@@ -269,7 +269,7 @@ namespace CodeGenerator_BusinessLayer
             
             #line default
             #line hidden
-            this.Write("Repository.Delete(");
+            this.Write("Repository.DeleteAsync(");
             
             #line 60 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayerAppendMethods.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DeleteParameterName.Replace("_", "")));
@@ -305,7 +305,7 @@ namespace CodeGenerator_BusinessLayer
             
             #line default
             #line hidden
-            this.Write("()\r\n        {\r\n            return await ");
+            this.Write("Async()\r\n        {\r\n            return await ");
             
             #line 72 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayerAppendMethods.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
@@ -319,7 +319,7 @@ namespace CodeGenerator_BusinessLayer
             
             #line default
             #line hidden
-            this.Write("();\r\n        }\r\n");
+            this.Write("Async();\r\n        }\r\n");
             
             #line 74 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayerAppendMethods.tt"
  } 
@@ -333,7 +333,7 @@ namespace CodeGenerator_BusinessLayer
             
             #line default
             #line hidden
-            this.Write("        public static async Task<bool> IsExist(");
+            this.Write("        public static async Task<bool> IsExistAsync(");
             
             #line 77 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayerAppendMethods.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(HandleParameter(ExistParameterName).Replace("_", "")));
@@ -354,7 +354,7 @@ namespace CodeGenerator_BusinessLayer
             
             #line default
             #line hidden
-            this.Write("Repository.IsExist(");
+            this.Write("Repository.IsExistAsync(");
             
             #line 81 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayerAppendMethods.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ExistParameterName.Replace("_", "")));

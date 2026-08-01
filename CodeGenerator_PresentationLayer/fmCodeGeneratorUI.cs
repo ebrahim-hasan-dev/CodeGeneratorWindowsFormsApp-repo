@@ -65,7 +65,7 @@ namespace CodeGenerator_PresentationLayer
             }
         }
 
-        async Task<bool> CreateFilesAndWrite(string DesignerFilePath, string LogicFilePath, RuntimeTextTemplateUiLayerDesigner UITemplateDesigner, RuntimeTextTemplateUiLayerLogic UITemplateLogic)
+        async Task<bool> CreateFilesAndWriteAsync(string DesignerFilePath, string LogicFilePath, RuntimeTextTemplateUiLayerDesigner UITemplateDesigner, RuntimeTextTemplateUiLayerLogic UITemplateLogic)
         {
             string ClassCode = UITemplateDesigner.TransformText();
 
@@ -122,7 +122,7 @@ namespace CodeGenerator_PresentationLayer
             return ListOfColumnData;
         }
 
-        async Task<bool> GeneratePerform()
+        async Task<bool> GeneratePerformAsync()
         {
             fmCodeGenerator.CheckFromFolderPath(lbFolderSelectedPath.Text);
 
@@ -165,17 +165,17 @@ namespace CodeGenerator_PresentationLayer
                     }
                 }
 
-                return await CreateFilesAndWrite(DesignerFilePath, LogicFilePath, UITemplateDesigner, UITemplateLogic);
+                return await CreateFilesAndWriteAsync(DesignerFilePath, LogicFilePath, UITemplateDesigner, UITemplateLogic);
             }
 
             return false;
         }
 
-        async Task GenerateUILayer()
+        async Task GenerateUILayerAsync()
         {
             if (rbForm.Checked || rbUserControl.Checked)
             {
-                if (await GeneratePerform())
+                if (await GeneratePerformAsync())
                 {
                     fmCodeGenerator.ShowSuccessfullyMessage();
                 }
@@ -192,7 +192,7 @@ namespace CodeGenerator_PresentationLayer
             {
                 if (dgvColumns.Rows.Count > 0)
                 {
-                    await GenerateUILayer();
+                    await GenerateUILayerAsync();
                 }
                 else
                 {
@@ -358,14 +358,14 @@ namespace CodeGenerator_PresentationLayer
 
         async void fmCodeGeneratorUI_Load(object sender, EventArgs e)
         {
-            await SetListOfColumnsUILayer();
+            await SetListOfColumnsUILayerAsync();
         }
 
-        async Task SetListOfColumnsUILayer()
+        async Task SetListOfColumnsUILayerAsync()
         {
             try
             {
-                _ListOfColumns = await ColumnService.GetAllColumnsUILayer(_TableName, _ConnectionString);
+                _ListOfColumns = await ColumnService.GetAllColumnsUILayerAsync(_TableName, _ConnectionString);
             }
             catch (Exception ex)
             {

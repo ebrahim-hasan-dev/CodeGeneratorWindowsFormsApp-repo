@@ -10,7 +10,7 @@ namespace CodeGenerator_DataAccessLayer
 {
     public class ViewRepository
     {
-        public static async Task<List<string>> GetAllViewNames(string ConnectionString)
+        public static async Task<List<string>> GetAllViewNamesAsync(string ConnectionString)
         {
             List<string> ListOfViewNames = null;
 

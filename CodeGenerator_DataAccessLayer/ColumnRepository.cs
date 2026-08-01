@@ -10,7 +10,7 @@ namespace CodeGenerator_DataAccessLayer
 {
     public class ColumnRepository
     {
-        public static async Task<List<clsColumnDataModulesLayer>> GetAllColumns(string TableName, string ConnectionString)
+        public static async Task<List<clsColumnDataModulesLayer>> GetAllColumnsAsync(string TableName, string ConnectionString)
         {
             List<clsColumnDataModulesLayer> ListOfColumns = null;
 
@@ -86,7 +86,7 @@ namespace CodeGenerator_DataAccessLayer
             return ListOfColumns;
         }
 
-        public static async Task<List<clsColumnDataDataAccessLayer>> GetAllColumnsDataAccessLayer(string TableName, string ConnectionString)
+        public static async Task<List<clsColumnDataDataAccessLayer>> GetAllColumnsDataAccessLayerAsync(string TableName, string ConnectionString)
         {
             List<clsColumnDataDataAccessLayer> ListOfColumns = null;
 
@@ -162,7 +162,7 @@ namespace CodeGenerator_DataAccessLayer
             return ListOfColumns;
         }
 
-        public static async Task<List<clsColumnDataBusinessLayer>> GetAllColumnsBusinessLayer(string TableName, string ConnectionString)
+        public static async Task<List<clsColumnDataBusinessLayer>> GetAllColumnsBusinessLayerAsync(string TableName, string ConnectionString)
         {
             List<clsColumnDataBusinessLayer> ListOfColumns = null;
 
@@ -237,7 +237,7 @@ namespace CodeGenerator_DataAccessLayer
             return ListOfColumns;
         }
 
-        public static async Task<List<clsColumnDataUILayer>> GetAllColumnsUILayer(string TableName, string ConnectionString)
+        public static async Task<List<clsColumnDataUILayer>> GetAllColumnsUILayerAsync(string TableName, string ConnectionString)
         {
             List<clsColumnDataUILayer> ListOfColumns = null;
 

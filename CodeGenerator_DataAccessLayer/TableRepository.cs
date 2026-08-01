@@ -10,7 +10,7 @@ namespace CodeGenerator_DataAccessLayer
 {
     public class TableRepository
     {
-        public static async Task<List<string>> GetAllTableNames(string ConnectionString)
+        public static async Task<List<string>> GetAllTableNamesAsync(string ConnectionString)
         {
             List<string> ListOfTableNames = null;
 
