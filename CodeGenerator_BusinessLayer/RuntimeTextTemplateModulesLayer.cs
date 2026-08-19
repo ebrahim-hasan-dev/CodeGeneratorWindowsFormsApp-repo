@@ -51,7 +51,7 @@ namespace CodeGenerator_BusinessLayer
             #line hidden
             
             #line 13 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateModulesLayer.tt"
- if (numericTypes.Contains(Columns[i].Type) || Columns[i].Type == "DateTime") { 
+ if (valueTypes.Contains(Columns[i].Type)) { 
             
             #line default
             #line hidden
@@ -78,7 +78,7 @@ namespace CodeGenerator_BusinessLayer
             #line hidden
             
             #line 16 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateModulesLayer.tt"
- else if (!numericTypes.Contains(Columns[i].Type)) { 
+ else if (!valueTypes.Contains(Columns[i].Type) ) { 
             
             #line default
             #line hidden
@@ -181,6 +181,7 @@ namespace CodeGenerator_BusinessLayer
 
 
 List<string> numericTypes = new List<string> { "int", "double", "float", "short", "decimal", "long", "byte" };
+List<string> valueTypes = new List<string> { "int", "double", "float", "short", "decimal", "long", "byte", "bool", "DateTime", "int?", "double?", "bool?", "float?", "short?", "decimal?", "long?", "byte?", "DateTime?"};
 public string NamespaceName { get; set; } = "";
 public List<clsColumnDataModulesLayer> Columns { get; set; }
 public string TableSingleName { get; set; } = "";

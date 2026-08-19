@@ -61,23 +61,23 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>RuntimeTextTemplateEventLogClass.tt</DependentUpon>
     </Compile>
+    <Compile Include="RuntimeTextTemplateStoredProceduresCode.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RuntimeTextTemplateStoredProceduresCode.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RuntimeTextTemplateStoredProceduresScript.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RuntimeTextTemplateStoredProceduresScript.tt</DependentUpon>
+    </Compile>
     <Compile Include="RuntimeTextTemplateUiLayerDesigner.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>RuntimeTextTemplateUiLayerDesigner.tt</DependentUpon>
     </Compile>
-    <Compile Include="RuntimeTextTemplateBusinessLayerAppendMethods.cs">
-      <DependentUpon>RuntimeTextTemplateBusinessLayerAppendMethods.tt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="RuntimeTextTemplateDataAccessLayer.cs">
       <DependentUpon>RuntimeTextTemplateDataAccessLayer.tt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="RuntimeTextTemplateDataAccessLayerAppendMethods.cs">
-      <DependentUpon>RuntimeTextTemplateDataAccessLayerAppendMethods.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
@@ -113,6 +113,14 @@
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>RuntimeTextTemplateEventLogClass.cs</LastGenOutput>
     </Content>
+    <Content Include="RuntimeTextTemplateStoredProceduresCode.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>RuntimeTextTemplateStoredProceduresCode.cs</LastGenOutput>
+    </Content>
+    <Content Include="RuntimeTextTemplateStoredProceduresScript.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>RuntimeTextTemplateStoredProceduresScript.cs</LastGenOutput>
+    </Content>
     <Content Include="RuntimeTextTemplateUiLayerDesigner.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>RuntimeTextTemplateUiLayerDesigner.cs</LastGenOutput>
@@ -121,17 +129,9 @@
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>RuntimeTextTemplateBusinessLayer1.cs</LastGenOutput>
     </Content>
-    <Content Include="RuntimeTextTemplateBusinessLayerAppendMethods.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>RuntimeTextTemplateBusinessLayerAppendMethods.cs</LastGenOutput>
-    </Content>
     <Content Include="RuntimeTextTemplateDataAccessLayer.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>RuntimeTextTemplateDataAccessLayer.cs</LastGenOutput>
-    </Content>
-    <Content Include="RuntimeTextTemplateDataAccessLayerAppendMethods.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>RuntimeTextTemplateDataAccessLayerAppendMethods.cs</LastGenOutput>
     </Content>
     <Content Include="RuntimeTextTemplateModulesLayer.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>

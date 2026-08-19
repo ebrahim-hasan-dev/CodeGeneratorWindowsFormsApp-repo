@@ -1,0 +1,400 @@
+﻿<#@ template language="C#" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="CodeGenerator_Modules" #>
+<# if (!DALTemplate.IsAppendMode) { #>
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Microsoft.Data.SqlClient;
+using System.Data;
+using <#= DALTemplate.ModulesLayerNameSpace #>;
+<# } #>
+
+<# if (!DALTemplate.IsAppendMode) { #>
+namespace <#= DALTemplate.NamespaceName #>
+{
+    public class <#= DALTemplate.TableSingleName #>Repository
+    {
+<# } #>
+<# if (DALTemplate.IncludeAdd) { #>
+        public static async Task<bool> AddAsync(cls<#= DALTemplate.TableSingleName #> <#= DALTemplate.TableSingleName #>)
+        {
+            if (<#= DALTemplate.TableSingleName #> != null && <#= DALTemplate.TableSingleName #>.IsFull())
+            {
+                SqlConnection? Connection = null;
+                SqlCommand? Command = null;
+
+                try
+                {
+                    Connection = new SqlConnection(clsConnectionString.ConnectionString);
+                    Command = new SqlCommand("sp_<#= DALTemplate.TableName #>_Add", Connection);
+
+                    Command.CommandType = CommandType.StoredProcedure;
+
+<#= DALTemplate.AddOrUpdateFunctionParamertersHandled(DALTemplate.Columns) #>
+
+                    SqlParameter outputIdParam = new SqlParameter
+                    {
+                        ParameterName = "@<#= GetOutputParameterName() #>",
+                        SqlDbType = SqlDbType.Int,
+                        Direction = ParameterDirection.Output
+                    };
+
+                    Command.Parameters.Add(outputIdParam);
+
+                    await Connection.OpenAsync();
+                    await Command.ExecuteNonQueryAsync();
+
+                    if (outputIdParam.Value != null)
+                    {
+                        <#= DALTemplate.TableSingleName #>.<#= GetOutputParameterName() #> = (int)outputIdParam.Value;
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    clsEventLog.WriteToEventLog($"Error occurred while adding employee: {ex.Message}", enLogType.Error);
+                }
+                catch (Exception ex)
+                {
+                    clsEventLog.WriteToEventLog($"Error occurred while adding employee: {ex.Message}", enLogType.Error);
+                }
+                finally
+                {
+                    if (Command != null)
+                    {
+                        Command.Dispose();
+                    }
+
+                    if (Connection != null)
+                    {
+                        Connection.Close();
+                        Connection.Dispose();
+                    }
+                }
+            }
+
+            return false;
+        }
+<# } #>
+
+<# if (DALTemplate.IncludeUpdate) { #>
+        public static async Task<bool> UpdateAsync(cls<#= DALTemplate.TableSingleName #> <#= DALTemplate.TableSingleName #>)
+        {
+<#if (DALTemplate.Columns.Find(x => x.Name == DALTemplate.UpdateParameterName).Type == "string") { #>
+            if (<#= DALTemplate.TableSingleName #> != null && !string.IsNullOrWhiteSpace(<#= DALTemplate.TableSingleName #>.<#= DALTemplate.UpdateParameterName.Replace("_", "") #>) && <#= DALTemplate.TableSingleName #>.IsFull())
+<# } #>
+<# if (DALTemplate.Columns.Find(x => x.Name == DALTemplate.UpdateParameterName).Type != "string") { #>
+            if (<#= DALTemplate.TableSingleName #> != null && <#= DALTemplate.TableSingleName #>.<#= DALTemplate.HandleCorrectCheckParamerter(DALTemplate.UpdateParameterName).Replace("_", "") #> && <#= DALTemplate.TableSingleName #>.IsFull())
+<# } #>
+            {
+                SqlConnection? Connection = null;
+                SqlCommand? Command = null;
+
+                try
+                {
+                    Connection = new SqlConnection(clsConnectionString.ConnectionString);
+
+                    Command = new SqlCommand("sp_<#= DALTemplate.TableName #>_Update", Connection);
+
+                    Command.CommandType = CommandType.StoredProcedure;
+
+<#= DALTemplate.AddOrUpdateFunctionParamertersHandled(DALTemplate.Columns) #>
+
+                    await Connection.OpenAsync();
+
+                    return await Command.ExecuteNonQueryAsync() > 0;
+                }
+                catch (SqlException ex)
+                {
+                    clsEventLog.WriteToEventLog($"Error occurred while updating employee: {ex.Message}", enLogType.Error);
+                }
+                catch (Exception ex)
+                {
+                    clsEventLog.WriteToEventLog($"Error occurred while updating employee: {ex.Message}", enLogType.Error);
+                }
+                finally
+                {
+                    if (Command != null)
+                    {
+                        Command.Dispose();
+                    }
+
+                    if (Connection != null)
+                    {
+                        Connection.Close();
+                        Connection.Dispose();
+                    }
+                }
+            }
+
+            return false;
+        }
+<# } #>
+
+<# if (DALTemplate.IncludeFind) { #>
+        public static async Task<cls<#= DALTemplate.TableSingleName #>?> FindAsync(<#= DALTemplate.HandleParameter(DALTemplate.FindParameterName).Replace("_", "") #>)
+        {
+            if (<#= DALTemplate.HandleCorrectCheckParamerter(DALTemplate.FindParameterName).Replace("_", "") #>)
+            {
+                SqlConnection? Connection = null;
+                SqlCommand? Command = null;
+                SqlDataReader? Reader = null;
+
+                try
+                {
+                    Connection = new SqlConnection(clsConnectionString.ConnectionString);
+                    Command = new SqlCommand("sp_<#= DALTemplate.TableName #>_FindBy_<#= DALTemplate.FindParameterName.Replace("_", "") #>", Connection);
+
+                    Command.CommandType = CommandType.StoredProcedure;
+
+                    Command.Parameters.AddWithValue("@<#= DALTemplate.FindParameterName.Replace("_", "") #>", <#= DALTemplate.FindParameterName.Replace("_", "") #>);
+
+                    await Connection.OpenAsync();
+
+                    Reader = await Command.ExecuteReaderAsync();
+
+                    if (await Reader.ReadAsync())
+                    {
+                        return new cls<#= DALTemplate.TableSingleName #>
+                        {
+<#= DALTemplate.FindOrGetAllFunctionParamertersHandled(DALTemplate.Columns) #>
+                        };
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    clsEventLog.WriteToEventLog($"Error occurred while fetching employee: {ex.Message}", enLogType.Error);
+                }
+                catch (Exception ex)
+                {
+                    clsEventLog.WriteToEventLog($"Error occurred while fetching employee: {ex.Message}", enLogType.Error);
+                }
+                finally
+                {
+                    if (Reader != null)
+                    {
+                        Reader.Close();
+                        Reader.Dispose();
+                    }
+
+                    if (Command != null)
+                    {
+                        Command.Dispose();
+                    }
+
+                    if (Connection != null)
+                    {
+                        Connection.Close();
+                        Connection.Dispose();
+                    }
+                }
+            }
+
+            return  null;
+        }
+<# } #>
+
+<# if (DALTemplate.IncludeGetAll) { #>
+        public static async Task<List<cls<#= DALTemplate.TableSingleName #>>?> GetAll<#= DALTemplate.TableName #>Async()
+        {
+            SqlConnection? Connection = null;
+            SqlCommand? Command = null;
+            SqlDataReader? Reader = null;
+
+            List<cls<#= DALTemplate.TableSingleName #>>? ListOf<#= DALTemplate.TableName #> = null;
+
+            try
+            {
+                Connection = new SqlConnection(clsConnectionString.ConnectionString);
+                Command = new SqlCommand("sp_<#= DALTemplate.TableName #>_GetAll", Connection);
+
+                Command.CommandType = CommandType.StoredProcedure;
+
+                await Connection.OpenAsync();
+
+                Reader = await Command.ExecuteReaderAsync();
+
+                if (Reader.HasRows)
+                {
+                    ListOf<#= DALTemplate.TableName #> = new List<cls<#= DALTemplate.TableSingleName #>>();
+
+                    while (await Reader.ReadAsync())
+                    {
+                        ListOf<#= DALTemplate.TableName #>.Add(new cls<#= DALTemplate.TableSingleName #>
+                        {
+<#= DALTemplate.FindOrGetAllFunctionParamertersHandled(DALTemplate.Columns) #>
+                        });
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                clsEventLog.WriteToEventLog($"Error occurred while fetching all employees: {ex.Message}", enLogType.Error);
+            }
+            catch (Exception ex)
+            {
+                clsEventLog.WriteToEventLog($"Error occurred while fetching all employees: {ex.Message}", enLogType.Error);
+            }
+            finally
+            {
+                if (Reader != null)
+                {
+                    Reader.Close();
+                    Reader.Dispose();
+                }
+
+                if (Command != null)
+                {
+                    Command.Dispose();
+                }
+
+                if (Connection != null)
+                {
+                    Connection.Close();
+                    Connection.Dispose();
+                }
+            }
+
+            return ListOf<#= DALTemplate.TableName #>;
+        }
+<# } #>
+
+<# if (DALTemplate.IncludeDelete) { #>
+        public static async Task<bool> DeleteAsync(<#= DALTemplate.HandleParameter(DALTemplate.DeleteParameterName).Replace("_", "") #>)
+        {
+            if (<#= DALTemplate.HandleCorrectCheckParamerter(DALTemplate.DeleteParameterName).Replace("_", "") #>)
+            {
+                SqlConnection? Connection = null;
+                SqlCommand? Command = null;
+
+                try
+                {
+                    Connection = new SqlConnection(clsConnectionString.ConnectionString);
+                    Command = new SqlCommand("sp_<#= DALTemplate.TableName #>_Delete", Connection);
+
+                    Command.CommandType = CommandType.StoredProcedure;
+
+                    Command.Parameters.AddWithValue("@<#= DALTemplate.DeleteParameterName.Replace("_", "") #>", <#= DALTemplate.DeleteParameterName.Replace("_", "") #>);
+
+                    await Connection.OpenAsync();
+
+                    return await Command.ExecuteNonQueryAsync() > 0;
+                }
+                catch (SqlException ex)
+                {
+                    clsEventLog.WriteToEventLog($"Error occurred while deleting employee: {ex.Message}", enLogType.Error);
+                }
+                catch (Exception ex)
+                {
+                    clsEventLog.WriteToEventLog($"Error occurred while deleting employee: {ex.Message}", enLogType.Error);
+                }
+                finally
+                {
+                    if (Command != null)
+                    {
+                        Command.Dispose();
+                    }
+
+                    if (Connection != null)
+                    {
+                        Connection.Close();
+                        Connection.Dispose();
+                    }
+                }
+            }
+
+            return false;
+        }
+<# } #>
+
+<# if (DALTemplate.IncludeExist) { #>
+        public static async Task<bool> IsExistAsync(<#= DALTemplate.HandleParameter(DALTemplate.ExistParameterName).Replace("_", "") #>)
+        {
+            if (<#= DALTemplate.HandleCorrectCheckParamerter(DALTemplate.ExistParameterName).Replace("_", "") #>)
+            {
+                SqlConnection? Connection = null;
+                SqlCommand? Command = null;
+
+                try
+                {
+                    Connection = new SqlConnection(clsConnectionString.ConnectionString);
+                    Command = new SqlCommand("sp_<#= DALTemplate.TableName #>_IsExist", Connection);
+
+                    Command.CommandType = CommandType.StoredProcedure;
+
+                    Command.Parameters.AddWithValue("@<#= DALTemplate.ExistParameterName.Replace("_", "") #>", <#= DALTemplate.ExistParameterName.Replace("_", "") #>);
+
+                    SqlParameter isFoundParam = new SqlParameter
+                    {
+                        ParameterName = "@IsFound",
+                        SqlDbType = SqlDbType.Bit,
+                        Direction = ParameterDirection.Output
+                    };
+
+                    Command.Parameters.Add(isFoundParam);
+                    
+                    await Connection.OpenAsync();
+                    await Command.ExecuteNonQueryAsync();
+
+                    return isFoundParam.Value == null ? false : (bool)isFoundParam.Value;
+                }
+                catch (SqlException ex)
+                {
+                    clsEventLog.WriteToEventLog($"Error occurred while checking employee existence: {ex.Message}", enLogType.Error);
+                }
+                catch (Exception ex)
+                {
+                    clsEventLog.WriteToEventLog($"Error occurred while checking employee existence: {ex.Message}", enLogType.Error);
+                }
+                finally
+                {
+                    if (Command != null)
+                    {
+                        Command.Dispose();
+                    }
+
+                    if (Connection != null)
+                    {
+                        Connection.Close();
+                        Connection.Dispose();
+                    }
+                }
+            }
+
+            return false;
+        }
+<# } #>
+
+        // Never delete this comment
+        // [EXTRA_METHODS_HERE]
+
+<# if (!DALTemplate.IsAppendMode) { #>
+    }
+}
+<# } #>
+
+
+
+<#+
+
+public RuntimeTextTemplateDataAccessLayer DALTemplate = new RuntimeTextTemplateDataAccessLayer();
+
+public string GetOutputParameterName()
+{
+    clsColumnDataDataAccessLayer Col = DALTemplate.Columns.Find(x => x.IsPrimaryKey);
+
+    if (Col != null)
+    {
+        return Col.NameWithout_;
+    }
+
+    return DALTemplate.Columns[0].NameWithout_;
+}
+
+#>

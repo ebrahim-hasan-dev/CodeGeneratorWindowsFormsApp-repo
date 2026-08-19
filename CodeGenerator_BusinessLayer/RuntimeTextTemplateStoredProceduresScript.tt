@@ -1,0 +1,212 @@
+﻿<#@ template language="C#" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="CodeGenerator_Modules" #>
+
+USE <#= DatabaseName #>
+GO
+
+
+<# if (SPTemplate.DALTemplate.IncludeAdd) { #>
+CREATE PROCEDURE sp_<#= SPTemplate.DALTemplate.TableName #>_Add
+    <#= SP_AddArUpdateFunctionHandled(true) #>
+AS
+BEGIN
+    SET NOCOUNT ON;
+    
+    BEGIN TRY
+        BEGIN TRANSACTION;
+
+        INSERT INTO [<#= SPTemplate.DALTemplate.TableName #>] (
+<# for (short i = 0; i < SPTemplate.DALTemplate.Columns.Count; i++) { 
+                                if (SPTemplate.DALTemplate.Columns[i].IsPrimaryKey)
+                                            continue;#>
+        [<#= SPTemplate.DALTemplate.Columns[i].Name #>]<#= (i < SPTemplate.DALTemplate.Columns.Count - 1) ? ", " : " )" #>
+<# } #>
+        VALUES (
+<# for (short i = 0; i < SPTemplate.DALTemplate.Columns.Count; i++) { 
+                                    if (SPTemplate.DALTemplate.Columns[i].IsPrimaryKey)
+                                            continue;#>
+        @<#= SPTemplate.DALTemplate.Columns[i].NameWithout_ #><#= (i < SPTemplate.DALTemplate.Columns.Count - 1) ? ", " : " );" #>
+<# } #>
+
+        SET @<#= SPTemplate.GetOutputParameterName() #> = SCOPE_IDENTITY();
+
+        COMMIT TRANSACTION;
+    END TRY
+    BEGIN CATCH
+        IF @@TRANCOUNT > 0
+            ROLLBACK TRANSACTION;
+
+        DECLARE @ErrorMessage NVARCHAR(4000) = ERROR_MESSAGE();
+        DECLARE @ErrorSeverity INT = ERROR_SEVERITY();
+        DECLARE @ErrorState INT = ERROR_STATE();
+
+        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
+    END CATCH
+END;
+GO
+<# } #>
+
+-- ======================================================================================
+
+<# if (SPTemplate.DALTemplate.IncludeUpdate) { #>
+    CREATE PROCEDURE sp_<#= SPTemplate.DALTemplate.TableName #>_Update
+    <#= SP_AddArUpdateFunctionHandled(false) #>
+AS
+BEGIN
+    BEGIN TRY
+        BEGIN TRANSACTION;
+
+        UPDATE [<#= SPTemplate.DALTemplate.TableName #>] SET 
+<# for (short i = 0; i < SPTemplate.DALTemplate.Columns.Count; i++) { 
+                                if (SPTemplate.DALTemplate.Columns[i].IsPrimaryKey)
+                                            continue;#>
+        [<#= SPTemplate.DALTemplate.Columns[i].Name #>] = @<#= SPTemplate.DALTemplate.Columns[i].NameWithout_ #><#= (i < SPTemplate.DALTemplate.Columns.Count - 1) ? ", " : "" #>
+<# } #>
+        WHERE [<#= SPTemplate.DALTemplate.UpdateParameterName #>] = @<#= SPTemplate.DALTemplate.UpdateParameterName.Replace("_", "") #>;
+
+        COMMIT TRANSACTION;
+    END TRY
+    BEGIN CATCH
+        IF @@TRANCOUNT > 0
+            ROLLBACK TRANSACTION;
+
+        DECLARE @ErrorMessage NVARCHAR(4000) = ERROR_MESSAGE();
+        DECLARE @ErrorSeverity INT = ERROR_SEVERITY();
+        DECLARE @ErrorState INT = ERROR_STATE();
+
+        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
+    END CATCH
+END;
+GO
+<# } #>
+
+-- ======================================================================================
+
+<# if (SPTemplate.DALTemplate.IncludeFind) { #>
+    CREATE PROCEDURE sp_<#= SPTemplate.DALTemplate.TableName #>_FindBy_<#= SPTemplate.DALTemplate.FindParameterName.Replace("_", "") #>
+    @<#= SPTemplate.DALTemplate.FindParameterName.Replace("_", "") #> <#=  SPTemplate.DALTemplate.Columns.Find(x => x.Name == SPTemplate.DALTemplate.FindParameterName)?.Type.ToUpper() #>
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT * FROM <#= SPTemplate.DALTemplate.TableName #> WHERE <#= SPTemplate.DALTemplate.FindParameterName #> = @<#= SPTemplate.DALTemplate.FindParameterName.Replace("_", "") #>;
+END;
+GO
+<# } #>
+
+-- ======================================================================================
+
+<# if (SPTemplate.DALTemplate.IncludeGetAll) { #>
+    CREATE PROCEDURE sp_<#= SPTemplate.DALTemplate.TableName #>_GetAll
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT * FROM <#= SPTemplate.DALTemplate.TableName #>;
+END;
+GO
+<# } #>
+
+-- ======================================================================================
+
+<# if (SPTemplate.DALTemplate.IncludeDelete) { #>
+    CREATE PROCEDURE sp_<#= SPTemplate.DALTemplate.TableName #>_Delete
+    @<#= SPTemplate.DALTemplate.DeleteParameterName.Replace("_", "") #> <#=  SPTemplate.DALTemplate.Columns.Find(x => x.Name == SPTemplate.DALTemplate.DeleteParameterName)?.Type.ToUpper() #>
+AS
+BEGIN
+    BEGIN TRY
+        BEGIN TRANSACTION;
+
+        DELETE FROM <#= SPTemplate.DALTemplate.TableName #> WHERE <#= SPTemplate.DALTemplate.DeleteParameterName #> = @<#= SPTemplate.DALTemplate.DeleteParameterName.Replace("_", "") #>;
+
+        COMMIT TRANSACTION;
+    END TRY
+    BEGIN CATCH
+        IF @@TRANCOUNT > 0
+            ROLLBACK TRANSACTION;
+
+        DECLARE @ErrorMessage NVARCHAR(4000) = ERROR_MESSAGE();
+        DECLARE @ErrorSeverity INT = ERROR_SEVERITY();
+        DECLARE @ErrorState INT = ERROR_STATE();
+
+        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
+    END CATCH
+END;
+GO
+<# } #>
+
+-- ======================================================================================
+
+<# if (SPTemplate.DALTemplate.IncludeExist) { #>
+    CREATE PROCEDURE sp_<#= SPTemplate.DALTemplate.TableName #>_IsExist
+    @<#= SPTemplate.DALTemplate.ExistParameterName.Replace("_", "") #> <#=  SPTemplate.DALTemplate.Columns.Find(x => x.Name == SPTemplate.DALTemplate.ExistParameterName)?.Type.ToUpper() #>,
+    @IsFound BIT OUTPUT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    IF EXISTS (SELECT 1 FROM <#= SPTemplate.DALTemplate.TableName #> WHERE <#= SPTemplate.DALTemplate.ExistParameterName #> = @<#= SPTemplate.DALTemplate.ExistParameterName.Replace("_", "") #>)
+        SET @IsFound = 1;
+    ELSE
+        SET @IsFound = 0;
+END;
+GO
+<# } #>
+
+-- ======================================================================================
+
+
+-- Never delete this comment
+-- [EXTRA_CODE_HERE]
+
+
+
+<#+
+
+public string DatabaseName { get; set;} = "";
+
+public RuntimeTextTemplateStoredProceduresCode SPTemplate = new RuntimeTextTemplateStoredProceduresCode();
+
+private string SP_AddArUpdateFunctionHandled(bool IsAddFunction)
+{
+    string Value = "";
+
+    for (short i = 0; i < SPTemplate.DALTemplate.Columns.Count; i++)
+    {
+        if (IsAddFunction && SPTemplate.DALTemplate.Columns[i].IsPrimaryKey)
+        {
+            Value += $"@{SPTemplate.DALTemplate.Columns[i].NameWithout_}  {SPTemplate.DALTemplate.Columns[i].Type.ToUpper()} OUTPUT{GetCorrectEnd(i, SPTemplate.DALTemplate.Columns.Count, SPTemplate.DALTemplate.Columns[i].IsNullable)}";
+        }
+        else if (SPTemplate.DALTemplate.Columns[i].Type == "varchar" || SPTemplate.DALTemplate.Columns[i].Type == "nvarchar")
+        {
+            Value += $"@{SPTemplate.DALTemplate.Columns[i].NameWithout_}  {SPTemplate.DALTemplate.Columns[i].Type.ToUpper()}(100){GetCorrectEnd(i, SPTemplate.DALTemplate.Columns.Count, SPTemplate.DALTemplate.Columns[i].IsNullable)}";
+        }
+        else if (SPTemplate.DALTemplate.Columns[i].Type == "char" || SPTemplate.DALTemplate.Columns[i].Type == "nchar")
+        {
+            Value += $"@{SPTemplate.DALTemplate.Columns[i].NameWithout_}  {SPTemplate.DALTemplate.Columns[i].Type.ToUpper()}(10){GetCorrectEnd(i, SPTemplate.DALTemplate.Columns.Count, SPTemplate.DALTemplate.Columns[i].IsNullable)}";
+        }
+        else
+        {
+            Value += $"@{SPTemplate.DALTemplate.Columns[i].NameWithout_}  {SPTemplate.DALTemplate.Columns[i].Type.ToUpper()}{GetCorrectEnd(i, SPTemplate.DALTemplate.Columns.Count, SPTemplate.DALTemplate.Columns[i].IsNullable)}";
+        }
+    }
+
+    return Value;
+}
+
+private string GetCorrectEnd(short i, int Count, bool IsNullable)
+{
+    string Value = $"{GetCorrectEnd(IsNullable)}";
+    Value += i + 1 == Count ? "\n\t" : ",\n\t";
+
+    return Value;
+}
+
+private string GetCorrectEnd(bool IsNullable)
+{
+    return IsNullable ? " = NULL" : "";
+}
+
+#>

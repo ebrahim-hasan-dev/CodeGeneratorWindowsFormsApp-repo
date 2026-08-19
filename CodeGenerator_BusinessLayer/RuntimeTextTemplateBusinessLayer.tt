@@ -1,23 +1,25 @@
-﻿
-<#@ template language="C#" #>
+﻿<#@ template language="C#" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="CodeGenerator_Modules" #>
 <#@ import namespace="System.Linq" #>
+<# if (!IsAppendMode) { #>
 using System;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using <#= ModulesLayerNameSpace #>;
 using <#= DataAccessLayerNameSpace #>;
+<# } #>
 
-
+<# if (!IsAppendMode) { #>
 namespace <#= NamespaceName #>
 {
     public class <#= TableSingleName #>Service
     {
+<# } #>
 <# if (IncludeAdd) { #>
         public static async Task<bool> AddAsync(cls<#= TableSingleName #> <#= TableSingleName #>)
         {
-            if (<#= TableSingleName #>.IsFull())
+            if (<#= TableSingleName #> != null && <#= TableSingleName #>.IsFull())
             {
                 return await <#= TableSingleName #>Repository.AddAsync(<#= TableSingleName #>);
             }
@@ -32,10 +34,10 @@ namespace <#= NamespaceName #>
         public static async Task<bool> UpdateAsync(cls<#= TableSingleName #> <#= TableSingleName #>)
         {
 <# if (Columns.Find(x => x.Name == UpdateParameterName).Type == "string") { #>
-            if (!string.IsNullOrWhiteSpace(<#= TableSingleName #>.<#= UpdateParameterName.Replace("_", "") #>) && <#= TableSingleName #>.IsFull())
+            if (<#= TableSingleName #> != null && !string.IsNullOrWhiteSpace(<#= TableSingleName #>.<#= UpdateParameterName.Replace("_", "") #>) && <#= TableSingleName #>.IsFull())
 <# } #>
 <# if (Columns.Find(x => x.Name == UpdateParameterName).Type != "string") { #>
-            if (<#= TableSingleName #>.<#= HandleCorrectCheckParamerter(UpdateParameterName).Replace("_", "") #> && <#= TableSingleName #>.IsFull())
+            if (<#= TableSingleName #> != null && <#= TableSingleName #>.<#= HandleCorrectCheckParamerter(UpdateParameterName).Replace("_", "") #> && <#= TableSingleName #>.IsFull())
 <# } #>
             {
                 return await <#= TableSingleName #>Repository.UpdateAsync(<#= TableSingleName #>);
@@ -48,7 +50,7 @@ namespace <#= NamespaceName #>
 <# } #>
 
 <# if (IncludeFind) { #>
-        public static async Task<cls<#= TableSingleName #>> FindAsync(<#= HandleParameter(FindParameterName).Replace("_", "") #>)
+        public static async Task<cls<#= TableSingleName #>?> FindAsync(<#= HandleParameter(FindParameterName).Replace("_", "") #>)
         {
             if (<#= HandleCorrectCheckParamerter(FindParameterName).Replace("_", "") #>)
             {
@@ -76,7 +78,7 @@ namespace <#= NamespaceName #>
 <# } #>
 
 <# if (IncludeGetAll) { #>
-        public static async Task<List<cls<#= TableSingleName #>>> GetAll<#= TableName #>Async()
+        public static async Task<List<cls<#= TableSingleName #>>?> GetAll<#= TableName #>Async()
         {
             return await <#= TableSingleName #>Repository.GetAll<#= TableName #>Async();
         }
@@ -99,10 +101,10 @@ namespace <#= NamespaceName #>
         // Never delete this comment
         // [EXTRA_METHODS_HERE]
 
-
+<# if (!IsAppendMode) { #>
     }
 }
-
+<# } #>
 
 <#+
 
@@ -114,10 +116,49 @@ public List<clsColumnDataBusinessLayer> Columns { get; set; }
 public string TableSingleName { get; set; } = "";
 
 
-public string UpdateParameterName { get; set; } = "";
-public string FindParameterName { get; set; } = "";
-public string ExistParameterName { get; set; } = "";
-public string DeleteParameterName { get; set; } = "";
+private string _updateParameterName = "";
+public string UpdateParameterName 
+{ 
+    get { return _updateParameterName; } 
+    set
+    {
+        _updateParameterName = value;
+        _updateParameterName = Columns.Find(x => x.Name == _updateParameterName) == null ? Columns[0].Name : _updateParameterName;
+    }
+}
+
+private string _findParameterName = "";
+public string FindParameterName 
+{ 
+    get { return _findParameterName; } 
+    set
+    {
+        _findParameterName = value;
+        _findParameterName = Columns.Find(x => x.Name == _findParameterName) == null ? Columns[0].Name : _findParameterName;
+    }
+}
+
+private string _existParameterName = "";
+public string ExistParameterName 
+{ 
+    get { return _existParameterName; } 
+    set
+    {
+        _existParameterName = value;
+        _existParameterName = Columns.Find(x => x.Name == _existParameterName) == null ? Columns[0].Name : _existParameterName;
+    }
+}
+
+private string _deleteParameterName = "";
+public string DeleteParameterName 
+{ 
+    get { return _deleteParameterName; }
+    set
+    {
+        _deleteParameterName = value;
+        _deleteParameterName = Columns.Find(x => x.Name == _deleteParameterName) == null ? Columns[0].Name : _deleteParameterName;
+    }
+}
 
 
 public bool IncludeAdd { get; set; }
@@ -127,6 +168,7 @@ public bool IncludeExist { get; set; }
 public bool IncludeGetAll { get; set; }
 public bool IncludeDelete { get; set; }
 
+public bool IsAppendMode { get; set; } = false;
 
 private List<string> DataTypesWithoutStringAndDateTimeAndBoolan = new List<string> { "int", "double", "float", "short", "decimal", "long", "byte" };
 

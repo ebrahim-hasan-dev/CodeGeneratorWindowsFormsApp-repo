@@ -29,22 +29,22 @@ namespace CodeGenerator_BusinessLayer
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("\r\nnamespace ");
+            this.Write("\r\n\r\nnamespace ");
             
-            #line 7 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 8 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(NameSpace));
             
             #line default
             #line hidden
             this.Write("\r\n{\r\n    partial class ");
             
-            #line 9 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 10 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture((IsForm) ? "fm" : "uctrl"));
             
             #line default
             #line hidden
             
-            #line 9 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 10 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName.Replace("_", "")));
             
             #line default
@@ -79,7 +79,7 @@ namespace CodeGenerator_BusinessLayer
         {
 ");
             
-            #line 37 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 38 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
  if (IsView) { 
             
             #line default
@@ -91,58 +91,52 @@ namespace CodeGenerator_BusinessLayer
             this.mtxtbFilterValue = new System.Windows.Forms.MaskedTextBox();
             this.dgv");
             
-            #line 43 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 44 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableName));
             
             #line default
             #line hidden
             this.Write(" = new System.Windows.Forms.DataGridView();\r\n");
             
-            #line 44 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 45 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
  for (short i = 0; i < ListOfColunmData.Count; i++) { 
             
             #line default
             #line hidden
             
-            #line 45 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 46 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
  if (ListOfColunmData[i].Type == "bit") { 
             
             #line default
             #line hidden
             this.Write("            this.col");
             
-            #line 46 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 47 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ListOfColunmData[i].NameWithout_));
             
             #line default
             #line hidden
             this.Write(" = new System.Windows.Forms.DataGridViewCheckBoxColumn();\r\n");
             
-            #line 47 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 48 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
  } 
             
             #line default
             #line hidden
             
-            #line 48 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 49 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
  if (ListOfColunmData[i].Type != "bit") { 
             
             #line default
             #line hidden
             this.Write("            this.col");
             
-            #line 49 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 50 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ListOfColunmData[i].NameWithout_));
             
             #line default
             #line hidden
             this.Write(" = new System.Windows.Forms.DataGridViewTextBoxColumn();\r\n");
-            
-            #line 50 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
- } 
-            
-            #line default
-            #line hidden
             
             #line 51 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
  } 
@@ -157,65 +151,71 @@ namespace CodeGenerator_BusinessLayer
             #line hidden
             
             #line 53 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+ } 
+            
+            #line default
+            #line hidden
+            
+            #line 54 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
  if (IsInput) { 
             
             #line default
             #line hidden
             this.Write("            this.components = new System.ComponentModel.Container();\r\n");
             
-            #line 55 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 56 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
  } 
             
             #line default
             #line hidden
             
-            #line 56 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 57 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
  for (short i = 0; i < ListOfInitializedControls.Count; i++) { 
             
             #line default
             #line hidden
             this.Write("            ");
             
-            #line 57 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 58 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ListOfInitializedControls[i]));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 58 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 59 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
  } 
             
             #line default
             #line hidden
             
-            #line 59 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 60 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
  if (IsInput) { 
             
             #line default
             #line hidden
             this.Write("            this.btSave = new System.Windows.Forms.Button();\r\n");
             
-            #line 61 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 62 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
  } 
             
             #line default
             #line hidden
             
-            #line 61 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 62 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
  if (IsInput && IsForm) { 
             
             #line default
             #line hidden
             this.Write("            this.btCancel = new System.Windows.Forms.Button();\r\n");
             
-            #line 63 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 64 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
  } 
             
             #line default
             #line hidden
             
-            #line 63 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 64 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
  if (IsInput) { 
             
             #line default
@@ -224,54 +224,54 @@ namespace CodeGenerator_BusinessLayer
                     "ponents);\r\n            ((System.ComponentModel.ISupportInitialize)(this.errorPro" +
                     "vider1)).BeginInit();\r\n");
             
-            #line 66 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 67 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
  } 
             
             #line default
             #line hidden
             
-            #line 67 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 68 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
  if (IsView) { 
             
             #line default
             #line hidden
             this.Write("            ((System.ComponentModel.ISupportInitialize)(this.dgv");
             
-            #line 68 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 69 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableName));
             
             #line default
             #line hidden
             this.Write(")).BeginInit();\r\n");
             
-            #line 69 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 70 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
  } 
             
             #line default
             #line hidden
             this.Write("            this.SuspendLayout();\r\n");
             
-            #line 71 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 72 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
  for (short i = 0; i < ListOfInitializedProperties.Count; i++) { 
             
             #line default
             #line hidden
             this.Write("            ");
             
-            #line 72 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 73 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ListOfInitializedProperties[i]));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 73 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 74 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
  } 
             
             #line default
             #line hidden
             
-            #line 74 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 75 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
  if (IsInput) { 
             
             #line default
@@ -288,7 +288,7 @@ namespace CodeGenerator_BusinessLayer
             this.btSave.Font = new System.Drawing.Font(""Microsoft Sans Serif"", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             ");
             
-            #line 85 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 86 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture((IsForm) ? "this.btSave.Location = new System.Drawing.Point(909, 456);" : "this.btSave.Location = new System.Drawing.Point(929, 504);"));
             
             #line default
@@ -303,13 +303,13 @@ namespace CodeGenerator_BusinessLayer
             this.btSave.Click += new System.EventHandler(this.btSave_Click);
 ");
             
-            #line 93 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 94 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
  } 
             
             #line default
             #line hidden
             
-            #line 93 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 94 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
  if (IsInput && IsForm) { 
             
             #line default
@@ -334,13 +334,13 @@ namespace CodeGenerator_BusinessLayer
             this.btCancel.Click += new System.EventHandler(this.btCancel_Click);
 ");
             
-            #line 112 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 113 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
  } 
             
             #line default
             #line hidden
             
-            #line 112 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 113 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
  if (IsInput) { 
             
             #line default
@@ -348,55 +348,55 @@ namespace CodeGenerator_BusinessLayer
             this.Write("            // \r\n            // errorProvider1\r\n            // \r\n            this" +
                     ".errorProvider1.ContainerControl = this;\r\n");
             
-            #line 117 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 118 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
  } 
             
             #line default
             #line hidden
             
-            #line 118 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 119 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
  if (IsView) { 
             
             #line default
             #line hidden
             this.Write("            // \r\n            // dgv");
             
-            #line 120 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 121 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableName));
             
             #line default
             #line hidden
             this.Write("\r\n            // \r\n            this.dgv");
             
-            #line 122 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 123 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableName));
             
             #line default
             #line hidden
             this.Write(".AllowUserToAddRows = false;\r\n            this.dgv");
             
-            #line 123 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 124 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableName));
             
             #line default
             #line hidden
             this.Write(".AllowUserToDeleteRows = false;\r\n            this.dgv");
             
-            #line 124 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 125 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableName));
             
             #line default
             #line hidden
             this.Write(".AllowUserToResizeRows = false;\r\n            this.dgv");
             
-            #line 125 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 126 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableName));
             
             #line default
             #line hidden
             this.Write(".AllowUserToOrderColumns = true;\r\n            this.dgv");
             
-            #line 126 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 127 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableName));
             
             #line default
@@ -404,97 +404,97 @@ namespace CodeGenerator_BusinessLayer
             this.Write(".ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeig" +
                     "htSizeMode.AutoSize;\r\n            this.dgv");
             
-            #line 127 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 128 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableName));
             
             #line default
             #line hidden
             this.Write(".Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {\r\n");
             
-            #line 128 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 129 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
  for (short i = 0; i < ListOfColunmData.Count; i++) { 
             
             #line default
             #line hidden
             this.Write("            this.col");
             
-            #line 129 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 130 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ListOfColunmData[i].NameWithout_));
             
             #line default
             #line hidden
             
-            #line 129 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 130 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture((i == ListOfColunmData.Count - 1) ? "});" : ","));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 130 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 131 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
  } 
             
             #line default
             #line hidden
             this.Write("            this.dgv");
             
-            #line 131 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 132 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableName));
             
             #line default
             #line hidden
             this.Write(".Dock = System.Windows.Forms.DockStyle.None;\r\n            this.dgv");
             
-            #line 132 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 133 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableName));
             
             #line default
             #line hidden
             this.Write(".Location = new System.Drawing.Point(0, 222);\r\n            this.dgv");
             
-            #line 133 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 134 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableName));
             
             #line default
             #line hidden
             this.Write(".MultiSelect = false;\r\n            this.dgv");
             
-            #line 134 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 135 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableName));
             
             #line default
             #line hidden
             this.Write(".Name = \"dgv");
             
-            #line 134 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 135 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableName));
             
             #line default
             #line hidden
             this.Write("\";\r\n            this.dgv");
             
-            #line 135 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 136 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableName));
             
             #line default
             #line hidden
             this.Write(".RowHeadersVisible = false;\r\n            this.dgv");
             
-            #line 136 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 137 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableName));
             
             #line default
             #line hidden
             this.Write(".RowHeadersWidth = 51;\r\n            this.dgv");
             
-            #line 137 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 138 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableName));
             
             #line default
             #line hidden
             this.Write(".RowTemplate.Height = 24;\r\n            this.dgv");
             
-            #line 138 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 139 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableName));
             
             #line default
@@ -502,91 +502,91 @@ namespace CodeGenerator_BusinessLayer
             this.Write(".SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;\r\n " +
                     "           this.dgv");
             
-            #line 139 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 140 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableName));
             
             #line default
             #line hidden
             this.Write(".Size = new System.Drawing.Size ");
             
-            #line 139 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 140 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture((IsForm) ? "(1030, 250)" : "(1050, 250)"));
             
             #line default
             #line hidden
             this.Write(";\r\n            this.dgv");
             
-            #line 140 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 141 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableName));
             
             #line default
             #line hidden
             this.Write(".TabIndex = 10;\r\n");
             
-            #line 141 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 142 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
  for (short i = 0; i < ListOfColunmData.Count; i++) { 
             
             #line default
             #line hidden
             this.Write("            // \r\n            // col");
             
-            #line 143 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 144 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ListOfColunmData[i].NameWithout_));
             
             #line default
             #line hidden
             this.Write("\r\n            // \r\n            this.col");
             
-            #line 145 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 146 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ListOfColunmData[i].NameWithout_));
             
             #line default
             #line hidden
             this.Write(".HeaderText = \"");
             
-            #line 145 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 146 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ListOfColunmData[i].Name.Replace("_", " ")));
             
             #line default
             #line hidden
             this.Write("\";\r\n            this.col");
             
-            #line 146 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 147 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ListOfColunmData[i].NameWithout_));
             
             #line default
             #line hidden
             this.Write(".MinimumWidth = 6;\r\n            this.col");
             
-            #line 147 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 148 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ListOfColunmData[i].NameWithout_));
             
             #line default
             #line hidden
             this.Write(".Name = \"col");
             
-            #line 147 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 148 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ListOfColunmData[i].NameWithout_));
             
             #line default
             #line hidden
             this.Write("\";\r\n            this.col");
             
-            #line 148 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 149 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ListOfColunmData[i].NameWithout_));
             
             #line default
             #line hidden
             this.Write(".ReadOnly = true;\r\n            this.col");
             
-            #line 149 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 150 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ListOfColunmData[i].NameWithout_));
             
             #line default
             #line hidden
             this.Write(".Width = 150;\r\n");
             
-            #line 150 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 151 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
  } 
             
             #line default
@@ -632,20 +632,20 @@ namespace CodeGenerator_BusinessLayer
                     "     this.mtxtbFilterValue.Size = new System.Drawing.Size(160, 27);\r\n           " +
                     " this.mtxtbFilterValue.TabIndex = 0;\r\n");
             
-            #line 208 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 209 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
  } 
             
             #line default
             #line hidden
             this.Write("            // \r\n            // ");
             
-            #line 210 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 211 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture((IsForm) ? "fm" : "uctrl"));
             
             #line default
             #line hidden
             
-            #line 210 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 211 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName.Replace("_", "")));
             
             #line default
@@ -654,67 +654,67 @@ namespace CodeGenerator_BusinessLayer
                     "F(11F, 20F);\r\n            this.AutoScaleMode = System.Windows.Forms.AutoScaleMod" +
                     "e.Font;\r\n            ");
             
-            #line 214 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 215 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture((IsForm) ? "this.ClientSize = new System.Drawing.Size(1032, 498);" : "this.Size = new System.Drawing.Size(1050, 545);"));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 215 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 216 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
  for (short i = 0; i < ListOfControlNames.Count; i++) { 
             
             #line default
             #line hidden
             this.Write("            this.Controls.Add(this.");
             
-            #line 216 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 217 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ListOfControlNames[i]));
             
             #line default
             #line hidden
             this.Write(");\r\n");
             
-            #line 217 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 218 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
  } 
             
             #line default
             #line hidden
             
-            #line 218 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 219 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
  if (IsInput && IsForm) { 
             
             #line default
             #line hidden
             this.Write("            this.Controls.Add(this.btCancel);\r\n");
             
-            #line 220 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 221 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
  } 
             
             #line default
             #line hidden
             
-            #line 220 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 221 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
  if (IsInput) { 
             
             #line default
             #line hidden
             this.Write("            this.Controls.Add(this.btSave);\r\n");
             
-            #line 222 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 223 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
  } 
             
             #line default
             #line hidden
             
-            #line 223 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 224 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
  if (IsView) { 
             
             #line default
             #line hidden
             this.Write("            this.Controls.Add(this.dgv");
             
-            #line 224 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 225 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableName));
             
             #line default
@@ -727,7 +727,7 @@ namespace CodeGenerator_BusinessLayer
             this.Controls.Add(this.lbNumberOfRowsResult);
 ");
             
-            #line 230 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 231 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
  } 
             
             #line default
@@ -737,20 +737,20 @@ namespace CodeGenerator_BusinessLayer
                     "           this.Margin = new System.Windows.Forms.Padding(4);\r\n            this." +
                     "Name = \"");
             
-            #line 233 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 234 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture((IsForm) ? "fm" : "uctrl"));
             
             #line default
             #line hidden
             
-            #line 233 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 234 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName.Replace("_", "")));
             
             #line default
             #line hidden
             this.Write("\";\r\n");
             
-            #line 234 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 235 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
  if (IsForm) { 
             
             #line default
@@ -758,40 +758,40 @@ namespace CodeGenerator_BusinessLayer
             this.Write("            this.MaximizeBox = false;\r\n            this.StartPosition = System.Wi" +
                     "ndows.Forms.FormStartPosition.CenterScreen;\r\n            this.Text = \"");
             
-            #line 237 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 238 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName.Replace("_", " ")));
             
             #line default
             #line hidden
             this.Write("\";\r\n");
             
-            #line 238 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 239 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
  } 
             
             #line default
             #line hidden
             
-            #line 238 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 239 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
  if (IsView) { 
             
             #line default
             #line hidden
             this.Write("            this.Load += new System.EventHandler(this.fm");
             
-            #line 239 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 240 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName.Replace("_", "")));
             
             #line default
             #line hidden
             this.Write("_Load);\r\n");
             
-            #line 240 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 241 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
  } 
             
             #line default
             #line hidden
             
-            #line 241 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 242 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
  if (IsInput) { 
             
             #line default
@@ -799,114 +799,114 @@ namespace CodeGenerator_BusinessLayer
             this.Write("            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).End" +
                     "Init();\r\n");
             
-            #line 243 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 244 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
  } 
             
             #line default
             #line hidden
             
-            #line 244 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 245 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
  if (IsView) { 
             
             #line default
             #line hidden
             this.Write("            ((System.ComponentModel.ISupportInitialize)(this.dgv");
             
-            #line 245 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 246 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableName));
             
             #line default
             #line hidden
             this.Write(")).EndInit();\r\n");
             
-            #line 246 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 247 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
  } 
             
             #line default
             #line hidden
             this.Write("            this.ResumeLayout(false);\r\n");
             
-            #line 248 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 249 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
  if (IsInput || IsView) { 
             
             #line default
             #line hidden
             this.Write("            this.PerformLayout();\r\n");
             
-            #line 250 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 251 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\r\n        }\r\n\r\n        #endregion\r\n\r\n");
             
-            #line 256 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 257 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
  for (short i = 0; i < ListOfCreatedObjectsOfControls.Count; i++) { 
             
             #line default
             #line hidden
             this.Write("        ");
             
-            #line 257 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 258 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ListOfCreatedObjectsOfControls[i]));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 258 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 259 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
  } 
             
             #line default
             #line hidden
             
-            #line 259 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 260 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
  if (IsInput) { 
             
             #line default
             #line hidden
             this.Write("        private System.Windows.Forms.Button btSave;\r\n");
             
-            #line 261 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 262 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
  } 
             
             #line default
             #line hidden
             
-            #line 261 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 262 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
  if (IsInput && IsForm) { 
             
             #line default
             #line hidden
             this.Write("        private System.Windows.Forms.Button btCancel;\r\n");
             
-            #line 263 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 264 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
  } 
             
             #line default
             #line hidden
             
-            #line 263 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 264 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
  if (IsInput) { 
             
             #line default
             #line hidden
             this.Write("        private System.Windows.Forms.ErrorProvider errorProvider1;\r\n");
             
-            #line 265 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 266 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
  } 
             
             #line default
             #line hidden
             
-            #line 266 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 267 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
  if (IsView) { 
             
             #line default
             #line hidden
             this.Write("        private System.Windows.Forms.DataGridView dgv");
             
-            #line 267 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 268 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableName));
             
             #line default
@@ -919,51 +919,45 @@ namespace CodeGenerator_BusinessLayer
         private System.Windows.Forms.MaskedTextBox mtxtbFilterValue;
 ");
             
-            #line 273 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 274 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
  for (short i = 0; i < ListOfColunmData.Count; i++) { 
             
             #line default
             #line hidden
             
-            #line 274 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 275 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
  if (ListOfColunmData[i].Type == "bit") { 
             
             #line default
             #line hidden
             this.Write("        private System.Windows.Forms.DataGridViewCheckBoxColumn col");
             
-            #line 275 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 276 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ListOfColunmData[i].NameWithout_));
             
             #line default
             #line hidden
             this.Write(";\r\n");
             
-            #line 276 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 277 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
  } 
             
             #line default
             #line hidden
             
-            #line 277 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 278 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
  if (ListOfColunmData[i].Type != "bit") { 
             
             #line default
             #line hidden
             this.Write("        private System.Windows.Forms.DataGridViewTextBoxColumn col");
             
-            #line 278 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+            #line 279 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ListOfColunmData[i].NameWithout_));
             
             #line default
             #line hidden
             this.Write(";\r\n");
-            
-            #line 279 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
- } 
-            
-            #line default
-            #line hidden
             
             #line 280 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
  } 
@@ -976,11 +970,17 @@ namespace CodeGenerator_BusinessLayer
             
             #line default
             #line hidden
+            
+            #line 282 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+ } 
+            
+            #line default
+            #line hidden
             this.Write("    }\r\n}\r\n\r\n");
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 285 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
+        #line 286 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateUiLayerDesigner.tt"
 
 
 string GetInitializedProperties(enControls ControlName, string ColumnName, short Index, bool IsAllowNull, Point point, bool IsLabel = false)

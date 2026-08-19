@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Net.Mime.MediaTypeNames;
 
 
 namespace CodeGenerator_PresentationLayer
@@ -21,7 +22,7 @@ namespace CodeGenerator_PresentationLayer
         }
 
         // ====================================================
-
+        
         string _ConnectionString { get; set; } = "";
         string _NameSpaceModulesOrDataAccessLayer { get; set; } = "";
         string _NameSpaceBusinessLayer { get; set; } = "";
@@ -31,6 +32,7 @@ namespace CodeGenerator_PresentationLayer
         string _DeleteParameterName { get; set; } = "";
         
         string _ExtensionTag { get; } = "// [EXTRA_METHODS_HERE]";
+        string _ExtensionTagScript { get; } = "-- [EXTRA_CODE_HERE]";
         
         bool _SpecialParameter { get; set; }
 
@@ -294,7 +296,7 @@ namespace CodeGenerator_PresentationLayer
             {
                 Properties.Settings.Default.LastSeectedPathModulesLayer = SelectedPath;
             }
-            else if (rbBusinessAndDataAccessLayer.Checked)
+            else if (rbDataAccessLayer.Checked)
             {
                 Properties.Settings.Default.LastSelectedPathDataAccessLayer = SelectedPath;
             }
@@ -312,7 +314,7 @@ namespace CodeGenerator_PresentationLayer
                     folderBrowserDialog1.SelectedPath = Properties.Settings.Default.LastSeectedPathModulesLayer;
                 }
             }
-            else if (rbBusinessAndDataAccessLayer.Checked)
+            else if (rbDataAccessLayer.Checked)
             {
                 if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.LastSelectedPathDataAccessLayer) &&
                     Directory.Exists(Properties.Settings.Default.LastSelectedPathDataAccessLayer))
@@ -326,7 +328,7 @@ namespace CodeGenerator_PresentationLayer
         {
             SetLastSelectedPathBusinessAndDataAccessLayer();
 
-            if (rbModuleLayer.Checked || rbBusinessAndDataAccessLayer.Checked)
+            if (rbModuleLayer.Checked || rbDataAccessLayer.Checked)
             {
                 if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
                 {
@@ -359,6 +361,52 @@ namespace CodeGenerator_PresentationLayer
         async Task<bool> CreateNewFileAndWriteAsync(string FilePath, RuntimeTextTemplateModulesLayer ModuleLayerTemplate)
         {
             string ClassCode = ModuleLayerTemplate.TransformText();
+
+            CaseIsReadOnlyHadle(FilePath);
+
+            try
+            {
+                using (StreamWriter writer = new StreamWriter(FilePath))
+                {
+                    await writer.WriteAsync(ClassCode);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                clsEventLog.WriteToEventLog(ex.Message, enLogType.Error);
+                return false;
+            }
+
+            return true;
+        }
+
+        async Task<bool> CreateNewFileAndWriteAsync(string FilePath, RuntimeTextTemplateStoredProceduresScript StoredProceduresScriptTemplate)
+        {
+            string ClassCode = StoredProceduresScriptTemplate.TransformText();
+
+            CaseIsReadOnlyHadle(FilePath);
+
+            try
+            {
+                using (StreamWriter writer = new StreamWriter(FilePath))
+                {
+                    await writer.WriteAsync(ClassCode);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                clsEventLog.WriteToEventLog(ex.Message, enLogType.Error);
+                return false;
+            }
+
+            return true;
+        }
+
+        async Task<bool> CreateNewFileAndWriteAsync(string FilePath, RuntimeTextTemplateStoredProceduresCode StoredProceduresTemplate)
+        {
+            string ClassCode = StoredProceduresTemplate.TransformText();
 
             CaseIsReadOnlyHadle(FilePath);
 
@@ -552,6 +600,38 @@ namespace CodeGenerator_PresentationLayer
             return CorrectParameter;
         }
 
+        string SelectCorrectParameterHelper(RuntimeTextTemplateStoredProceduresScript StoredProceduresScriptTemplate, string PrimaryKeyName, string MethodParameterName)
+        {
+            string CorrectParameter = "";
+
+            if (!string.IsNullOrWhiteSpace(MethodParameterName) && !IsBoolean(MethodParameterName, StoredProceduresScriptTemplate.SPTemplate.DALTemplate.Columns))
+            {
+                CorrectParameter = MethodParameterName;
+            }
+            else
+            {
+                CorrectParameter = PrimaryKeyName;
+            }
+
+            return CorrectParameter;
+        }
+
+        string SelectCorrectParameterHelper(RuntimeTextTemplateStoredProceduresCode StoredProceduresTemplate, string PrimaryKeyName, string MethodParameterName)
+        {
+            string CorrectParameter = "";
+
+            if (!string.IsNullOrWhiteSpace(MethodParameterName) && !IsBoolean(MethodParameterName, StoredProceduresTemplate.DALTemplate.Columns))
+            {
+                CorrectParameter = MethodParameterName;
+            }
+            else
+            {
+                CorrectParameter = PrimaryKeyName;
+            }
+
+            return CorrectParameter;
+        }
+
         async Task<bool> SelectCorrectParameterAsync(RuntimeTextTemplateDataAccessLayer DataAccessLayerTemplate, string TableName)
         {
             try
@@ -600,29 +680,100 @@ namespace CodeGenerator_PresentationLayer
             }
         }
 
-        RuntimeTextTemplateDataAccessLayerAppendMethods SetTamplateInfo(RuntimeTextTemplateDataAccessLayer DataAccessLayerTemplate)
+        async Task<bool> SelectCorrectParameterAsync(RuntimeTextTemplateStoredProceduresScript StoredProceduresScriptTemplate, string TableName)
         {
-            RuntimeTextTemplateDataAccessLayerAppendMethods RuntimeTextTemplateDataAccessLayerAppendMethods = new RuntimeTextTemplateDataAccessLayerAppendMethods();
+            try
+            {
+                StoredProceduresScriptTemplate.SPTemplate.DALTemplate.Columns = await ColumnService.GetAllColumnsStoredProcedureScriptAsync(TableName, _ConnectionString);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
-            RuntimeTextTemplateDataAccessLayerAppendMethods.IncludeAdd = DataAccessLayerTemplate.IncludeAdd;
-            RuntimeTextTemplateDataAccessLayerAppendMethods.IncludeFind = DataAccessLayerTemplate.IncludeFind;
-            RuntimeTextTemplateDataAccessLayerAppendMethods.IncludeUpdate = DataAccessLayerTemplate.IncludeUpdate;
-            RuntimeTextTemplateDataAccessLayerAppendMethods.IncludeExist = DataAccessLayerTemplate.IncludeExist;
-            RuntimeTextTemplateDataAccessLayerAppendMethods.IncludeGetAll = DataAccessLayerTemplate.IncludeGetAll;
-            RuntimeTextTemplateDataAccessLayerAppendMethods.IncludeDelete = DataAccessLayerTemplate.IncludeDelete;
+            if (StoredProceduresScriptTemplate.SPTemplate.DALTemplate.Columns != null)
+            {
+                string PrimaryKeyName = StoredProceduresScriptTemplate.SPTemplate.DALTemplate.Columns.Find(x => x.IsPrimaryKey)?.Name ?? "";
 
-            RuntimeTextTemplateDataAccessLayerAppendMethods.UpdateParameterName = DataAccessLayerTemplate.UpdateParameterName;
-            RuntimeTextTemplateDataAccessLayerAppendMethods.DeleteParameterName = DataAccessLayerTemplate.DeleteParameterName;
-            RuntimeTextTemplateDataAccessLayerAppendMethods.FindParameterName = DataAccessLayerTemplate.FindParameterName;
-            RuntimeTextTemplateDataAccessLayerAppendMethods.ExistParameterName = DataAccessLayerTemplate.ExistParameterName;
+                if (chListBoxFunctions.GetItemChecked((byte)enFunctions.Updata) == true)
+                {
+                    StoredProceduresScriptTemplate.SPTemplate.DALTemplate.IncludeUpdate = true;
 
-            RuntimeTextTemplateDataAccessLayerAppendMethods.TableName = DataAccessLayerTemplate.TableName;
-            RuntimeTextTemplateDataAccessLayerAppendMethods.TableSingleName = DataAccessLayerTemplate.TableSingleName;
-            RuntimeTextTemplateDataAccessLayerAppendMethods.ModulesLayerNameSpace = DataAccessLayerTemplate.ModulesLayerNameSpace;
-            RuntimeTextTemplateDataAccessLayerAppendMethods.Columns = DataAccessLayerTemplate.Columns;
-            RuntimeTextTemplateDataAccessLayerAppendMethods.NamespaceName = DataAccessLayerTemplate.NamespaceName;
+                    StoredProceduresScriptTemplate.SPTemplate.DALTemplate.UpdateParameterName = SelectCorrectParameterHelper(StoredProceduresScriptTemplate, PrimaryKeyName, _UpdateParameterName);
+                }
+                if (chListBoxFunctions.GetItemChecked((byte)enFunctions.IsExist) == true)
+                {
+                    StoredProceduresScriptTemplate.SPTemplate.DALTemplate.IncludeExist = true;
 
-            return RuntimeTextTemplateDataAccessLayerAppendMethods;
+                    StoredProceduresScriptTemplate.SPTemplate.DALTemplate.ExistParameterName = SelectCorrectParameterHelper(StoredProceduresScriptTemplate, PrimaryKeyName, _ExistParameterName);
+                }
+                if (chListBoxFunctions.GetItemChecked((byte)enFunctions.Find) == true)
+                {
+                    StoredProceduresScriptTemplate.SPTemplate.DALTemplate.IncludeFind = true;
+
+                    StoredProceduresScriptTemplate.SPTemplate.DALTemplate.FindParameterName = SelectCorrectParameterHelper(StoredProceduresScriptTemplate, PrimaryKeyName, _FindParameterName);
+                }
+                if (chListBoxFunctions.GetItemChecked((byte)enFunctions.Delete) == true)
+                {
+                    StoredProceduresScriptTemplate.SPTemplate.DALTemplate.IncludeDelete = true;
+
+                    StoredProceduresScriptTemplate.SPTemplate.DALTemplate.DeleteParameterName = SelectCorrectParameterHelper(StoredProceduresScriptTemplate, PrimaryKeyName, _DeleteParameterName);
+                }
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        async Task<bool> SelectCorrectParameterAsync(RuntimeTextTemplateStoredProceduresCode StoredProceduresTemplate, string TableName)
+        {
+            try
+            {
+                StoredProceduresTemplate.DALTemplate.Columns = await ColumnService.GetAllColumnsDataAccessLayerAsync(TableName, _ConnectionString, rbModuleLayer.Checked);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            if (StoredProceduresTemplate.DALTemplate.Columns != null)
+            {
+                string PrimaryKeyName = StoredProceduresTemplate.DALTemplate.Columns.Find(x => x.IsPrimaryKey)?.Name ?? "";
+
+                if (chListBoxFunctions.GetItemChecked((byte)enFunctions.Updata) == true)
+                {
+                    StoredProceduresTemplate.DALTemplate.IncludeUpdate = true;
+
+                    StoredProceduresTemplate.DALTemplate.UpdateParameterName = SelectCorrectParameterHelper(StoredProceduresTemplate, PrimaryKeyName, _UpdateParameterName);
+                }
+                if (chListBoxFunctions.GetItemChecked((byte)enFunctions.IsExist) == true)
+                {
+                    StoredProceduresTemplate.DALTemplate.IncludeExist = true;
+
+                    StoredProceduresTemplate.DALTemplate.ExistParameterName = SelectCorrectParameterHelper(StoredProceduresTemplate, PrimaryKeyName, _ExistParameterName);
+                }
+                if (chListBoxFunctions.GetItemChecked((byte)enFunctions.Find) == true)
+                {
+                    StoredProceduresTemplate.DALTemplate.IncludeFind = true;
+
+                    StoredProceduresTemplate.DALTemplate.FindParameterName = SelectCorrectParameterHelper(StoredProceduresTemplate, PrimaryKeyName, _FindParameterName);
+                }
+                if (chListBoxFunctions.GetItemChecked((byte)enFunctions.Delete) == true)
+                {
+                    StoredProceduresTemplate.DALTemplate.IncludeDelete = true;
+
+                    StoredProceduresTemplate.DALTemplate.DeleteParameterName = SelectCorrectParameterHelper(StoredProceduresTemplate, PrimaryKeyName, _DeleteParameterName);
+                }
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         void ShowMarkNotExistMessage()
@@ -714,9 +865,9 @@ namespace CodeGenerator_PresentationLayer
             {
                 if (Lines.Exists(x => x.Contains(" class ")))
                 {
-                    RuntimeTextTemplateDataAccessLayerAppendMethods RuntimeTextTemplateDataAccessLayerAppendMethods = SetTamplateInfo(DataAccessLayerTemplate);
+                    DataAccessLayerTemplate.IsAppendMode = true;
 
-                    string MethodsCode = RuntimeTextTemplateDataAccessLayerAppendMethods.TransformText();
+                    string MethodsCode = DataAccessLayerTemplate.TransformText();
 
                     Lines.RemoveRange(Index - 1, 2);
 
@@ -733,7 +884,7 @@ namespace CodeGenerator_PresentationLayer
             {
                 if (Lines.Count == 0)
                 {
-                    return CreateNewFileAndWriteAsync(FilePath, DataAccessLayerTemplate).Result;
+                    return await CreateNewFileAndWriteAsync(FilePath, DataAccessLayerTemplate);
                 }
                 else
                 {
@@ -744,7 +895,87 @@ namespace CodeGenerator_PresentationLayer
             return false;
         }
 
-        async Task<bool> GenerateDataAccessLayerHelperAsync(string TableName)
+        async Task<bool> FileExistHandleAsync(string FilePath, string TableName, RuntimeTextTemplateStoredProceduresScript StoredProceduresScriptTemplate)
+        {
+            List<string> Lines = await ReadFileAndSetItIntoListAsync(FilePath);
+
+            int Index = Lines.FindIndex(line => line.Contains(_ExtensionTagScript));
+
+            if (Index != -1)
+            {
+                if (Lines.Exists(x => x.Contains(" class ")))
+                {
+                    StoredProceduresScriptTemplate.SPTemplate.DALTemplate.IsAppendMode = true;
+
+                    string MethodsCode = StoredProceduresScriptTemplate.TransformText();
+
+                    Lines.RemoveRange(Index - 1, 2);
+
+                    Lines.Insert(Index, MethodsCode);
+
+                    return await WriteListIntoFileAsync(FilePath, Lines);
+                }
+                else
+                {
+                    return await CreateNewFileAndWriteAsync(FilePath, StoredProceduresScriptTemplate);
+                }
+            }
+            else
+            {
+                if (Lines.Count == 0)
+                {
+                    return await CreateNewFileAndWriteAsync(FilePath, StoredProceduresScriptTemplate);
+                }
+                else
+                {
+                    ShowMarkNotExistMessage();
+                }
+            }
+
+            return false;
+        }
+
+        async Task<bool> FileExistHandleAsync(string FilePath, string TableName, RuntimeTextTemplateStoredProceduresCode StoredProceduresTemplate)
+        {
+            List<string> Lines = await ReadFileAndSetItIntoListAsync(FilePath);
+
+            int Index = Lines.FindIndex(line => line.Contains(_ExtensionTag));
+
+            if (Index != -1)
+            {
+                if (Lines.Exists(x => x.Contains(" class ")))
+                {
+                    StoredProceduresTemplate.DALTemplate.IsAppendMode = true;
+
+                    string MethodsCode = StoredProceduresTemplate.TransformText();
+
+                    Lines.RemoveRange(Index - 1, 2);
+
+                    Lines.Insert(Index, MethodsCode);
+
+                    return await WriteListIntoFileAsync(FilePath, Lines);
+                }
+                else
+                {
+                    return await CreateNewFileAndWriteAsync(FilePath, StoredProceduresTemplate);
+                }
+            }
+            else
+            {
+                if (Lines.Count == 0)
+                {
+                    return await CreateNewFileAndWriteAsync(FilePath, StoredProceduresTemplate);
+                }
+                else
+                {
+                    ShowMarkNotExistMessage();
+                }
+            }
+
+            return false;
+        }
+
+        async Task<bool> GenerateNormalQueriesAsync(string TableName)
         {
             RuntimeTextTemplateDataAccessLayer DataAccessLayerTemplate = new RuntimeTextTemplateDataAccessLayer();
 
@@ -768,6 +999,95 @@ namespace CodeGenerator_PresentationLayer
                 {
                     return await CreateNewFileAndWriteAsync(FilePath, DataAccessLayerTemplate);
                 }
+            }
+
+            return false;
+        }
+
+        string GetFolderName(string FolderPath)
+        {
+            FolderPath = Path.Combine(FolderPath, "Scripts");
+
+            if (!Directory.Exists(FolderPath))
+            {
+                Directory.CreateDirectory(FolderPath);
+            }
+
+            return FolderPath;
+        }
+
+        async Task<bool> GenerateStoredProceduresHelperAsync(RuntimeTextTemplateStoredProceduresScript StoredProceduresScriptTemplate, string TableName)
+        {
+            if (await SelectCorrectParameterAsync(StoredProceduresScriptTemplate, TableName) == true)
+            {
+                StoredProceduresScriptTemplate.SPTemplate.DALTemplate.TableName = TableName;
+                StoredProceduresScriptTemplate.DatabaseName = cbDataBaseNames.Text;
+
+                StoredProceduresScriptTemplate.SPTemplate.DALTemplate.IncludeAdd = chListBoxFunctions.GetItemChecked((byte)enFunctions.Add);
+                StoredProceduresScriptTemplate.SPTemplate.DALTemplate.IncludeGetAll = chListBoxFunctions.GetItemChecked((byte)enFunctions.GetAll);
+
+                string FilePath = Path.Combine(GetFolderName(lbFolderSelectedPath.Text), StoredProceduresScriptTemplate.SPTemplate.DALTemplate.TableName + ".sql");
+
+                if (File.Exists(FilePath))
+                {
+                    return await FileExistHandleAsync(FilePath, TableName, StoredProceduresScriptTemplate);
+                }
+                else
+                {
+                    return await CreateNewFileAndWriteAsync(FilePath, StoredProceduresScriptTemplate);
+                }
+            }
+
+            return false;
+        }
+
+        async Task<bool> GenerateStoredProceduresHelperAsync(RuntimeTextTemplateStoredProceduresCode StoredProceduresTemplate, string TableName)
+        {
+            if (await SelectCorrectParameterAsync(StoredProceduresTemplate, TableName) == true)
+            {
+                StoredProceduresTemplate.DALTemplate.NamespaceName = _NameSpaceModulesOrDataAccessLayer;
+                StoredProceduresTemplate.DALTemplate.TableName = TableName;
+                StoredProceduresTemplate.DALTemplate.TableSingleName = GetTableSingleName(TableName);
+                StoredProceduresTemplate.DALTemplate.ModulesLayerNameSpace = txtbModulesLayerNameSpace.Text;
+
+                StoredProceduresTemplate.DALTemplate.IncludeAdd = chListBoxFunctions.GetItemChecked((byte)enFunctions.Add);
+                StoredProceduresTemplate.DALTemplate.IncludeGetAll = chListBoxFunctions.GetItemChecked((byte)enFunctions.GetAll);
+
+                string FilePath = Path.Combine(lbFolderSelectedPath.Text, StoredProceduresTemplate.DALTemplate.TableSingleName + "Repository" + ".cs");
+
+                if (File.Exists(FilePath))
+                {
+                    return await FileExistHandleAsync(FilePath, TableName, StoredProceduresTemplate);
+                }
+                else
+                {
+                    return await CreateNewFileAndWriteAsync(FilePath, StoredProceduresTemplate);
+                }
+            }
+
+            return false;
+        }
+
+        async Task<bool> GenerateStoredProceduresAsync(string TableName)
+        {
+            RuntimeTextTemplateStoredProceduresCode StoredProceduresTemplate = new RuntimeTextTemplateStoredProceduresCode();
+            RuntimeTextTemplateStoredProceduresScript StoredProceduresScriptTemplate = new RuntimeTextTemplateStoredProceduresScript();
+            
+            bool Operation1 = await GenerateStoredProceduresHelperAsync(StoredProceduresTemplate, TableName);
+            bool Operation2 = await GenerateStoredProceduresHelperAsync(StoredProceduresScriptTemplate, TableName);
+
+            return Operation1 && Operation2;
+        }
+
+        async Task<bool> GenerateDataAccessLayerHelperAsync(string TableName)
+        {
+            if (rbStoredProcedures.Checked)
+            {
+                return await GenerateStoredProceduresAsync(TableName);
+            }
+            else if (rbNormalQueries.Checked)
+            {
+                return await GenerateNormalQueriesAsync(TableName);
             }
 
             return false;
@@ -925,32 +1245,6 @@ namespace CodeGenerator_PresentationLayer
             }
         }
 
-        RuntimeTextTemplateBusinessLayerAppendMethods SetTamplateInfo(RuntimeTextTemplateBusinessLayer BusinessLayerTemplate)
-        {
-            RuntimeTextTemplateBusinessLayerAppendMethods RuntimeTextTemplateBusinessLayerAppendMethods = new RuntimeTextTemplateBusinessLayerAppendMethods();
-
-            RuntimeTextTemplateBusinessLayerAppendMethods.IncludeAdd = BusinessLayerTemplate.IncludeAdd;
-            RuntimeTextTemplateBusinessLayerAppendMethods.IncludeFind = BusinessLayerTemplate.IncludeFind;
-            RuntimeTextTemplateBusinessLayerAppendMethods.IncludeUpdate = BusinessLayerTemplate.IncludeUpdate;
-            RuntimeTextTemplateBusinessLayerAppendMethods.IncludeExist = BusinessLayerTemplate.IncludeExist;
-            RuntimeTextTemplateBusinessLayerAppendMethods.IncludeGetAll = BusinessLayerTemplate.IncludeGetAll;
-            RuntimeTextTemplateBusinessLayerAppendMethods.IncludeDelete = BusinessLayerTemplate.IncludeDelete;
-
-            RuntimeTextTemplateBusinessLayerAppendMethods.UpdateParameterName = BusinessLayerTemplate.UpdateParameterName;
-            RuntimeTextTemplateBusinessLayerAppendMethods.DeleteParameterName = BusinessLayerTemplate.DeleteParameterName;
-            RuntimeTextTemplateBusinessLayerAppendMethods.FindParameterName = BusinessLayerTemplate.FindParameterName;
-            RuntimeTextTemplateBusinessLayerAppendMethods.ExistParameterName = BusinessLayerTemplate.ExistParameterName;
-
-            RuntimeTextTemplateBusinessLayerAppendMethods.TableName = BusinessLayerTemplate.TableName;
-            RuntimeTextTemplateBusinessLayerAppendMethods.TableSingleName = BusinessLayerTemplate.TableSingleName;
-            RuntimeTextTemplateBusinessLayerAppendMethods.ModulesLayerNameSpace = BusinessLayerTemplate.ModulesLayerNameSpace;
-            RuntimeTextTemplateBusinessLayerAppendMethods.DataAccessLayerNameSpace = BusinessLayerTemplate.DataAccessLayerNameSpace;
-            RuntimeTextTemplateBusinessLayerAppendMethods.Columns = BusinessLayerTemplate.Columns;
-            RuntimeTextTemplateBusinessLayerAppendMethods.NamespaceName = BusinessLayerTemplate.NamespaceName;
-
-            return RuntimeTextTemplateBusinessLayerAppendMethods;
-        }
-
         async Task<bool> CreateNewFileAndWriteAsync(string FilePath, RuntimeTextTemplateBusinessLayer BusinessLayerTemplate)
         {
             string ClassCode = BusinessLayerTemplate.TransformText();
@@ -984,9 +1278,9 @@ namespace CodeGenerator_PresentationLayer
             {
                 if (Lines.Exists(x => x.Contains(" class ")))
                 {
-                    RuntimeTextTemplateBusinessLayerAppendMethods RuntimeTextTemplateBusinessLayerAppendMethods = SetTamplateInfo(BusinessLayerTemplate);
+                    BusinessLayerTemplate.IsAppendMode = true;
 
-                    string MethodsCode = RuntimeTextTemplateBusinessLayerAppendMethods.TransformText();
+                    string MethodsCode = BusinessLayerTemplate.TransformText();
 
                     Lines.RemoveRange(Index - 1, 2);
 
@@ -1094,19 +1388,24 @@ namespace CodeGenerator_PresentationLayer
                     ShowFaildMessage();
                 }
             }
-            else if (rbBusinessAndDataAccessLayer.Checked)
+            else if (rbDataAccessLayer.Checked)
             {
                 if (IsAnyFunctionsChecked())
                 {
-                    if (lbFolderSelectedPathBusinessLayerResult.Text != "???" &&
-                        !string.IsNullOrWhiteSpace(lbFolderSelectedPathBusinessLayerResult.Text))
+                    if ((chbGenerateBusinessLayer.Checked && lbFolderSelectedPathBusinessLayerResult.Text != "???" &&
+                        !string.IsNullOrWhiteSpace(lbFolderSelectedPathBusinessLayerResult.Text)) || !chbGenerateBusinessLayer.Checked)
                     {
                         if (!string.IsNullOrWhiteSpace(txtbModulesLayerNameSpace.Text))
                         {
                             bool ResultDataAccessLayer = await GenerateDataAccessLayerAsync();
-                            bool ResultBusinessLayer = await GenerateBusinessLayerAsync();
+                            bool ResultBusinessLayer = false;
 
-                            if (!ResultDataAccessLayer || !ResultBusinessLayer)
+                            if (chbGenerateBusinessLayer.Checked)
+                            {
+                                ResultBusinessLayer = await GenerateBusinessLayerAsync();
+                            }
+                            
+                            if (!ResultDataAccessLayer || (!ResultBusinessLayer && chbGenerateBusinessLayer.Checked))
                             {
                                 ShowFaildMessage();
                             }
@@ -1114,8 +1413,8 @@ namespace CodeGenerator_PresentationLayer
                             {
                                 ShowSuccessfullyMessage();
 
-                                chListBoxFunctions.SetItemChecked((byte)enFunctions.All, false);
-                                SetCheckToAllItems(false);
+                                //chListBoxFunctions.SetItemChecked((byte)enFunctions.All, false);
+                                //SetCheckToAllItems(false);
                             }
                         }
                         else
@@ -1185,6 +1484,7 @@ namespace CodeGenerator_PresentationLayer
 
             if (rbModuleLayer.Checked)
             {
+                SetCheckToAllItems(false);
                 chListBoxFunctions.Enabled = false;
 
                 lbFolderSelectedPathBusinessLayer.Visible = false;
@@ -1192,24 +1492,22 @@ namespace CodeGenerator_PresentationLayer
                 btBrowseBusinessLayer.Enabled = false;
                 btBrowse.Text = "Browse M";
                 lbFolderSelectedPathModulesOrDataAccessLayer.Text = "Folder Selected Path Modules Layer :";
-                lbEnterModulesLayerNameSpace.Visible = false;
-                txtbModulesLayerNameSpace.Visible = false;
+                txtbModulesLayerNameSpace.Enabled = false;
+                chbGenerateBusinessLayer.Enabled = false;
+                panel1.Enabled = false;
             }
-            else if (rbBusinessAndDataAccessLayer.Checked)
+            else if (rbDataAccessLayer.Checked)
             {
-                if (rbTables.Checked)
-                {
-                    chListBoxFunctions.Enabled = true;
-                }
-
+                chListBoxFunctions.Enabled = true;
                 lbFolderSelectedPathBusinessLayer.Visible = true;
                 lbFolderSelectedPathBusinessLayerResult.Visible = true;
 
                 btBrowseBusinessLayer.Enabled = true;
                 btBrowse.Text = "Browse D";
                 lbFolderSelectedPathModulesOrDataAccessLayer.Text = "Folder Selected Path Data Access Layer :";
-                lbEnterModulesLayerNameSpace.Visible = true;
-                txtbModulesLayerNameSpace.Visible = true;
+                txtbModulesLayerNameSpace.Enabled = true;
+                chbGenerateBusinessLayer.Enabled = true;
+                panel1.Enabled = true;
             }
         }
 
@@ -1341,7 +1639,7 @@ namespace CodeGenerator_PresentationLayer
             listbTableOrViewNames.Items.Clear();
             listbColumns.Items.Clear();
 
-            rbBusinessAndDataAccessLayer.Checked = false;
+            rbDataAccessLayer.Checked = false;
             rbModuleLayer.Checked = false;
 
             cbDataBaseNames.Items.Clear();
@@ -1391,20 +1689,15 @@ namespace CodeGenerator_PresentationLayer
             if (rbViews.Checked)
             {
                 lbTableorViewNames.Text = "View Names :";
-                chListBoxFunctions.SetItemChecked((byte)enFunctions.All, false);
-                SetCheckToAllItems(false);
-                chListBoxFunctions.SetItemChecked((byte)enFunctions.GetAll, true);
-                chListBoxFunctions.SelectedIndex = (byte)enFunctions.GetAll;
-                chListBoxFunctions.Enabled = false;
             }
             else if (rbTables.Checked)
             {
                 lbTableorViewNames.Text = "Table Names :";
+            }
 
-                if (rbBusinessAndDataAccessLayer.Checked)
-                {
-                    chListBoxFunctions.Enabled = true;
-                }
+            if (rbDataAccessLayer.Checked)
+            {
+                chListBoxFunctions.Enabled = true;
             }
 
             if (cbDataBaseNames.Items.Count > 0)
@@ -1436,6 +1729,19 @@ namespace CodeGenerator_PresentationLayer
         private void fmCodeGenerator_FormClosed(object sender, FormClosedEventArgs e)
         {
             clsEventLog.WriteToEventLog("The program has been closed", enLogType.Information);
+        }
+
+        private void chbGenerateBusinessLayer_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chbGenerateBusinessLayer.Checked)
+            {
+                btBrowseBusinessLayer.Enabled = true;
+            }
+            else
+            {
+                btBrowseBusinessLayer.Enabled = false;
+                lbFolderSelectedPathBusinessLayerResult.Text = "???";
+            }
         }
     }
 }

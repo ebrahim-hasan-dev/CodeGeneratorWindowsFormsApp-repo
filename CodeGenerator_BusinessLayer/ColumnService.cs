@@ -2,6 +2,7 @@
 using CodeGenerator_DataAccessLayer;
 using CodeGenerator_Modules;
 using System.Collections.Generic;
+using System.Drawing.Text;
 using System.Threading.Tasks;
 
 
@@ -46,6 +47,18 @@ namespace CodeGenerator_BusinessLayer
                 }
 
                 return ListOfColumns;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public static async Task<List<clsColumnDataDataAccessLayer>> GetAllColumnsStoredProcedureScriptAsync(string TableName, string ConnectionString)
+        {
+            if (!string.IsNullOrWhiteSpace(TableName) && !string.IsNullOrWhiteSpace(ConnectionString))
+            {
+                return await ColumnRepository.GetAllColumnsDataAccessLayerAsync(TableName, ConnectionString); ;
             }
             else
             {
@@ -201,7 +214,7 @@ namespace CodeGenerator_BusinessLayer
             return ControlName;
         }
 
-
+        
 
     }
 }

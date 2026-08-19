@@ -4,6 +4,7 @@
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="System.Drawing" #>
 
+
 namespace <#= NameSpace #>
 {
     partial class <#= (IsForm) ? "fm" : "uctrl" #><#= TableSingleName.Replace("_", "") #> 

@@ -40,8 +40,8 @@ namespace CodeGenerator_BusinessLayer
     internal class clsConnectionString
     {
         private static IConfigurationRoot config = new ConfigurationBuilder().AddJsonFile(""appsettings.json"", optional: true, reloadOnChange: true).Build();
-            
-        public static string ConnectionString = config.GetConnectionString(""DefaultConnection"") ?? ""Server=.;DataBase=MyDLM;Integrated Security=True;"";
+        
+        public static string ConnectionString = config.GetConnectionString(""DefaultConnection"") ?? ""Server=.;DataBase=MyDLM;Integrated Security=True;TrustServerCertificate=True;"";
     }
 }
 
