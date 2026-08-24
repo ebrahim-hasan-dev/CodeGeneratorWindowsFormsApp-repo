@@ -146,45 +146,46 @@ namespace CodeGenerator_BusinessLayer
     END CATCH
 END;
 GO
+
+-- ======================================================================================
 ");
             
-            #line 49 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
+            #line 51 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("\r\n-- ============================================================================" +
-                    "==========\r\n\r\n");
+            this.Write("\r\n\r\n");
             
-            #line 53 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
+            #line 54 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
  if (SPTemplate.DALTemplate.IncludeUpdate) { 
             
             #line default
             #line hidden
             this.Write("    CREATE PROCEDURE sp_");
             
-            #line 54 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
+            #line 55 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(SPTemplate.DALTemplate.TableName));
             
             #line default
             #line hidden
             this.Write("_Update\r\n    ");
             
-            #line 55 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
+            #line 56 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(SP_AddArUpdateFunctionHandled(false)));
             
             #line default
             #line hidden
             this.Write("\r\nAS\r\nBEGIN\r\n    BEGIN TRY\r\n        BEGIN TRANSACTION;\r\n\r\n        UPDATE [");
             
-            #line 61 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
+            #line 62 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(SPTemplate.DALTemplate.TableName));
             
             #line default
             #line hidden
             this.Write("] SET \r\n");
             
-            #line 62 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
+            #line 63 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
  for (short i = 0; i < SPTemplate.DALTemplate.Columns.Count; i++) { 
                                 if (SPTemplate.DALTemplate.Columns[i].IsPrimaryKey)
                                             continue;
@@ -193,41 +194,41 @@ GO
             #line hidden
             this.Write("        [");
             
-            #line 65 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
+            #line 66 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(SPTemplate.DALTemplate.Columns[i].Name));
             
             #line default
             #line hidden
             this.Write("] = @");
             
-            #line 65 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
+            #line 66 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(SPTemplate.DALTemplate.Columns[i].NameWithout_));
             
             #line default
             #line hidden
             
-            #line 65 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
+            #line 66 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture((i < SPTemplate.DALTemplate.Columns.Count - 1) ? ", " : ""));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 66 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
+            #line 67 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
  } 
             
             #line default
             #line hidden
             this.Write("        WHERE [");
             
-            #line 67 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
+            #line 68 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(SPTemplate.DALTemplate.UpdateParameterName));
             
             #line default
             #line hidden
             this.Write("] = @");
             
-            #line 67 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
+            #line 68 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(SPTemplate.DALTemplate.UpdateParameterName.Replace("_", "")));
             
             #line default
@@ -248,152 +249,153 @@ GO
     END CATCH
 END;
 GO
+
+-- ======================================================================================
 ");
             
-            #line 83 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
+            #line 86 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("\r\n-- ============================================================================" +
-                    "==========\r\n\r\n");
+            this.Write("\r\n\r\n");
             
-            #line 87 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
+            #line 89 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
  if (SPTemplate.DALTemplate.IncludeFind) { 
             
             #line default
             #line hidden
             this.Write("    CREATE PROCEDURE sp_");
             
-            #line 88 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
+            #line 90 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(SPTemplate.DALTemplate.TableName));
             
             #line default
             #line hidden
             this.Write("_FindBy_");
             
-            #line 88 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
+            #line 90 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(SPTemplate.DALTemplate.FindParameterName.Replace("_", "")));
             
             #line default
             #line hidden
             this.Write("\r\n    @");
             
-            #line 89 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
+            #line 91 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(SPTemplate.DALTemplate.FindParameterName.Replace("_", "")));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 89 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
+            #line 91 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(SPTemplate.DALTemplate.Columns.Find(x => x.Name == SPTemplate.DALTemplate.FindParameterName)?.Type.ToUpper()));
             
             #line default
             #line hidden
             this.Write("\r\nAS\r\nBEGIN\r\n    SET NOCOUNT ON;\r\n\r\n    SELECT * FROM ");
             
-            #line 94 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
+            #line 96 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(SPTemplate.DALTemplate.TableName));
             
             #line default
             #line hidden
             this.Write(" WHERE ");
             
-            #line 94 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
+            #line 96 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(SPTemplate.DALTemplate.FindParameterName));
             
             #line default
             #line hidden
             this.Write(" = @");
             
-            #line 94 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
+            #line 96 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(SPTemplate.DALTemplate.FindParameterName.Replace("_", "")));
             
             #line default
             #line hidden
-            this.Write(";\r\nEND;\r\nGO\r\n");
+            this.Write(";\r\nEND;\r\nGO\r\n\r\n-- ===============================================================" +
+                    "=======================\r\n");
             
-            #line 97 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
+            #line 101 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("\r\n-- ============================================================================" +
-                    "==========\r\n\r\n");
+            this.Write("\r\n\r\n");
             
-            #line 101 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
+            #line 104 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
  if (SPTemplate.DALTemplate.IncludeGetAll) { 
             
             #line default
             #line hidden
             this.Write("    CREATE PROCEDURE sp_");
             
-            #line 102 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
+            #line 105 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(SPTemplate.DALTemplate.TableName));
             
             #line default
             #line hidden
             this.Write("_GetAll\r\nAS\r\nBEGIN\r\n    SET NOCOUNT ON;\r\n\r\n    SELECT * FROM ");
             
-            #line 107 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
+            #line 110 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(SPTemplate.DALTemplate.TableName));
             
             #line default
             #line hidden
-            this.Write(";\r\nEND;\r\nGO\r\n");
+            this.Write(";\r\nEND;\r\nGO\r\n\r\n-- ===============================================================" +
+                    "=======================\r\n");
             
-            #line 110 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
+            #line 115 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("\r\n-- ============================================================================" +
-                    "==========\r\n\r\n");
+            this.Write("\r\n\r\n");
             
-            #line 114 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
+            #line 118 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
  if (SPTemplate.DALTemplate.IncludeDelete) { 
             
             #line default
             #line hidden
             this.Write("    CREATE PROCEDURE sp_");
             
-            #line 115 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
+            #line 119 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(SPTemplate.DALTemplate.TableName));
             
             #line default
             #line hidden
             this.Write("_Delete\r\n    @");
             
-            #line 116 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
+            #line 120 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(SPTemplate.DALTemplate.DeleteParameterName.Replace("_", "")));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 116 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
+            #line 120 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(SPTemplate.DALTemplate.Columns.Find(x => x.Name == SPTemplate.DALTemplate.DeleteParameterName)?.Type.ToUpper()));
             
             #line default
             #line hidden
             this.Write("\r\nAS\r\nBEGIN\r\n    BEGIN TRY\r\n        BEGIN TRANSACTION;\r\n\r\n        DELETE FROM ");
             
-            #line 122 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
+            #line 126 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(SPTemplate.DALTemplate.TableName));
             
             #line default
             #line hidden
             this.Write(" WHERE ");
             
-            #line 122 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
+            #line 126 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(SPTemplate.DALTemplate.DeleteParameterName));
             
             #line default
             #line hidden
             this.Write(" = @");
             
-            #line 122 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
+            #line 126 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(SPTemplate.DALTemplate.DeleteParameterName.Replace("_", "")));
             
             #line default
@@ -414,38 +416,40 @@ GO
     END CATCH
 END;
 GO
+
+-- ======================================================================================
+
 ");
             
-            #line 138 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
+            #line 145 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("\r\n-- ============================================================================" +
-                    "==========\r\n\r\n");
+            this.Write("\r\n\r\n");
             
-            #line 142 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
+            #line 148 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
  if (SPTemplate.DALTemplate.IncludeExist) { 
             
             #line default
             #line hidden
             this.Write("    CREATE PROCEDURE sp_");
             
-            #line 143 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
+            #line 149 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(SPTemplate.DALTemplate.TableName));
             
             #line default
             #line hidden
             this.Write("_IsExist\r\n    @");
             
-            #line 144 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
+            #line 150 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(SPTemplate.DALTemplate.ExistParameterName.Replace("_", "")));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 144 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
+            #line 150 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(SPTemplate.DALTemplate.Columns.Find(x => x.Name == SPTemplate.DALTemplate.ExistParameterName)?.Type.ToUpper()));
             
             #line default
@@ -453,38 +457,39 @@ GO
             this.Write(",\r\n    @IsFound BIT OUTPUT\r\nAS\r\nBEGIN\r\n    SET NOCOUNT ON;\r\n\r\n    IF EXISTS (SELE" +
                     "CT 1 FROM ");
             
-            #line 150 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
+            #line 156 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(SPTemplate.DALTemplate.TableName));
             
             #line default
             #line hidden
             this.Write(" WHERE ");
             
-            #line 150 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
+            #line 156 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(SPTemplate.DALTemplate.ExistParameterName));
             
             #line default
             #line hidden
             this.Write(" = @");
             
-            #line 150 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
+            #line 156 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(SPTemplate.DALTemplate.ExistParameterName.Replace("_", "")));
             
             #line default
             #line hidden
-            this.Write(")\r\n        SET @IsFound = 1;\r\n    ELSE\r\n        SET @IsFound = 0;\r\nEND;\r\nGO\r\n");
+            this.Write(")\r\n        SET @IsFound = 1;\r\n    ELSE\r\n        SET @IsFound = 0;\r\nEND;\r\nGO\r\n\r\n--" +
+                    " ===============================================================================" +
+                    "=======\r\n");
             
-            #line 156 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
+            #line 164 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("\r\n-- ============================================================================" +
-                    "==========\r\n\r\n\r\n-- Never delete this comment\r\n-- [EXTRA_CODE_HERE]\r\n\r\n\r\n\r\n");
+            this.Write("\r\n\r\n\r\n-- Never delete this comment\r\n-- [EXTRA_CODE_HERE]\r\n\r\n\r\n\r\n");
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 166 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
+        #line 173 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresScript.tt"
 
 
 public string DatabaseName { get; set;} = "";

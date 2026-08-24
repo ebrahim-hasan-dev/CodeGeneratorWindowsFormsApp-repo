@@ -568,20 +568,22 @@ private string AddFunctionResultHandles()
         if (Columns[i].IsPrimaryKey)
         { 
              Value += $"{TableSingleName}.{Columns[i].NameWithout_} = int.Parse(Obj.ToString() ?? \"0\");";
+             break;
         }
-        else if (i + 1 == Columns.Count) 
-        { 
-            if (Columns[0].Type == "DateTime") 
-            {
-                 Value += $"{TableSingleName}.{Columns[0].NameWithout_} = {Columns[0].Type}.Parse(Obj.ToString() ?? \"1000-1-1\")";
-            }
-            else if (Columns[0].Type == "string") { 
-                 Value += $"{TableSingleName}.{Columns[0].NameWithout_} = Obj as string ?? \"\"";
-            } 
-            else if (Columns[0].Type != "DateTime" && Columns[0].Type != "string") 
-            {
-                 Value += $"{TableSingleName}.{Columns[0].NameWithout_} = {Columns[0].Type}.Parse(Obj.ToString() ?? \"0\")";
-            }
+    }
+
+    if (string.IsNullOrWhiteSpace(Value)) 
+    { 
+        if (Columns[0].Type == "DateTime") 
+        {
+             Value += $"{TableSingleName}.{Columns[0].NameWithout_} = {Columns[0].Type}.Parse(Obj.ToString() ?? \"1000-1-1\");";
+        }
+        else if (Columns[0].Type == "string") { 
+             Value += $"{TableSingleName}.{Columns[0].NameWithout_} = Obj as string ?? \"\";";
+        } 
+        else // (Columns[0].Type != "DateTime" && Columns[0].Type != "string") 
+        {
+             Value += $"{TableSingleName}.{Columns[0].NameWithout_} = {Columns[0].Type}.Parse(Obj.ToString() ?? \"0\");";
         }
     }
 

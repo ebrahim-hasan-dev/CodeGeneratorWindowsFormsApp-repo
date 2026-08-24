@@ -46,9 +46,10 @@ BEGIN
     END CATCH
 END;
 GO
-<# } #>
 
 -- ======================================================================================
+<# } #>
+
 
 <# if (SPTemplate.DALTemplate.IncludeUpdate) { #>
     CREATE PROCEDURE sp_<#= SPTemplate.DALTemplate.TableName #>_Update
@@ -80,9 +81,10 @@ BEGIN
     END CATCH
 END;
 GO
-<# } #>
 
 -- ======================================================================================
+<# } #>
+
 
 <# if (SPTemplate.DALTemplate.IncludeFind) { #>
     CREATE PROCEDURE sp_<#= SPTemplate.DALTemplate.TableName #>_FindBy_<#= SPTemplate.DALTemplate.FindParameterName.Replace("_", "") #>
@@ -94,9 +96,10 @@ BEGIN
     SELECT * FROM <#= SPTemplate.DALTemplate.TableName #> WHERE <#= SPTemplate.DALTemplate.FindParameterName #> = @<#= SPTemplate.DALTemplate.FindParameterName.Replace("_", "") #>;
 END;
 GO
-<# } #>
 
 -- ======================================================================================
+<# } #>
+
 
 <# if (SPTemplate.DALTemplate.IncludeGetAll) { #>
     CREATE PROCEDURE sp_<#= SPTemplate.DALTemplate.TableName #>_GetAll
@@ -107,9 +110,10 @@ BEGIN
     SELECT * FROM <#= SPTemplate.DALTemplate.TableName #>;
 END;
 GO
-<# } #>
 
 -- ======================================================================================
+<# } #>
+
 
 <# if (SPTemplate.DALTemplate.IncludeDelete) { #>
     CREATE PROCEDURE sp_<#= SPTemplate.DALTemplate.TableName #>_Delete
@@ -135,9 +139,11 @@ BEGIN
     END CATCH
 END;
 GO
-<# } #>
 
 -- ======================================================================================
+
+<# } #>
+
 
 <# if (SPTemplate.DALTemplate.IncludeExist) { #>
     CREATE PROCEDURE sp_<#= SPTemplate.DALTemplate.TableName #>_IsExist
@@ -153,9 +159,10 @@ BEGIN
         SET @IsFound = 0;
 END;
 GO
-<# } #>
 
 -- ======================================================================================
+<# } #>
+
 
 
 -- Never delete this comment
