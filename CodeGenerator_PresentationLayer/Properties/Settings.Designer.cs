@@ -70,5 +70,17 @@ namespace CodeGenerator_PresentationLayer.Properties {
                 this["LastSelectedPathUILayer"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LastSelectedPathStoredProcedureScript {
+            get {
+                return ((string)(this["LastSelectedPathStoredProcedureScript"]));
+            }
+            set {
+                this["LastSelectedPathStoredProcedureScript"] = value;
+            }
+        }
     }
 }

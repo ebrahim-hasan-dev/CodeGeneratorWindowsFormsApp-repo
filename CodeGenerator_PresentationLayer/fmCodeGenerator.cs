@@ -1026,7 +1026,7 @@ namespace CodeGenerator_PresentationLayer
                 StoredProceduresScriptTemplate.SPTemplate.DALTemplate.IncludeAdd = chListBoxFunctions.GetItemChecked((byte)enFunctions.Add);
                 StoredProceduresScriptTemplate.SPTemplate.DALTemplate.IncludeGetAll = chListBoxFunctions.GetItemChecked((byte)enFunctions.GetAll);
 
-                string FilePath = Path.Combine(GetFolderName(lbFolderSelectedPath.Text), StoredProceduresScriptTemplate.SPTemplate.DALTemplate.TableName + ".sql");
+                string FilePath = Path.Combine(GetFolderName(lbFolderSelectedPathStoredProcedureScriptResult.Text), "Create_StoredProcedures_" + StoredProceduresScriptTemplate.SPTemplate.DALTemplate.TableName + ".sql");
 
                 if (File.Exists(FilePath))
                 {
@@ -1133,6 +1133,16 @@ namespace CodeGenerator_PresentationLayer
             List<bool> ListOfResults = new List<bool>();
 
             CheckFromFolderPath(lbFolderSelectedPath.Text);
+
+            if (rbStoredProcedures.Checked)
+            {
+                CheckFromFolderPath(lbFolderSelectedPathStoredProcedureScriptResult.Text);
+
+                if (!HasWritePermission(lbFolderSelectedPathStoredProcedureScriptResult.Text))
+                {
+                    return false;
+                }
+            }
 
             if (HasWritePermission(lbFolderSelectedPath.Text))
             {
@@ -1397,6 +1407,15 @@ namespace CodeGenerator_PresentationLayer
                     {
                         if (!string.IsNullOrWhiteSpace(txtbModulesLayerNameSpace.Text))
                         {
+                            if (rbStoredProcedures.Checked && (lbFolderSelectedPathStoredProcedureScriptResult.Text == "???" || !string.IsNullOrWhiteSpace(lbFolderSelectedPathStoredProcedureScriptResult.Text)))
+                            {
+                                MessageBox.Show("You must select folder path to stored procedure script", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                                this.AcceptButton = btBrowseSP;
+                                btBrowseSP.Focus();
+                                return;
+                            }
+
                             bool ResultDataAccessLayer = await GenerateDataAccessLayerAsync();
                             bool ResultBusinessLayer = false;
 
@@ -1495,6 +1514,10 @@ namespace CodeGenerator_PresentationLayer
                 txtbModulesLayerNameSpace.Enabled = false;
                 chbGenerateBusinessLayer.Enabled = false;
                 panel1.Enabled = false;
+
+                btBrowseSP.Enabled = false;
+                lbFolderSelectedPathStoredProcedureScript.Visible = false;
+                lbFolderSelectedPathStoredProcedureScriptResult.Visible = false;
             }
             else if (rbDataAccessLayer.Checked)
             {
@@ -1508,6 +1531,9 @@ namespace CodeGenerator_PresentationLayer
                 txtbModulesLayerNameSpace.Enabled = true;
                 chbGenerateBusinessLayer.Enabled = true;
                 panel1.Enabled = true;
+
+                chbGenerateBusinessLayer_CheckedChanged(null, null);
+                rbStoredProcedures_CheckedChanged(null, null);
             }
         }
 
@@ -1736,11 +1762,56 @@ namespace CodeGenerator_PresentationLayer
             if (chbGenerateBusinessLayer.Checked)
             {
                 btBrowseBusinessLayer.Enabled = true;
+                lbFolderSelectedPathBusinessLayer.Visible = true;
+                lbFolderSelectedPathBusinessLayerResult.Visible = true;
             }
             else
             {
+                lbFolderSelectedPathBusinessLayer.Visible = false;
+                lbFolderSelectedPathBusinessLayerResult.Visible = false;
                 btBrowseBusinessLayer.Enabled = false;
                 lbFolderSelectedPathBusinessLayerResult.Text = "???";
+            }
+        }
+
+        void SetLastSelectedPathToDialogStoredProcedureScript()
+        {
+            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.LastSelectedPathStoredProcedureScript) &&
+                Directory.Exists(Properties.Settings.Default.LastSelectedPathStoredProcedureScript))
+            {
+                folderBrowserDialog1.SelectedPath = Properties.Settings.Default.LastSelectedPathStoredProcedureScript;
+            }
+        }
+
+        void btBrowseStoredProcedure_Click(object sender, EventArgs e)
+        {
+            SetLastSelectedPathToDialogStoredProcedureScript();
+
+            if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
+            {
+                lbFolderSelectedPathStoredProcedureScriptResult.Text = folderBrowserDialog1.SelectedPath;
+
+                Properties.Settings.Default.LastSelectedPathStoredProcedureScript = folderBrowserDialog1.SelectedPath;
+                Properties.Settings.Default.Save();
+
+                btGenerate.Enabled = true;
+                this.AcceptButton = btGenerate;
+            }
+        }
+
+        private void rbStoredProcedures_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbStoredProcedures.Checked)
+            {
+                btBrowseSP.Enabled = true;
+                lbFolderSelectedPathStoredProcedureScript.Visible = true;
+                lbFolderSelectedPathStoredProcedureScriptResult.Visible = true;
+            }
+            else if (rbNormalQueries.Checked)
+            {
+                btBrowseSP.Enabled = false;
+                lbFolderSelectedPathStoredProcedureScript.Visible = false;
+                lbFolderSelectedPathStoredProcedureScriptResult.Visible = false;
             }
         }
     }

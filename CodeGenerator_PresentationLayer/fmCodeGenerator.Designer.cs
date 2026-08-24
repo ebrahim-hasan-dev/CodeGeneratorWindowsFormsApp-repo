@@ -71,6 +71,9 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.rbTables = new System.Windows.Forms.RadioButton();
             this.rbViews = new System.Windows.Forms.RadioButton();
+            this.lbFolderSelectedPathStoredProcedureScript = new System.Windows.Forms.Label();
+            this.lbFolderSelectedPathStoredProcedureScriptResult = new System.Windows.Forms.Label();
+            this.btBrowseSP = new System.Windows.Forms.Button();
             this.contextMenuStrip2.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -81,7 +84,7 @@
             // 
             this.cbDataBaseNames.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbDataBaseNames.FormattingEnabled = true;
-            this.cbDataBaseNames.Location = new System.Drawing.Point(12, 138);
+            this.cbDataBaseNames.Location = new System.Drawing.Point(12, 130);
             this.cbDataBaseNames.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.cbDataBaseNames.Name = "cbDataBaseNames";
             this.cbDataBaseNames.Size = new System.Drawing.Size(437, 33);
@@ -159,10 +162,10 @@
             this.btGenerate.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
             this.btGenerate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btGenerate.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btGenerate.Location = new System.Drawing.Point(887, 730);
+            this.btGenerate.Location = new System.Drawing.Point(878, 709);
             this.btGenerate.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btGenerate.Name = "btGenerate";
-            this.btGenerate.Size = new System.Drawing.Size(115, 50);
+            this.btGenerate.Size = new System.Drawing.Size(122, 57);
             this.btGenerate.TabIndex = 4;
             this.btGenerate.Text = "Generate";
             this.btGenerate.UseVisualStyleBackColor = false;
@@ -177,10 +180,10 @@
             this.btConnect.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
             this.btConnect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btConnect.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btConnect.Location = new System.Drawing.Point(530, 730);
+            this.btConnect.Location = new System.Drawing.Point(382, 709);
             this.btConnect.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btConnect.Name = "btConnect";
-            this.btConnect.Size = new System.Drawing.Size(115, 50);
+            this.btConnect.Size = new System.Drawing.Size(122, 57);
             this.btConnect.TabIndex = 3;
             this.btConnect.Text = "Connect";
             this.btConnect.UseVisualStyleBackColor = false;
@@ -199,7 +202,7 @@
             "Find",
             "Delete",
             "Get All"});
-            this.chListBoxFunctions.Location = new System.Drawing.Point(541, 317);
+            this.chListBoxFunctions.Location = new System.Drawing.Point(541, 294);
             this.chListBoxFunctions.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.chListBoxFunctions.Name = "chListBoxFunctions";
             this.chListBoxFunctions.Size = new System.Drawing.Size(122, 179);
@@ -212,11 +215,11 @@
             this.listbTableOrViewNames.FormattingEnabled = true;
             this.listbTableOrViewNames.HorizontalScrollbar = true;
             this.listbTableOrViewNames.ItemHeight = 25;
-            this.listbTableOrViewNames.Location = new System.Drawing.Point(12, 317);
+            this.listbTableOrViewNames.Location = new System.Drawing.Point(12, 294);
             this.listbTableOrViewNames.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.listbTableOrViewNames.Name = "listbTableOrViewNames";
             this.listbTableOrViewNames.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.listbTableOrViewNames.Size = new System.Drawing.Size(256, 279);
+            this.listbTableOrViewNames.Size = new System.Drawing.Size(256, 229);
             this.listbTableOrViewNames.TabIndex = 15;
             this.listbTableOrViewNames.SelectedIndexChanged += new System.EventHandler(this.listbTableNames_SelectedIndexChanged);
             // 
@@ -242,10 +245,10 @@
             this.listbColumns.FormattingEnabled = true;
             this.listbColumns.HorizontalScrollbar = true;
             this.listbColumns.ItemHeight = 25;
-            this.listbColumns.Location = new System.Drawing.Point(274, 317);
+            this.listbColumns.Location = new System.Drawing.Point(274, 294);
             this.listbColumns.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.listbColumns.Name = "listbColumns";
-            this.listbColumns.Size = new System.Drawing.Size(256, 279);
+            this.listbColumns.Size = new System.Drawing.Size(256, 229);
             this.listbColumns.TabIndex = 16;
             // 
             // contextMenuStrip1
@@ -268,7 +271,7 @@
             // 
             this.lbTableorViewNames.AutoSize = true;
             this.lbTableorViewNames.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTableorViewNames.Location = new System.Drawing.Point(12, 293);
+            this.lbTableorViewNames.Location = new System.Drawing.Point(12, 270);
             this.lbTableorViewNames.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbTableorViewNames.Name = "lbTableorViewNames";
             this.lbTableorViewNames.Size = new System.Drawing.Size(140, 22);
@@ -279,7 +282,7 @@
             // 
             this.lbColumns.AutoSize = true;
             this.lbColumns.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbColumns.Location = new System.Drawing.Point(274, 293);
+            this.lbColumns.Location = new System.Drawing.Point(274, 270);
             this.lbColumns.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbColumns.Name = "lbColumns";
             this.lbColumns.Size = new System.Drawing.Size(156, 22);
@@ -295,10 +298,10 @@
             this.btClose.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
             this.btClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btClose.Location = new System.Drawing.Point(292, 730);
+            this.btClose.Location = new System.Drawing.Point(134, 709);
             this.btClose.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btClose.Name = "btClose";
-            this.btClose.Size = new System.Drawing.Size(115, 50);
+            this.btClose.Size = new System.Drawing.Size(122, 57);
             this.btClose.TabIndex = 19;
             this.btClose.Text = "Close";
             this.btClose.UseVisualStyleBackColor = false;
@@ -314,10 +317,10 @@
             this.btBrowse.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
             this.btBrowse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btBrowse.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btBrowse.Location = new System.Drawing.Point(768, 730);
+            this.btBrowse.Location = new System.Drawing.Point(754, 709);
             this.btBrowse.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btBrowse.Name = "btBrowse";
-            this.btBrowse.Size = new System.Drawing.Size(115, 50);
+            this.btBrowse.Size = new System.Drawing.Size(122, 57);
             this.btBrowse.TabIndex = 20;
             this.btBrowse.Text = "Browse M";
             this.btBrowse.UseVisualStyleBackColor = false;
@@ -334,7 +337,7 @@
             // 
             this.lbFolderSelectedPath.AutoSize = true;
             this.lbFolderSelectedPath.ForeColor = System.Drawing.Color.Red;
-            this.lbFolderSelectedPath.Location = new System.Drawing.Point(12, 630);
+            this.lbFolderSelectedPath.Location = new System.Drawing.Point(12, 555);
             this.lbFolderSelectedPath.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbFolderSelectedPath.Name = "lbFolderSelectedPath";
             this.lbFolderSelectedPath.Size = new System.Drawing.Size(48, 25);
@@ -346,7 +349,7 @@
             // 
             this.rbModuleLayer.AutoSize = true;
             this.rbModuleLayer.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbModuleLayer.Location = new System.Drawing.Point(674, 317);
+            this.rbModuleLayer.Location = new System.Drawing.Point(674, 294);
             this.rbModuleLayer.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.rbModuleLayer.Name = "rbModuleLayer";
             this.rbModuleLayer.Size = new System.Drawing.Size(151, 26);
@@ -360,7 +363,7 @@
             // 
             this.rbDataAccessLayer.AutoSize = true;
             this.rbDataAccessLayer.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbDataAccessLayer.Location = new System.Drawing.Point(674, 353);
+            this.rbDataAccessLayer.Location = new System.Drawing.Point(674, 330);
             this.rbDataAccessLayer.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.rbDataAccessLayer.Name = "rbDataAccessLayer";
             this.rbDataAccessLayer.Size = new System.Drawing.Size(199, 26);
@@ -374,7 +377,7 @@
             // 
             this.lbAllDataBases.AutoSize = true;
             this.lbAllDataBases.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbAllDataBases.Location = new System.Drawing.Point(12, 114);
+            this.lbAllDataBases.Location = new System.Drawing.Point(12, 106);
             this.lbAllDataBases.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbAllDataBases.Name = "lbAllDataBases";
             this.lbAllDataBases.Size = new System.Drawing.Size(154, 22);
@@ -385,7 +388,7 @@
             // 
             this.lbFolderSelectedPathBusinessLayerResult.AutoSize = true;
             this.lbFolderSelectedPathBusinessLayerResult.ForeColor = System.Drawing.Color.Red;
-            this.lbFolderSelectedPathBusinessLayerResult.Location = new System.Drawing.Point(12, 686);
+            this.lbFolderSelectedPathBusinessLayerResult.Location = new System.Drawing.Point(12, 615);
             this.lbFolderSelectedPathBusinessLayerResult.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbFolderSelectedPathBusinessLayerResult.Name = "lbFolderSelectedPathBusinessLayerResult";
             this.lbFolderSelectedPathBusinessLayerResult.Size = new System.Drawing.Size(48, 25);
@@ -398,7 +401,7 @@
             this.lbFolderSelectedPathBusinessLayer.AutoSize = true;
             this.lbFolderSelectedPathBusinessLayer.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbFolderSelectedPathBusinessLayer.ForeColor = System.Drawing.Color.Black;
-            this.lbFolderSelectedPathBusinessLayer.Location = new System.Drawing.Point(12, 661);
+            this.lbFolderSelectedPathBusinessLayer.Location = new System.Drawing.Point(12, 588);
             this.lbFolderSelectedPathBusinessLayer.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbFolderSelectedPathBusinessLayer.Name = "lbFolderSelectedPathBusinessLayer";
             this.lbFolderSelectedPathBusinessLayer.Size = new System.Drawing.Size(353, 22);
@@ -411,7 +414,7 @@
             this.lbFolderSelectedPathModulesOrDataAccessLayer.AutoSize = true;
             this.lbFolderSelectedPathModulesOrDataAccessLayer.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbFolderSelectedPathModulesOrDataAccessLayer.ForeColor = System.Drawing.Color.Black;
-            this.lbFolderSelectedPathModulesOrDataAccessLayer.Location = new System.Drawing.Point(12, 605);
+            this.lbFolderSelectedPathModulesOrDataAccessLayer.Location = new System.Drawing.Point(12, 530);
             this.lbFolderSelectedPathModulesOrDataAccessLayer.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbFolderSelectedPathModulesOrDataAccessLayer.Name = "lbFolderSelectedPathModulesOrDataAccessLayer";
             this.lbFolderSelectedPathModulesOrDataAccessLayer.Size = new System.Drawing.Size(384, 22);
@@ -429,10 +432,10 @@
             this.btBrowseBusinessLayer.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
             this.btBrowseBusinessLayer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btBrowseBusinessLayer.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btBrowseBusinessLayer.Location = new System.Drawing.Point(649, 730);
+            this.btBrowseBusinessLayer.Location = new System.Drawing.Point(630, 709);
             this.btBrowseBusinessLayer.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btBrowseBusinessLayer.Name = "btBrowseBusinessLayer";
-            this.btBrowseBusinessLayer.Size = new System.Drawing.Size(115, 50);
+            this.btBrowseBusinessLayer.Size = new System.Drawing.Size(122, 57);
             this.btBrowseBusinessLayer.TabIndex = 28;
             this.btBrowseBusinessLayer.Text = "Browse B";
             this.btBrowseBusinessLayer.UseVisualStyleBackColor = false;
@@ -441,7 +444,7 @@
             // txtbModulesLayerNameSpace
             // 
             this.txtbModulesLayerNameSpace.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtbModulesLayerNameSpace.Location = new System.Drawing.Point(541, 541);
+            this.txtbModulesLayerNameSpace.Location = new System.Drawing.Point(541, 518);
             this.txtbModulesLayerNameSpace.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtbModulesLayerNameSpace.Name = "txtbModulesLayerNameSpace";
             this.txtbModulesLayerNameSpace.Size = new System.Drawing.Size(437, 28);
@@ -452,7 +455,7 @@
             this.lbEnterModulesLayerNameSpace.AutoSize = true;
             this.lbEnterModulesLayerNameSpace.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbEnterModulesLayerNameSpace.ForeColor = System.Drawing.Color.Black;
-            this.lbEnterModulesLayerNameSpace.Location = new System.Drawing.Point(541, 518);
+            this.lbEnterModulesLayerNameSpace.Location = new System.Drawing.Point(541, 495);
             this.lbEnterModulesLayerNameSpace.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbEnterModulesLayerNameSpace.Name = "lbEnterModulesLayerNameSpace";
             this.lbEnterModulesLayerNameSpace.Size = new System.Drawing.Size(319, 22);
@@ -468,10 +471,10 @@
             this.btReset.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
             this.btReset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btReset.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btReset.Location = new System.Drawing.Point(411, 730);
+            this.btReset.Location = new System.Drawing.Point(258, 709);
             this.btReset.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btReset.Name = "btReset";
-            this.btReset.Size = new System.Drawing.Size(115, 50);
+            this.btReset.Size = new System.Drawing.Size(122, 57);
             this.btReset.TabIndex = 32;
             this.btReset.Text = "Reset";
             this.btReset.UseVisualStyleBackColor = false;
@@ -481,7 +484,7 @@
             // 
             this.txtbTableSingleName.BackColor = System.Drawing.SystemColors.Window;
             this.txtbTableSingleName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtbTableSingleName.Location = new System.Drawing.Point(12, 213);
+            this.txtbTableSingleName.Location = new System.Drawing.Point(12, 194);
             this.txtbTableSingleName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtbTableSingleName.Name = "txtbTableSingleName";
             this.txtbTableSingleName.Size = new System.Drawing.Size(406, 28);
@@ -491,7 +494,7 @@
             // 
             this.lbTableSingleName.AutoSize = true;
             this.lbTableSingleName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTableSingleName.Location = new System.Drawing.Point(12, 188);
+            this.lbTableSingleName.Location = new System.Drawing.Point(12, 169);
             this.lbTableSingleName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbTableSingleName.Name = "lbTableSingleName";
             this.lbTableSingleName.Size = new System.Drawing.Size(192, 22);
@@ -507,7 +510,7 @@
             this.btChange.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
             this.btChange.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btChange.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btChange.Location = new System.Drawing.Point(424, 207);
+            this.btChange.Location = new System.Drawing.Point(424, 188);
             this.btChange.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btChange.Name = "btChange";
             this.btChange.Size = new System.Drawing.Size(91, 40);
@@ -521,7 +524,7 @@
             this.panel1.Controls.Add(this.rbStoredProcedures);
             this.panel1.Controls.Add(this.rbNormalQueries);
             this.panel1.Enabled = false;
-            this.panel1.Location = new System.Drawing.Point(669, 389);
+            this.panel1.Location = new System.Drawing.Point(669, 366);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(329, 41);
             this.panel1.TabIndex = 37;
@@ -539,6 +542,7 @@
             this.rbStoredProcedures.TabStop = true;
             this.rbStoredProcedures.Text = "Stored Procedures";
             this.rbStoredProcedures.UseVisualStyleBackColor = true;
+            this.rbStoredProcedures.CheckedChanged += new System.EventHandler(this.rbStoredProcedures_CheckedChanged);
             // 
             // rbNormalQueries
             // 
@@ -551,6 +555,7 @@
             this.rbNormalQueries.TabIndex = 40;
             this.rbNormalQueries.Text = "Normal Queries";
             this.rbNormalQueries.UseVisualStyleBackColor = true;
+            this.rbNormalQueries.CheckedChanged += new System.EventHandler(this.rbStoredProcedures_CheckedChanged);
             // 
             // chbGenerateBusinessLayer
             // 
@@ -559,7 +564,7 @@
             this.chbGenerateBusinessLayer.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chbGenerateBusinessLayer.Enabled = false;
             this.chbGenerateBusinessLayer.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chbGenerateBusinessLayer.Location = new System.Drawing.Point(674, 440);
+            this.chbGenerateBusinessLayer.Location = new System.Drawing.Point(674, 417);
             this.chbGenerateBusinessLayer.Name = "chbGenerateBusinessLayer";
             this.chbGenerateBusinessLayer.Size = new System.Drawing.Size(245, 24);
             this.chbGenerateBusinessLayer.TabIndex = 38;
@@ -571,7 +576,7 @@
             // 
             this.panel2.Controls.Add(this.rbTables);
             this.panel2.Controls.Add(this.rbViews);
-            this.panel2.Location = new System.Drawing.Point(12, 251);
+            this.panel2.Location = new System.Drawing.Point(12, 228);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(253, 31);
             this.panel2.TabIndex = 38;
@@ -602,12 +607,59 @@
             this.rbViews.UseVisualStyleBackColor = true;
             this.rbViews.CheckedChanged += new System.EventHandler(this.rbViews_Or_rbTables_CheckedChanged);
             // 
+            // lbFolderSelectedPathStoredProcedureScript
+            // 
+            this.lbFolderSelectedPathStoredProcedureScript.AutoSize = true;
+            this.lbFolderSelectedPathStoredProcedureScript.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbFolderSelectedPathStoredProcedureScript.ForeColor = System.Drawing.Color.Black;
+            this.lbFolderSelectedPathStoredProcedureScript.Location = new System.Drawing.Point(13, 646);
+            this.lbFolderSelectedPathStoredProcedureScript.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lbFolderSelectedPathStoredProcedureScript.Name = "lbFolderSelectedPathStoredProcedureScript";
+            this.lbFolderSelectedPathStoredProcedureScript.Size = new System.Drawing.Size(431, 22);
+            this.lbFolderSelectedPathStoredProcedureScript.TabIndex = 39;
+            this.lbFolderSelectedPathStoredProcedureScript.Text = "Folder Selected Path Stored Procedure Script :";
+            this.lbFolderSelectedPathStoredProcedureScript.Visible = false;
+            // 
+            // lbFolderSelectedPathStoredProcedureScriptResult
+            // 
+            this.lbFolderSelectedPathStoredProcedureScriptResult.AutoSize = true;
+            this.lbFolderSelectedPathStoredProcedureScriptResult.ForeColor = System.Drawing.Color.Red;
+            this.lbFolderSelectedPathStoredProcedureScriptResult.Location = new System.Drawing.Point(12, 675);
+            this.lbFolderSelectedPathStoredProcedureScriptResult.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lbFolderSelectedPathStoredProcedureScriptResult.Name = "lbFolderSelectedPathStoredProcedureScriptResult";
+            this.lbFolderSelectedPathStoredProcedureScriptResult.Size = new System.Drawing.Size(48, 25);
+            this.lbFolderSelectedPathStoredProcedureScriptResult.TabIndex = 40;
+            this.lbFolderSelectedPathStoredProcedureScriptResult.Text = "???";
+            this.lbFolderSelectedPathStoredProcedureScriptResult.Visible = false;
+            // 
+            // btBrowseSP
+            // 
+            this.btBrowseSP.BackColor = System.Drawing.Color.Silver;
+            this.btBrowseSP.Enabled = false;
+            this.btBrowseSP.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.btBrowseSP.FlatAppearance.BorderSize = 2;
+            this.btBrowseSP.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Silver;
+            this.btBrowseSP.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
+            this.btBrowseSP.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btBrowseSP.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btBrowseSP.Location = new System.Drawing.Point(506, 709);
+            this.btBrowseSP.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.btBrowseSP.Name = "btBrowseSP";
+            this.btBrowseSP.Size = new System.Drawing.Size(122, 57);
+            this.btBrowseSP.TabIndex = 41;
+            this.btBrowseSP.Text = "Browse SP Script";
+            this.btBrowseSP.UseVisualStyleBackColor = false;
+            this.btBrowseSP.Click += new System.EventHandler(this.btBrowseStoredProcedure_Click);
+            // 
             // fmCodeGenerator
             // 
             this.AcceptButton = this.btConnect;
             this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1004, 781);
+            this.ClientSize = new System.Drawing.Size(1004, 768);
+            this.Controls.Add(this.btBrowseSP);
+            this.Controls.Add(this.lbFolderSelectedPathStoredProcedureScriptResult);
+            this.Controls.Add(this.lbFolderSelectedPathStoredProcedureScript);
             this.Controls.Add(this.rbDataAccessLayer);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.chbGenerateBusinessLayer);
@@ -704,6 +756,9 @@
         private System.Windows.Forms.RadioButton rbTables;
         private System.Windows.Forms.RadioButton rbViews;
         private System.Windows.Forms.RadioButton rbNormalQueries;
+        private System.Windows.Forms.Label lbFolderSelectedPathStoredProcedureScript;
+        private System.Windows.Forms.Label lbFolderSelectedPathStoredProcedureScriptResult;
+        private System.Windows.Forms.Button btBrowseSP;
     }
 }
 
