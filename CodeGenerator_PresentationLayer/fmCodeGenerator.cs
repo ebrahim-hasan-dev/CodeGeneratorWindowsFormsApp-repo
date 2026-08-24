@@ -1407,7 +1407,7 @@ namespace CodeGenerator_PresentationLayer
                     {
                         if (!string.IsNullOrWhiteSpace(txtbModulesLayerNameSpace.Text))
                         {
-                            if (rbStoredProcedures.Checked && (lbFolderSelectedPathStoredProcedureScriptResult.Text == "???" || !string.IsNullOrWhiteSpace(lbFolderSelectedPathStoredProcedureScriptResult.Text)))
+                            if (rbStoredProcedures.Checked && (lbFolderSelectedPathStoredProcedureScriptResult.Text == "???" || string.IsNullOrWhiteSpace(lbFolderSelectedPathStoredProcedureScriptResult.Text)))
                             {
                                 MessageBox.Show("You must select folder path to stored procedure script", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
