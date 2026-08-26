@@ -11,7 +11,7 @@ namespace <#= NamespaceName #>
     {
         private static IConfigurationRoot config = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: true, reloadOnChange: true).Build();
         
-        public static string ConnectionString = config.GetConnectionString("DefaultConnection") ?? "Server=.;DataBase=MyDLM;Integrated Security=True;TrustServerCertificate=True;";
+        public static string ConnectionString = config.GetConnectionString("DefaultConnection") ?? "Server=.;DataBase=<#= DatebaseName #>;Integrated Security=True;TrustServerCertificate=True;";
     }
 }
 
@@ -19,5 +19,6 @@ namespace <#= NamespaceName #>
 <#+
 
 public string NamespaceName { get; set; } = "";
+public string DatebaseName { get; set; } = "";
 
 #>

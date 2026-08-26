@@ -38,7 +38,7 @@ namespace CodeGenerator_BusinessLayer
 
     public class clsEventLog
     {
-        private static string _sourceName = """";
+        //private static string _sourceName = """";
 
 
         public static void WriteToEventLog(string Message, enLogType LogType)

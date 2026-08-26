@@ -1127,6 +1127,7 @@ namespace CodeGenerator_PresentationLayer
             {
                 RuntimeTextTemplateConnectionStringClass ConnectionStringClass = new RuntimeTextTemplateConnectionStringClass();
                 ConnectionStringClass.NamespaceName = _NameSpaceModulesOrDataAccessLayer;
+                ConnectionStringClass.DatebaseName = cbDataBaseNames.Text;
                 await CreateNewFileAndWriteAsync(FilePath, ConnectionStringClass);
             }
         }

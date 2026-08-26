@@ -41,12 +41,14 @@ namespace CodeGenerator_BusinessLayer
     {
         private static IConfigurationRoot config = new ConfigurationBuilder().AddJsonFile(""appsettings.json"", optional: true, reloadOnChange: true).Build();
         
-        public static string ConnectionString = config.GetConnectionString(""DefaultConnection"") ?? ""Server=.;DataBase=MyDLM;Integrated Security=True;TrustServerCertificate=True;"";
-    }
-}
-
-
-");
+        public static string ConnectionString = config.GetConnectionString(""DefaultConnection"") ?? ""Server=.;DataBase=");
+            
+            #line 14 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateConnectionStringClass.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DatebaseName));
+            
+            #line default
+            #line hidden
+            this.Write(";Integrated Security=True;TrustServerCertificate=True;\";\r\n    }\r\n}\r\n\r\n\r\n");
             return this.GenerationEnvironment.ToString();
         }
         
@@ -54,6 +56,7 @@ namespace CodeGenerator_BusinessLayer
 
 
 public string NamespaceName { get; set; } = "";
+public string DatebaseName { get; set; } = "";
 
 
         
