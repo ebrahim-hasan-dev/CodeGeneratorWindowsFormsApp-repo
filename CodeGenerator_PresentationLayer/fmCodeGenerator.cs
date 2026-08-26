@@ -470,7 +470,8 @@ namespace CodeGenerator_PresentationLayer
             RuntimeTextTemplateModulesLayer ModuleLayerTemplate = new RuntimeTextTemplateModulesLayer();
 
             ModuleLayerTemplate.NamespaceName = _NameSpaceModulesOrDataAccessLayer;
-            ModuleLayerTemplate.TableSingleName = GetTableSingleName(TableName);
+            ModuleLayerTemplate.TableSingleName = TableService.ConvertToSingle(TableName);
+            //ModuleLayerTemplate.TableSingleName = GetTableSingleName(TableName);
             ModuleLayerTemplate.Columns = ListOfColumns;
 
             string FilePath = Path.Combine(lbFolderSelectedPath.Text, "cls" + ModuleLayerTemplate.TableSingleName + ".cs");
@@ -983,7 +984,8 @@ namespace CodeGenerator_PresentationLayer
             {
                 DataAccessLayerTemplate.NamespaceName = _NameSpaceModulesOrDataAccessLayer;
                 DataAccessLayerTemplate.TableName = TableName;
-                DataAccessLayerTemplate.TableSingleName = GetTableSingleName(TableName);
+                DataAccessLayerTemplate.TableSingleName = TableService.ConvertToSingle(TableName);
+                //DataAccessLayerTemplate.TableSingleName = GetTableSingleName(TableName);
                 DataAccessLayerTemplate.ModulesLayerNameSpace = txtbModulesLayerNameSpace.Text;
 
                 DataAccessLayerTemplate.IncludeAdd = chListBoxFunctions.GetItemChecked((byte)enFunctions.Add);
@@ -1047,7 +1049,8 @@ namespace CodeGenerator_PresentationLayer
             {
                 StoredProceduresTemplate.DALTemplate.NamespaceName = _NameSpaceModulesOrDataAccessLayer;
                 StoredProceduresTemplate.DALTemplate.TableName = TableName;
-                StoredProceduresTemplate.DALTemplate.TableSingleName = GetTableSingleName(TableName);
+                StoredProceduresTemplate.DALTemplate.TableSingleName = TableService.ConvertToSingle(TableName);
+                //StoredProceduresTemplate.DALTemplate.TableSingleName = GetTableSingleName(TableName);
                 StoredProceduresTemplate.DALTemplate.ModulesLayerNameSpace = txtbModulesLayerNameSpace.Text;
 
                 StoredProceduresTemplate.DALTemplate.IncludeAdd = chListBoxFunctions.GetItemChecked((byte)enFunctions.Add);
@@ -1326,7 +1329,8 @@ namespace CodeGenerator_PresentationLayer
             {
                 BusinessLayerTemplate.NamespaceName = _NameSpaceBusinessLayer;
                 BusinessLayerTemplate.TableName = TableName;
-                BusinessLayerTemplate.TableSingleName = GetTableSingleName(TableName);
+                BusinessLayerTemplate.TableSingleName = TableService.ConvertToSingle(TableName);
+                //BusinessLayerTemplate.TableSingleName = GetTableSingleName(TableName);
                 BusinessLayerTemplate.ModulesLayerNameSpace = txtbModulesLayerNameSpace.Text;
                 BusinessLayerTemplate.DataAccessLayerNameSpace = _NameSpaceModulesOrDataAccessLayer;
 

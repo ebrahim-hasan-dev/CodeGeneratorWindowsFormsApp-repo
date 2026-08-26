@@ -38,16 +38,18 @@ namespace CodeGenerator_PresentationLayer
 
             _ConnectionString = ConnectionString;
 
-            if (string.IsNullOrWhiteSpace(TableSingleName))
-            {
-                _TableSingleName = TableName;
-                txtbTableSingleName.Text = TableName;
-            }
-            else
-            {
-                txtbTableSingleName.Text = TableSingleName;
-                _TableSingleName = TableSingleName;
-            }
+            //if (string.IsNullOrWhiteSpace(TableSingleName))
+            //{
+            //    _TableSingleName = TableName;
+            //    txtbTableSingleName.Text = TableName;
+            //}
+            //else
+            //{
+            //    txtbTableSingleName.Text = TableSingleName;
+            //    _TableSingleName = TableSingleName;
+            //}
+
+            _TableSingleName = TableService.ConvertToSingle(_TableName);
         }
 
         
@@ -130,6 +132,7 @@ namespace CodeGenerator_PresentationLayer
             {
                 RuntimeTextTemplateUiLayerDesigner UITemplateDesigner = new RuntimeTextTemplateUiLayerDesigner();
                 RuntimeTextTemplateUiLayerLogic UITemplateLogic = new RuntimeTextTemplateUiLayerLogic();
+
 
                 UITemplateDesigner.NameSpace = _NameSpaceUILayer;
                 UITemplateDesigner.TableSingleName = _TableSingleName;
