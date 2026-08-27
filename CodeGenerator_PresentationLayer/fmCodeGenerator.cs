@@ -1028,7 +1028,7 @@ namespace CodeGenerator_PresentationLayer
                 StoredProceduresScriptTemplate.SPTemplate.DALTemplate.IncludeAdd = chListBoxFunctions.GetItemChecked((byte)enFunctions.Add);
                 StoredProceduresScriptTemplate.SPTemplate.DALTemplate.IncludeGetAll = chListBoxFunctions.GetItemChecked((byte)enFunctions.GetAll);
 
-                string FilePath = Path.Combine(GetFolderName(lbFolderSelectedPathStoredProcedureScriptResult.Text), "Add_StoredProcedures_OnTable_" + StoredProceduresScriptTemplate.SPTemplate.DALTemplate.TableName + ".sql");
+                string FilePath = Path.Combine(GetFolderName(lbFolderSelectedPathStoredProcedureScriptResult.Text), "Add_SP_OnTable" + StoredProceduresScriptTemplate.SPTemplate.DALTemplate.TableName + ".sql");
 
                 if (File.Exists(FilePath))
                 {
