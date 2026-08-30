@@ -10,6 +10,7 @@ using <#= ModulesLayerNameSpace #>;
 using <#= DataAccessLayerNameSpace #>;
 <# } #>
 
+
 <# if (!IsAppendMode) { #>
 namespace <#= NamespaceName #>
 {

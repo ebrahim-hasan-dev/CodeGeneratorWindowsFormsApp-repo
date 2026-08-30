@@ -11,6 +11,7 @@ using System.Data;
 using <#= DALTemplate.ModulesLayerNameSpace #>;
 <# } #>
 
+
 <# if (!DALTemplate.IsAppendMode) { #>
 namespace <#= DALTemplate.NamespaceName #>
 {
@@ -159,6 +160,7 @@ namespace <#= DALTemplate.NamespaceName #>
 
                     Reader = await Command.ExecuteReaderAsync();
 
+<#= DALTemplate.FindOrGetAllFunctionColumnOrdinalHandled(DALTemplate.Columns) #>
                     if (await Reader.ReadAsync())
                     {
                         return new cls<#= DALTemplate.TableSingleName #>
@@ -224,6 +226,7 @@ namespace <#= DALTemplate.NamespaceName #>
                 {
                     ListOf<#= DALTemplate.TableName #> = new List<cls<#= DALTemplate.TableSingleName #>>();
 
+<#= DALTemplate.FindOrGetAllFunctionColumnOrdinalHandled(DALTemplate.Columns) #>
                     while (await Reader.ReadAsync())
                     {
                         ListOf<#= DALTemplate.TableName #>.Add(new cls<#= DALTemplate.TableSingleName #>

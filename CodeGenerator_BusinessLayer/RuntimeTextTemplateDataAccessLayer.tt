@@ -10,6 +10,7 @@ using Microsoft.Data.SqlClient;
 using <#= ModulesLayerNameSpace #>;
 <# } #>
 
+
 <# if (!IsAppendMode) { #>
 namespace <#= NamespaceName #>
 {
@@ -163,6 +164,7 @@ namespace <#= NamespaceName #>
 
                     Reader = await Command.ExecuteReaderAsync();
 
+<#= FindOrGetAllFunctionColumnOrdinalHandled(Columns) #>
                     if (await Reader.ReadAsync())
                     {
                         return new cls<#= TableSingleName #>
@@ -225,6 +227,7 @@ namespace <#= NamespaceName #>
                 {
                     ListOf<#= TableName #> = new List<cls<#= TableSingleName #>>();
 
+<#= FindOrGetAllFunctionColumnOrdinalHandled(Columns) #>
                     while (await Reader.ReadAsync())
                     {
                         ListOf<#= TableName #>.Add(new cls<#= TableSingleName #>
@@ -508,6 +511,20 @@ private string GetCorrectEnd(short i, int Count, string Space)
     return i + 1 == Count ? "" : $"\n{Space}";
 }
 
+public string FindOrGetAllFunctionColumnOrdinalHandled(List<clsColumnDataDataAccessLayer> Columns)
+{
+    string Value = "";
+    string Space = "\t\t\t\t\t";
+    Value += Space;
+
+    for (short i = 0; i < Columns.Count; i++)
+    {
+        Value += $"byte {Columns[i].NameWithout_}Ordinal = (byte)Reader.GetOrdinal(\"{Columns[i].Name}\");\n{Space}";
+    }
+
+    return Value;
+}
+
 public string FindOrGetAllFunctionParamertersHandled(List<clsColumnDataDataAccessLayer> Columns)
 {
     string Value = "";
@@ -518,36 +535,97 @@ public string FindOrGetAllFunctionParamertersHandled(List<clsColumnDataDataAcces
     {
         if (Columns[i].IsNullable)
         {
-            if (DataTypesWithoutString.Contains(Columns[i].Type))
+            if (Columns[i].Type == "DateTime")
             {
-                if (Columns[i].Type == "DateTime")
+                Value += $"{Columns[i].NameWithout_} = Reader.IsDBNull({Columns[i].NameWithout_}Ordinal) ? null : Reader.GetDateTime({Columns[i].NameWithout_}Ordinal){GetCorrectEndFindOrGetAllFunction(i, Columns.Count, Space)}";
+            }
+            else if (DataTypesWithoutString.Contains(Columns[i].Type))
+            {
+                Value += $"{Columns[i].NameWithout_} = Reader.IsDBNull({Columns[i].NameWithout_}Ordinal) ? null : ";
+                
+                if (Columns[i].Type == "int")
                 {
-                    Value += $"{Columns[i].NameWithout_} = Reader[\"{Columns[i].Name}\"] == DBNull.Value ? null : {Columns[i].Type}.Parse(Reader[\"{Columns[i].Name}\"].ToString() ?? \"0001-1-1\"){GetCorrectEndFindOrGetAllFunction(i, Columns.Count, Space)}";
+                    Value += $"Reader.GetInt32({Columns[i].NameWithout_}Ordinal){GetCorrectEndFindOrGetAllFunction(i, Columns.Count, Space)}";
                 }
-                else
+                else if (Columns[i].Type == "long")
                 {
-                    Value += $"{Columns[i].NameWithout_} = Reader[\"{Columns[i].Name}\"] == DBNull.Value ? null : {Columns[i].Type}.Parse(Reader[\"{Columns[i].Name}\"].ToString() ?? \"0\"){GetCorrectEndFindOrGetAllFunction(i, Columns.Count, Space)}";
+                    Value += $"Reader.GetInt64({Columns[i].NameWithout_}Ordinal){GetCorrectEndFindOrGetAllFunction(i, Columns.Count, Space)}";
                 }
+                else if (Columns[i].Type == "bool")
+                {
+                    Value += $"Reader.GetBoolean({Columns[i].NameWithout_}Ordinal){GetCorrectEndFindOrGetAllFunction(i, Columns.Count, Space)}";
+                }
+                else if (Columns[i].Type == "short")
+                {
+                    Value += $"Reader.GetInt16({Columns[i].NameWithout_}Ordinal){GetCorrectEndFindOrGetAllFunction(i, Columns.Count, Space)}";
+                }
+                else if (Columns[i].Type == "float")
+                {
+                    Value += $"Reader.GetFloat({Columns[i].NameWithout_}Ordinal){GetCorrectEndFindOrGetAllFunction(i, Columns.Count, Space)}";
+                }
+                else if (Columns[i].Type == "decimal")
+                {
+                    Value += $"Reader.GetDecimal({Columns[i].NameWithout_}Ordinal){GetCorrectEndFindOrGetAllFunction(i, Columns.Count, Space)}";
+                }
+                else if (Columns[i].Type == "byte")
+                {
+                    Value += $"Reader.GetInt16({Columns[i].NameWithout_}Ordinal){GetCorrectEndFindOrGetAllFunction(i, Columns.Count, Space)}";
+                }
+                else if (Columns[i].Type == "double")
+                {
+                    Value += $"Reader.GetDouble({Columns[i].NameWithout_}Ordinal){GetCorrectEndFindOrGetAllFunction(i, Columns.Count, Space)}";
+                }
+            }
+            else // if (Columns[i].Type = "string")
+            {
+                Value += $"{Columns[i].NameWithout_} = Reader.IsDBNull({Columns[i].NameWithout_}Ordinal) ? null : Reader.GetString({Columns[i].NameWithout_}Ordinal){GetCorrectEndFindOrGetAllFunction(i, Columns.Count, Space)}";
             }
         }
         else // (!Columns[i].IsNullable)
         {
-            if (DataTypesWithoutString.Contains(Columns[i].Type))
+            if (Columns[i].Type == "DateTime")
             {
-                if (Columns[i].Type == "DateTime")
+                Value += $"{Columns[i].NameWithout_} = Reader.GetDateTime({Columns[i].NameWithout_}Ordinal){GetCorrectEndFindOrGetAllFunction(i, Columns.Count, Space)}";
+            }
+            else if (DataTypesWithoutString.Contains(Columns[i].Type))
+            {                
+                if (Columns[i].Type == "int")
                 {
-                    Value += $"{Columns[i].NameWithout_} = {Columns[i].Type}.Parse(Reader[\"{Columns[i].Name}\"].ToString() ?? \"0001-1-1\"){GetCorrectEndFindOrGetAllFunction(i, Columns.Count, Space)}";
+                    Value += $"{Columns[i].NameWithout_} = Reader.GetInt32({Columns[i].NameWithout_}Ordinal){GetCorrectEndFindOrGetAllFunction(i, Columns.Count, Space)}";
                 }
-                else
+                else if (Columns[i].Type == "long")
                 {
-                    Value += $"{Columns[i].NameWithout_} = {Columns[i].Type}.Parse(Reader[\"{Columns[i].Name}\"].ToString() ?? \"0\"){GetCorrectEndFindOrGetAllFunction(i, Columns.Count, Space)}";
+                    Value += $"{Columns[i].NameWithout_} = Reader.GetInt64({Columns[i].NameWithout_}Ordinal){GetCorrectEndFindOrGetAllFunction(i, Columns.Count, Space)}";
+                }
+                else if (Columns[i].Type == "bool")
+                {
+                    Value += $"{Columns[i].NameWithout_} = Reader.GetBoolean({Columns[i].NameWithout_}Ordinal){GetCorrectEndFindOrGetAllFunction(i, Columns.Count, Space)}";
+                }
+                else if (Columns[i].Type == "short")
+                {
+                    Value += $"{Columns[i].NameWithout_} = Reader.GetInt16({Columns[i].NameWithout_}Ordinal){GetCorrectEndFindOrGetAllFunction(i, Columns.Count, Space)}";
+                }
+                else if (Columns[i].Type == "float")
+                {
+                    Value += $"{Columns[i].NameWithout_} = Reader.GetFloat({Columns[i].NameWithout_}Ordinal){GetCorrectEndFindOrGetAllFunction(i, Columns.Count, Space)}";
+                }
+                else if (Columns[i].Type == "decimal")
+                {
+                    Value += $"{Columns[i].NameWithout_} = Reader.GetDecimal({Columns[i].NameWithout_}Ordinal){GetCorrectEndFindOrGetAllFunction(i, Columns.Count, Space)}";
+                }
+                else if (Columns[i].Type == "byte")
+                {
+                    Value += $"{Columns[i].NameWithout_} = Reader.GetInt16({Columns[i].NameWithout_}Ordinal){GetCorrectEndFindOrGetAllFunction(i, Columns.Count, Space)}";
+                }
+                else if (Columns[i].Type == "double")
+                {
+                    Value += $"{Columns[i].NameWithout_} = Reader.GetDouble({Columns[i].NameWithout_}Ordinal){GetCorrectEndFindOrGetAllFunction(i, Columns.Count, Space)}";
                 }
             }
-        }
-
-        if (!DataTypesWithoutString.Contains(Columns[i].Type))
-        {
-            Value += $"{Columns[i].NameWithout_} = Reader[\"{Columns[i].Name}\"] as string ?? \"\"{GetCorrectEndFindOrGetAllFunction(i, Columns.Count, Space)}";
+            else // if (Columns[i].Type = "string")
+            {
+                Value += $"{Columns[i].NameWithout_} = Reader.GetString({Columns[i].NameWithout_}Ordinal){GetCorrectEndFindOrGetAllFunction(i, Columns.Count, Space)}";
+            }
         }
     }
 

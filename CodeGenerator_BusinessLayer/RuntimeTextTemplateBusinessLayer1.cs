@@ -56,78 +56,78 @@ namespace CodeGenerator_BusinessLayer
             
             #line default
             #line hidden
-            this.Write("\r\n");
+            this.Write("\r\n\r\n");
             
-            #line 13 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
+            #line 14 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
  if (!IsAppendMode) { 
             
             #line default
             #line hidden
             this.Write("namespace ");
             
-            #line 14 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
+            #line 15 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(NamespaceName));
             
             #line default
             #line hidden
             this.Write("\r\n{\r\n    public class ");
             
-            #line 16 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
+            #line 17 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
             
             #line default
             #line hidden
             this.Write("Service\r\n    {\r\n");
             
-            #line 18 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
+            #line 19 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
  } 
             
             #line default
             #line hidden
             
-            #line 19 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
+            #line 20 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
  if (IncludeAdd) { 
             
             #line default
             #line hidden
             this.Write("        public static async Task<bool> AddAsync(cls");
             
-            #line 20 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
+            #line 21 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 20 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
+            #line 21 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
             
             #line default
             #line hidden
             this.Write(")\r\n        {\r\n            if (");
             
-            #line 22 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
+            #line 23 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
             
             #line default
             #line hidden
             this.Write(" != null && ");
             
-            #line 22 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
+            #line 23 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
             
             #line default
             #line hidden
             this.Write(".IsFull())\r\n            {\r\n                return await ");
             
-            #line 24 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
+            #line 25 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
             
             #line default
             #line hidden
             this.Write("Repository.AddAsync(");
             
-            #line 24 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
+            #line 25 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
             
             #line default
@@ -135,125 +135,125 @@ namespace CodeGenerator_BusinessLayer
             this.Write(");\r\n            }\r\n            else\r\n            {\r\n                return false;" +
                     "\r\n            }\r\n        }\r\n");
             
-            #line 31 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
+            #line 32 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 33 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
+            #line 34 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
  if (IncludeUpdate) { 
             
             #line default
             #line hidden
             this.Write("        public static async Task<bool> UpdateAsync(cls");
             
-            #line 34 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
+            #line 35 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 34 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
+            #line 35 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
             
             #line default
             #line hidden
             this.Write(")\r\n        {\r\n");
             
-            #line 36 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
+            #line 37 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
  if (Columns.Find(x => x.Name == UpdateParameterName).Type == "string") { 
             
             #line default
             #line hidden
             this.Write("            if (");
             
-            #line 37 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
+            #line 38 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
             
             #line default
             #line hidden
             this.Write(" != null && !string.IsNullOrWhiteSpace(");
             
-            #line 37 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
+            #line 38 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
             
             #line default
             #line hidden
             this.Write(".");
             
-            #line 37 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
+            #line 38 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(UpdateParameterName.Replace("_", "")));
             
             #line default
             #line hidden
             this.Write(") && ");
             
-            #line 37 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
+            #line 38 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
             
             #line default
             #line hidden
             this.Write(".IsFull())\r\n");
             
-            #line 38 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
+            #line 39 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
  } 
             
             #line default
             #line hidden
             
-            #line 39 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
+            #line 40 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
  if (Columns.Find(x => x.Name == UpdateParameterName).Type != "string") { 
             
             #line default
             #line hidden
             this.Write("            if (");
             
-            #line 40 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
+            #line 41 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
             
             #line default
             #line hidden
             this.Write(" != null && ");
             
-            #line 40 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
+            #line 41 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
             
             #line default
             #line hidden
             this.Write(".");
             
-            #line 40 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
+            #line 41 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(HandleCorrectCheckParamerter(UpdateParameterName).Replace("_", "")));
             
             #line default
             #line hidden
             this.Write(" && ");
             
-            #line 40 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
+            #line 41 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
             
             #line default
             #line hidden
             this.Write(".IsFull())\r\n");
             
-            #line 41 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
+            #line 42 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
  } 
             
             #line default
             #line hidden
             this.Write("            {\r\n                return await ");
             
-            #line 43 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
+            #line 44 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
             
             #line default
             #line hidden
             this.Write("Repository.UpdateAsync(");
             
-            #line 43 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
+            #line 44 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
             
             #line default
@@ -261,49 +261,49 @@ namespace CodeGenerator_BusinessLayer
             this.Write(");\r\n            }\r\n            else\r\n            {\r\n                return false;" +
                     "\r\n            }\r\n        }\r\n");
             
-            #line 50 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
+            #line 51 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 52 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
+            #line 53 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
  if (IncludeFind) { 
             
             #line default
             #line hidden
             this.Write("        public static async Task<cls");
             
-            #line 53 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
+            #line 54 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
             
             #line default
             #line hidden
             this.Write("?> FindAsync(");
             
-            #line 53 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
+            #line 54 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(HandleParameter(FindParameterName).Replace("_", "")));
             
             #line default
             #line hidden
             this.Write(")\r\n        {\r\n            if (");
             
-            #line 55 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
+            #line 56 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(HandleCorrectCheckParamerter(FindParameterName).Replace("_", "")));
             
             #line default
             #line hidden
             this.Write(")\r\n            {\r\n                return await ");
             
-            #line 57 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
+            #line 58 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
             
             #line default
             #line hidden
             this.Write("Repository.FindAsync(");
             
-            #line 57 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
+            #line 58 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(FindParameterName.Replace("_", "")));
             
             #line default
@@ -311,42 +311,42 @@ namespace CodeGenerator_BusinessLayer
             this.Write(");\r\n            }\r\n            else\r\n            {\r\n                return null;\r" +
                     "\n            }\r\n        }\r\n");
             
-            #line 64 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
+            #line 65 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 66 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
+            #line 67 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
  if (IncludeDelete) { 
             
             #line default
             #line hidden
             this.Write("        public static async Task<bool> DeleteAsync(");
             
-            #line 67 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
+            #line 68 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(HandleParameter(DeleteParameterName).Replace("_", "")));
             
             #line default
             #line hidden
             this.Write(")\r\n        {\r\n            if (");
             
-            #line 69 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
+            #line 70 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(HandleCorrectCheckParamerter(DeleteParameterName).Replace("_", "")));
             
             #line default
             #line hidden
             this.Write(")\r\n            {\r\n                return await ");
             
-            #line 71 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
+            #line 72 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
             
             #line default
             #line hidden
             this.Write("Repository.DeleteAsync(");
             
-            #line 71 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
+            #line 72 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DeleteParameterName.Replace("_", "")));
             
             #line default
@@ -354,84 +354,84 @@ namespace CodeGenerator_BusinessLayer
             this.Write(");\r\n            }\r\n            else\r\n            {\r\n                return false;" +
                     "\r\n            }\r\n        }\r\n");
             
-            #line 78 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
+            #line 79 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 80 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
+            #line 81 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
  if (IncludeGetAll) { 
             
             #line default
             #line hidden
             this.Write("        public static async Task<List<cls");
             
-            #line 81 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
+            #line 82 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
             
             #line default
             #line hidden
             this.Write(">?> GetAll");
             
-            #line 81 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
+            #line 82 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableName));
             
             #line default
             #line hidden
             this.Write("Async()\r\n        {\r\n            return await ");
             
-            #line 83 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
+            #line 84 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
             
             #line default
             #line hidden
             this.Write("Repository.GetAll");
             
-            #line 83 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
+            #line 84 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableName));
             
             #line default
             #line hidden
             this.Write("Async();\r\n        }\r\n");
             
-            #line 85 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
+            #line 86 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 87 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
+            #line 88 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
  if (IncludeExist) { 
             
             #line default
             #line hidden
             this.Write("        public static async Task<bool> IsExistAsync(");
             
-            #line 88 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
+            #line 89 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(HandleParameter(ExistParameterName).Replace("_", "")));
             
             #line default
             #line hidden
             this.Write(")\r\n        {\r\n            if (");
             
-            #line 90 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
+            #line 91 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(HandleCorrectCheckParamerter(ExistParameterName).Replace("_", "")));
             
             #line default
             #line hidden
             this.Write(")\r\n            {\r\n                return await ");
             
-            #line 92 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
+            #line 93 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableSingleName));
             
             #line default
             #line hidden
             this.Write("Repository.IsExistAsync(");
             
-            #line 92 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
+            #line 93 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ExistParameterName.Replace("_", "")));
             
             #line default
@@ -439,21 +439,21 @@ namespace CodeGenerator_BusinessLayer
             this.Write(");\r\n            }\r\n            else\r\n            {\r\n                return false;" +
                     "\r\n            }\r\n        }\r\n");
             
-            #line 99 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
+            #line 100 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\r\n        // Never delete this comment\r\n        // [EXTRA_METHODS_HERE]\r\n\r\n");
             
-            #line 104 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
+            #line 105 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
  if (!IsAppendMode) { 
             
             #line default
             #line hidden
             this.Write("    }\r\n}\r\n");
             
-            #line 107 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
+            #line 108 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
  } 
             
             #line default
@@ -462,7 +462,7 @@ namespace CodeGenerator_BusinessLayer
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 109 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
+        #line 110 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
 
 
 public string TableName { get; set; } = "";
