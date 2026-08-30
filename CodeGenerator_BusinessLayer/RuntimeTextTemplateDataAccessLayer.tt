@@ -522,7 +522,7 @@ public string FindOrGetAllFunctionParamertersHandled(List<clsColumnDataDataAcces
             {
                 if (Columns[i].Type == "DateTime")
                 {
-                    Value += $"{Columns[i].NameWithout_} = Reader[\"{Columns[i].Name}\"] == DBNull.Value ? null : {Columns[i].Type}.Parse(Reader[\"{Columns[i].Name}\"].ToString() ?? \"1000-1-1\"){GetCorrectEndFindOrGetAllFunction(i, Columns.Count, Space)}";
+                    Value += $"{Columns[i].NameWithout_} = Reader[\"{Columns[i].Name}\"] == DBNull.Value ? null : {Columns[i].Type}.Parse(Reader[\"{Columns[i].Name}\"].ToString() ?? \"0001-1-1\"){GetCorrectEndFindOrGetAllFunction(i, Columns.Count, Space)}";
                 }
                 else
                 {
@@ -536,7 +536,7 @@ public string FindOrGetAllFunctionParamertersHandled(List<clsColumnDataDataAcces
             {
                 if (Columns[i].Type == "DateTime")
                 {
-                    Value += $"{Columns[i].NameWithout_} = {Columns[i].Type}.Parse(Reader[\"{Columns[i].Name}\"].ToString() ?? \"1000-1-1\"){GetCorrectEndFindOrGetAllFunction(i, Columns.Count, Space)}";
+                    Value += $"{Columns[i].NameWithout_} = {Columns[i].Type}.Parse(Reader[\"{Columns[i].Name}\"].ToString() ?? \"0001-1-1\"){GetCorrectEndFindOrGetAllFunction(i, Columns.Count, Space)}";
                 }
                 else
                 {
@@ -576,7 +576,7 @@ private string AddFunctionResultHandles()
     { 
         if (Columns[0].Type == "DateTime") 
         {
-             Value += $"{TableSingleName}.{Columns[0].NameWithout_} = {Columns[0].Type}.Parse(Obj.ToString() ?? \"1000-1-1\");";
+             Value += $"{TableSingleName}.{Columns[0].NameWithout_} = {Columns[0].Type}.Parse(Obj.ToString() ?? \"0001-1-1\");";
         }
         else if (Columns[0].Type == "string") { 
              Value += $"{TableSingleName}.{Columns[0].NameWithout_} = Obj as string ?? \"\";";
