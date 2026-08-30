@@ -1087,7 +1087,7 @@ public string AddOrUpdateFunctionParamertersHandled(List<clsColumnDataDataAccess
 
         if (Columns[i].IsNullable && Columns[i].Type == "string")
         {
-            Value += $"Command.Parameters.AddWithValue(\"@ {Columns[i].NameWithout_}\", string.IsNullOrWhiteSpace({TableSingleName}.{Columns[i].NameWithout_}) ? DBNull.Value : {TableSingleName}.{Columns[i].NameWithout_});{GetCorrectEnd(i, Columns.Count, Space)}";
+            Value += $"Command.Parameters.AddWithValue(\"@{Columns[i].NameWithout_}\", string.IsNullOrWhiteSpace({TableSingleName}.{Columns[i].NameWithout_}) ? DBNull.Value : {TableSingleName}.{Columns[i].NameWithout_});{GetCorrectEnd(i, Columns.Count, Space)}";
         }
         else if (Columns[i].IsNullable && Columns[i].Type != "string")
         {

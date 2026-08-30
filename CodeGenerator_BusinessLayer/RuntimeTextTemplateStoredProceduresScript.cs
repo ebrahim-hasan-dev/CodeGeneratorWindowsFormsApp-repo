@@ -526,7 +526,7 @@ private string SP_AddArUpdateFunctionHandled(bool IsAddFunction)
 private string GetCorrectEnd(short i, int Count, bool IsNullable)
 {
     string Value = $"{GetCorrectEnd(IsNullable)}";
-    Value += i + 1 == Count ? "\n\t" : ",\n\t";
+    Value += i + 1 == Count ? $"{Environment.NewLine}\t" : $",{Environment.NewLine}\t";
 
     return Value;
 }
