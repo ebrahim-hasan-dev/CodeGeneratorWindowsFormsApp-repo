@@ -178,11 +178,23 @@ namespace CodeGenerator_BusinessLayer
                 }
                 catch (SqlException ex)
                 {
-                    clsEventLog.WriteToEventLog($""Error occurred while adding employee: {ex.Message}"", enLogType.Error);
-                }
-                catch (Exception ex)
-                {
-                    clsEventLog.WriteToEventLog($""Error occurred while adding employee: {ex.Message}"", enLogType.Error);
+                    clsEventLog.WriteToEventLog($""Error occurred while adding ");
+            
+            #line 61 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DALTemplate.TableSingleName));
+            
+            #line default
+            #line hidden
+            this.Write(": {ex.Message}\", enLogType.Error);\r\n                }\r\n                catch (Exc" +
+                    "eption ex)\r\n                {\r\n                    clsEventLog.WriteToEventLog($" +
+                    "\"Error occurred while adding ");
+            
+            #line 65 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DALTemplate.TableSingleName));
+            
+            #line default
+            #line hidden
+            this.Write(@": {ex.Message}"", enLogType.Error);
                 }
                 finally
                 {
@@ -343,11 +355,23 @@ if (DALTemplate.Columns.Find(x => x.Name == DALTemplate.UpdateParameterName).Typ
                 }
                 catch (SqlException ex)
                 {
-                    clsEventLog.WriteToEventLog($""Error occurred while updating employee: {ex.Message}"", enLogType.Error);
-                }
-                catch (Exception ex)
-                {
-                    clsEventLog.WriteToEventLog($""Error occurred while updating employee: {ex.Message}"", enLogType.Error);
+                    clsEventLog.WriteToEventLog($""Error occurred while updating ");
+            
+            #line 115 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DALTemplate.TableSingleName));
+            
+            #line default
+            #line hidden
+            this.Write(": {ex.Message}\", enLogType.Error);\r\n                }\r\n                catch (Exc" +
+                    "eption ex)\r\n                {\r\n                    clsEventLog.WriteToEventLog($" +
+                    "\"Error occurred while updating ");
+            
+            #line 119 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DALTemplate.TableSingleName));
+            
+            #line default
+            #line hidden
+            this.Write(@": {ex.Message}"", enLogType.Error);
                 }
                 finally
                 {
@@ -455,17 +479,25 @@ if (DALTemplate.Columns.Find(x => x.Name == DALTemplate.UpdateParameterName).Typ
             
             #line default
             #line hidden
-            this.Write(@"
-                        };
-                    }
-                }
-                catch (SqlException ex)
-                {
-                    clsEventLog.WriteToEventLog($""Error occurred while fetching employee: {ex.Message}"", enLogType.Error);
-                }
-                catch (Exception ex)
-                {
-                    clsEventLog.WriteToEventLog($""Error occurred while fetching employee: {ex.Message}"", enLogType.Error);
+            this.Write("\r\n                        };\r\n                    }\r\n                }\r\n         " +
+                    "       catch (SqlException ex)\r\n                {\r\n                    clsEventL" +
+                    "og.WriteToEventLog($\"Error occurred while fetching ");
+            
+            #line 172 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DALTemplate.TableSingleName));
+            
+            #line default
+            #line hidden
+            this.Write(": {ex.Message}\", enLogType.Error);\r\n                }\r\n                catch (Exc" +
+                    "eption ex)\r\n                {\r\n                    clsEventLog.WriteToEventLog($" +
+                    "\"Error occurred while fetching ");
+            
+            #line 176 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DALTemplate.TableSingleName));
+            
+            #line default
+            #line hidden
+            this.Write(@": {ex.Message}"", enLogType.Error);
                 }
                 finally
                 {
@@ -589,18 +621,25 @@ if (DALTemplate.Columns.Find(x => x.Name == DALTemplate.UpdateParameterName).Typ
             
             #line default
             #line hidden
-            this.Write(@"
-                        });
-                    }
-                }
-            }
-            catch (SqlException ex)
-            {
-                clsEventLog.WriteToEventLog($""Error occurred while fetching all employees: {ex.Message}"", enLogType.Error);
-            }
-            catch (Exception ex)
-            {
-                clsEventLog.WriteToEventLog($""Error occurred while fetching all employees: {ex.Message}"", enLogType.Error);
+            this.Write("\r\n                        });\r\n                    }\r\n                }\r\n        " +
+                    "    }\r\n            catch (SqlException ex)\r\n            {\r\n                clsEv" +
+                    "entLog.WriteToEventLog($\"Error occurred while fetching all ");
+            
+            #line 238 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DALTemplate.TableName));
+            
+            #line default
+            #line hidden
+            this.Write(": {ex.Message}\", enLogType.Error);\r\n            }\r\n            catch (Exception e" +
+                    "x)\r\n            {\r\n                clsEventLog.WriteToEventLog($\"Error occurred " +
+                    "while fetching all ");
+            
+            #line 242 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DALTemplate.TableName));
+            
+            #line default
+            #line hidden
+            this.Write(@": {ex.Message}"", enLogType.Error);
             }
             finally
             {
@@ -695,11 +734,23 @@ if (DALTemplate.Columns.Find(x => x.Name == DALTemplate.UpdateParameterName).Typ
                 }
                 catch (SqlException ex)
                 {
-                    clsEventLog.WriteToEventLog($""Error occurred while deleting employee: {ex.Message}"", enLogType.Error);
-                }
-                catch (Exception ex)
-                {
-                    clsEventLog.WriteToEventLog($""Error occurred while deleting employee: {ex.Message}"", enLogType.Error);
+                    clsEventLog.WriteToEventLog($""Error occurred while deleting ");
+            
+            #line 291 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DALTemplate.TableSingleName));
+            
+            #line default
+            #line hidden
+            this.Write(": {ex.Message}\", enLogType.Error);\r\n                }\r\n                catch (Exc" +
+                    "eption ex)\r\n                {\r\n                    clsEventLog.WriteToEventLog($" +
+                    "\"Error occurred while deleting ");
+            
+            #line 295 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DALTemplate.TableSingleName));
+            
+            #line default
+            #line hidden
+            this.Write(@": {ex.Message}"", enLogType.Error);
                 }
                 finally
                 {
@@ -794,11 +845,23 @@ if (DALTemplate.Columns.Find(x => x.Name == DALTemplate.UpdateParameterName).Typ
                 }
                 catch (SqlException ex)
                 {
-                    clsEventLog.WriteToEventLog($""Error occurred while checking employee existence: {ex.Message}"", enLogType.Error);
-                }
-                catch (Exception ex)
-                {
-                    clsEventLog.WriteToEventLog($""Error occurred while checking employee existence: {ex.Message}"", enLogType.Error);
+                    clsEventLog.WriteToEventLog($""Error occurred while checking ");
+            
+            #line 349 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DALTemplate.TableSingleName));
+            
+            #line default
+            #line hidden
+            this.Write(" existence: {ex.Message}\", enLogType.Error);\r\n                }\r\n                " +
+                    "catch (Exception ex)\r\n                {\r\n                    clsEventLog.WriteTo" +
+                    "EventLog($\"Error occurred while checking ");
+            
+            #line 353 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DALTemplate.TableSingleName));
+            
+            #line default
+            #line hidden
+            this.Write(@" existence: {ex.Message}"", enLogType.Error);
                 }
                 finally
                 {

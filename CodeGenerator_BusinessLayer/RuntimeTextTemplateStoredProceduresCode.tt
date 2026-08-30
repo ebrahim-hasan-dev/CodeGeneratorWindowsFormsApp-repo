@@ -58,11 +58,11 @@ namespace <#= DALTemplate.NamespaceName #>
                 }
                 catch (SqlException ex)
                 {
-                    clsEventLog.WriteToEventLog($"Error occurred while adding employee: {ex.Message}", enLogType.Error);
+                    clsEventLog.WriteToEventLog($"Error occurred while adding <#= DALTemplate.TableSingleName #>: {ex.Message}", enLogType.Error);
                 }
                 catch (Exception ex)
                 {
-                    clsEventLog.WriteToEventLog($"Error occurred while adding employee: {ex.Message}", enLogType.Error);
+                    clsEventLog.WriteToEventLog($"Error occurred while adding <#= DALTemplate.TableSingleName #>: {ex.Message}", enLogType.Error);
                 }
                 finally
                 {
@@ -112,11 +112,11 @@ namespace <#= DALTemplate.NamespaceName #>
                 }
                 catch (SqlException ex)
                 {
-                    clsEventLog.WriteToEventLog($"Error occurred while updating employee: {ex.Message}", enLogType.Error);
+                    clsEventLog.WriteToEventLog($"Error occurred while updating <#= DALTemplate.TableSingleName #>: {ex.Message}", enLogType.Error);
                 }
                 catch (Exception ex)
                 {
-                    clsEventLog.WriteToEventLog($"Error occurred while updating employee: {ex.Message}", enLogType.Error);
+                    clsEventLog.WriteToEventLog($"Error occurred while updating <#= DALTemplate.TableSingleName #>: {ex.Message}", enLogType.Error);
                 }
                 finally
                 {
@@ -169,11 +169,11 @@ namespace <#= DALTemplate.NamespaceName #>
                 }
                 catch (SqlException ex)
                 {
-                    clsEventLog.WriteToEventLog($"Error occurred while fetching employee: {ex.Message}", enLogType.Error);
+                    clsEventLog.WriteToEventLog($"Error occurred while fetching <#= DALTemplate.TableSingleName #>: {ex.Message}", enLogType.Error);
                 }
                 catch (Exception ex)
                 {
-                    clsEventLog.WriteToEventLog($"Error occurred while fetching employee: {ex.Message}", enLogType.Error);
+                    clsEventLog.WriteToEventLog($"Error occurred while fetching <#= DALTemplate.TableSingleName #>: {ex.Message}", enLogType.Error);
                 }
                 finally
                 {
@@ -235,11 +235,11 @@ namespace <#= DALTemplate.NamespaceName #>
             }
             catch (SqlException ex)
             {
-                clsEventLog.WriteToEventLog($"Error occurred while fetching all employees: {ex.Message}", enLogType.Error);
+                clsEventLog.WriteToEventLog($"Error occurred while fetching all <#= DALTemplate.TableName #>: {ex.Message}", enLogType.Error);
             }
             catch (Exception ex)
             {
-                clsEventLog.WriteToEventLog($"Error occurred while fetching all employees: {ex.Message}", enLogType.Error);
+                clsEventLog.WriteToEventLog($"Error occurred while fetching all <#= DALTemplate.TableName #>: {ex.Message}", enLogType.Error);
             }
             finally
             {
@@ -288,11 +288,11 @@ namespace <#= DALTemplate.NamespaceName #>
                 }
                 catch (SqlException ex)
                 {
-                    clsEventLog.WriteToEventLog($"Error occurred while deleting employee: {ex.Message}", enLogType.Error);
+                    clsEventLog.WriteToEventLog($"Error occurred while deleting <#= DALTemplate.TableSingleName #>: {ex.Message}", enLogType.Error);
                 }
                 catch (Exception ex)
                 {
-                    clsEventLog.WriteToEventLog($"Error occurred while deleting employee: {ex.Message}", enLogType.Error);
+                    clsEventLog.WriteToEventLog($"Error occurred while deleting <#= DALTemplate.TableSingleName #>: {ex.Message}", enLogType.Error);
                 }
                 finally
                 {
@@ -346,11 +346,11 @@ namespace <#= DALTemplate.NamespaceName #>
                 }
                 catch (SqlException ex)
                 {
-                    clsEventLog.WriteToEventLog($"Error occurred while checking employee existence: {ex.Message}", enLogType.Error);
+                    clsEventLog.WriteToEventLog($"Error occurred while checking <#= DALTemplate.TableSingleName #> existence: {ex.Message}", enLogType.Error);
                 }
                 catch (Exception ex)
                 {
-                    clsEventLog.WriteToEventLog($"Error occurred while checking employee existence: {ex.Message}", enLogType.Error);
+                    clsEventLog.WriteToEventLog($"Error occurred while checking <#= DALTemplate.TableSingleName #> existence: {ex.Message}", enLogType.Error);
                 }
                 finally
                 {
