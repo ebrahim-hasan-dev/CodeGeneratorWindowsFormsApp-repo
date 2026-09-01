@@ -19,7 +19,7 @@ namespace <#= NamespaceName #>
 <# } #>
         
 
-        public bool IsFull()
+        public bool IsFull(bool IsUpdate = false)
         {
             return 
 <# 

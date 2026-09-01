@@ -109,7 +109,8 @@ namespace CodeGenerator_BusinessLayer
             
             #line default
             #line hidden
-            this.Write("        \r\n\r\n        public bool IsFull()\r\n        {\r\n            return \r\n");
+            this.Write("        \r\n\r\n        public bool IsFull(bool IsUpdate = false)\r\n        {\r\n       " +
+                    "     return \r\n");
             
             #line 25 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateModulesLayer.tt"
  

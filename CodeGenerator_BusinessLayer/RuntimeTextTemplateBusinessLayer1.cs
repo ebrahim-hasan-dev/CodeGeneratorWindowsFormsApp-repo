@@ -196,7 +196,7 @@ namespace CodeGenerator_BusinessLayer
             
             #line default
             #line hidden
-            this.Write(".IsFull())\r\n");
+            this.Write(".IsFull(true))\r\n");
             
             #line 39 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
  } 
@@ -237,7 +237,7 @@ namespace CodeGenerator_BusinessLayer
             
             #line default
             #line hidden
-            this.Write(".IsFull())\r\n");
+            this.Write(".IsFull(true))\r\n");
             
             #line 42 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateBusinessLayer.tt"
  } 

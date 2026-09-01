@@ -84,10 +84,10 @@ namespace <#= NamespaceName #>
         public static async Task<bool> UpdateAsync(cls<#= TableSingleName #> <#= TableSingleName #>)
         {
 <#if (Columns.Find(x => x.Name == UpdateParameterName).Type == "string") { #>
-            if (<#= TableSingleName #> != null && !string.IsNullOrWhiteSpace(<#= TableSingleName #>.<#= UpdateParameterName.Replace("_", "") #>) && <#= TableSingleName #>.IsFull())
+            if (<#= TableSingleName #> != null && !string.IsNullOrWhiteSpace(<#= TableSingleName #>.<#= UpdateParameterName.Replace("_", "") #>) && <#= TableSingleName #>.IsFull(true))
 <# } #>
 <# if (Columns.Find(x => x.Name == UpdateParameterName).Type != "string") { #>
-            if (<#= TableSingleName #> != null && <#= TableSingleName #>.<#= HandleCorrectCheckParamerter(UpdateParameterName).Replace("_", "") #> && <#= TableSingleName #>.IsFull())
+            if (<#= TableSingleName #> != null && <#= TableSingleName #>.<#= HandleCorrectCheckParamerter(UpdateParameterName).Replace("_", "") #> && <#= TableSingleName #>.IsFull(true))
 <# } #>
             {
                 SqlConnection? Connection = null;

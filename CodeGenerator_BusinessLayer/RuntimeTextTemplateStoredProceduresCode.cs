@@ -276,7 +276,7 @@ if (DALTemplate.Columns.Find(x => x.Name == DALTemplate.UpdateParameterName).Typ
             
             #line default
             #line hidden
-            this.Write(".IsFull())\r\n");
+            this.Write(".IsFull(true))\r\n");
             
             #line 92 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
  } 
@@ -317,7 +317,7 @@ if (DALTemplate.Columns.Find(x => x.Name == DALTemplate.UpdateParameterName).Typ
             
             #line default
             #line hidden
-            this.Write(".IsFull())\r\n");
+            this.Write(".IsFull(true))\r\n");
             
             #line 95 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
  } 
@@ -340,9 +340,30 @@ if (DALTemplate.Columns.Find(x => x.Name == DALTemplate.UpdateParameterName).Typ
             #line default
             #line hidden
             this.Write("_Update\", Connection);\r\n\r\n                    Command.CommandType = CommandType.S" +
-                    "toredProcedure;\r\n\r\n");
+                    "toredProcedure;\r\n\r\n                    Command.Parameters.AddWithValue(\"@");
             
             #line 108 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DALTemplate.UpdateParameterName.Replace("_", "")));
+            
+            #line default
+            #line hidden
+            this.Write("\", ");
+            
+            #line 108 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DALTemplate.TableSingleName));
+            
+            #line default
+            #line hidden
+            this.Write(".");
+            
+            #line 108 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DALTemplate.UpdateParameterName.Replace("_", "")));
+            
+            #line default
+            #line hidden
+            this.Write(");\r\n");
+            
+            #line 109 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DALTemplate.AddOrUpdateFunctionParamertersHandled(DALTemplate.Columns)));
             
             #line default
@@ -357,7 +378,7 @@ if (DALTemplate.Columns.Find(x => x.Name == DALTemplate.UpdateParameterName).Typ
                 {
                     clsEventLog.WriteToEventLog($""Error occurred while updating ");
             
-            #line 116 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            #line 117 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DALTemplate.TableSingleName));
             
             #line default
@@ -366,7 +387,7 @@ if (DALTemplate.Columns.Find(x => x.Name == DALTemplate.UpdateParameterName).Typ
                     "eption ex)\r\n                {\r\n                    clsEventLog.WriteToEventLog($" +
                     "\"Error occurred while updating ");
             
-            #line 120 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            #line 121 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DALTemplate.TableSingleName));
             
             #line default
@@ -392,35 +413,35 @@ if (DALTemplate.Columns.Find(x => x.Name == DALTemplate.UpdateParameterName).Typ
         }
 ");
             
-            #line 139 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            #line 140 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 141 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            #line 142 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
  if (DALTemplate.IncludeFind) { 
             
             #line default
             #line hidden
             this.Write("        public static async Task<cls");
             
-            #line 142 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            #line 143 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DALTemplate.TableSingleName));
             
             #line default
             #line hidden
             this.Write("?> FindAsync(");
             
-            #line 142 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            #line 143 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DALTemplate.HandleParameter(DALTemplate.FindParameterName).Replace("_", "")));
             
             #line default
             #line hidden
             this.Write(")\r\n        {\r\n            if (");
             
-            #line 144 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            #line 145 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DALTemplate.HandleCorrectCheckParamerter(DALTemplate.FindParameterName).Replace("_", "")));
             
             #line default
@@ -436,14 +457,14 @@ if (DALTemplate.Columns.Find(x => x.Name == DALTemplate.UpdateParameterName).Typ
                     Connection = new SqlConnection(clsConnectionString.ConnectionString);
                     Command = new SqlCommand(""sp_");
             
-            #line 153 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            #line 154 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DALTemplate.TableName));
             
             #line default
             #line hidden
             this.Write("_FindBy_");
             
-            #line 153 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            #line 154 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DALTemplate.FindParameterName.Replace("_", "")));
             
             #line default
@@ -451,14 +472,14 @@ if (DALTemplate.Columns.Find(x => x.Name == DALTemplate.UpdateParameterName).Typ
             this.Write("\", Connection);\r\n\r\n                    Command.CommandType = CommandType.StoredPr" +
                     "ocedure;\r\n\r\n                    Command.Parameters.AddWithValue(\"@");
             
-            #line 157 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            #line 158 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DALTemplate.FindParameterName.Replace("_", "")));
             
             #line default
             #line hidden
             this.Write("\", ");
             
-            #line 157 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            #line 158 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DALTemplate.FindParameterName.Replace("_", "")));
             
             #line default
@@ -466,7 +487,7 @@ if (DALTemplate.Columns.Find(x => x.Name == DALTemplate.UpdateParameterName).Typ
             this.Write(");\r\n\r\n                    await Connection.OpenAsync();\r\n\r\n                    Re" +
                     "ader = await Command.ExecuteReaderAsync();\r\n\r\n");
             
-            #line 163 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            #line 164 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DALTemplate.FindOrGetAllFunctionColumnOrdinalHandled(DALTemplate.Columns)));
             
             #line default
@@ -474,14 +495,14 @@ if (DALTemplate.Columns.Find(x => x.Name == DALTemplate.UpdateParameterName).Typ
             this.Write("\r\n                    if (await Reader.ReadAsync())\r\n                    {\r\n     " +
                     "                   return new cls");
             
-            #line 166 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            #line 167 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DALTemplate.TableSingleName));
             
             #line default
             #line hidden
             this.Write("\r\n                        {\r\n");
             
-            #line 168 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            #line 169 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DALTemplate.FindOrGetAllFunctionParamertersHandled(DALTemplate.Columns)));
             
             #line default
@@ -490,7 +511,7 @@ if (DALTemplate.Columns.Find(x => x.Name == DALTemplate.UpdateParameterName).Typ
                     "       catch (SqlException ex)\r\n                {\r\n                    clsEventL" +
                     "og.WriteToEventLog($\"Error occurred while fetching ");
             
-            #line 174 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            #line 175 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DALTemplate.TableSingleName));
             
             #line default
@@ -499,7 +520,7 @@ if (DALTemplate.Columns.Find(x => x.Name == DALTemplate.UpdateParameterName).Typ
                     "eption ex)\r\n                {\r\n                    clsEventLog.WriteToEventLog($" +
                     "\"Error occurred while fetching ");
             
-            #line 178 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            #line 179 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DALTemplate.TableSingleName));
             
             #line default
@@ -531,28 +552,28 @@ if (DALTemplate.Columns.Find(x => x.Name == DALTemplate.UpdateParameterName).Typ
         }
 ");
             
-            #line 203 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            #line 204 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 205 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            #line 206 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
  if (DALTemplate.IncludeGetAll) { 
             
             #line default
             #line hidden
             this.Write("        public static async Task<List<cls");
             
-            #line 206 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            #line 207 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DALTemplate.TableSingleName));
             
             #line default
             #line hidden
             this.Write(">?> GetAll");
             
-            #line 206 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            #line 207 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DALTemplate.TableName));
             
             #line default
@@ -561,14 +582,14 @@ if (DALTemplate.Columns.Find(x => x.Name == DALTemplate.UpdateParameterName).Typ
                     "lCommand? Command = null;\r\n            SqlDataReader? Reader = null;\r\n\r\n        " +
                     "    List<cls");
             
-            #line 212 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            #line 213 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DALTemplate.TableSingleName));
             
             #line default
             #line hidden
             this.Write(">? ListOf");
             
-            #line 212 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            #line 213 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DALTemplate.TableName));
             
             #line default
@@ -577,7 +598,7 @@ if (DALTemplate.Columns.Find(x => x.Name == DALTemplate.UpdateParameterName).Typ
                     "onnection(clsConnectionString.ConnectionString);\r\n                Command = new " +
                     "SqlCommand(\"sp_");
             
-            #line 217 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            #line 218 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DALTemplate.TableName));
             
             #line default
@@ -594,21 +615,21 @@ if (DALTemplate.Columns.Find(x => x.Name == DALTemplate.UpdateParameterName).Typ
                 {
                     ListOf");
             
-            #line 227 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            #line 228 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DALTemplate.TableName));
             
             #line default
             #line hidden
             this.Write(" = new List<cls");
             
-            #line 227 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            #line 228 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DALTemplate.TableSingleName));
             
             #line default
             #line hidden
             this.Write(">();\r\n\r\n");
             
-            #line 229 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            #line 230 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DALTemplate.FindOrGetAllFunctionColumnOrdinalHandled(DALTemplate.Columns)));
             
             #line default
@@ -616,21 +637,21 @@ if (DALTemplate.Columns.Find(x => x.Name == DALTemplate.UpdateParameterName).Typ
             this.Write("\r\n                    while (await Reader.ReadAsync())\r\n                    {\r\n  " +
                     "                      ListOf");
             
-            #line 232 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            #line 233 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DALTemplate.TableName));
             
             #line default
             #line hidden
             this.Write(".Add(new cls");
             
-            #line 232 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            #line 233 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DALTemplate.TableSingleName));
             
             #line default
             #line hidden
             this.Write("\r\n                        {\r\n");
             
-            #line 234 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            #line 235 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DALTemplate.FindOrGetAllFunctionParamertersHandled(DALTemplate.Columns)));
             
             #line default
@@ -639,7 +660,7 @@ if (DALTemplate.Columns.Find(x => x.Name == DALTemplate.UpdateParameterName).Typ
                     "    }\r\n            catch (SqlException ex)\r\n            {\r\n                clsEv" +
                     "entLog.WriteToEventLog($\"Error occurred while fetching all ");
             
-            #line 241 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            #line 242 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DALTemplate.TableName));
             
             #line default
@@ -648,7 +669,7 @@ if (DALTemplate.Columns.Find(x => x.Name == DALTemplate.UpdateParameterName).Typ
                     "x)\r\n            {\r\n                clsEventLog.WriteToEventLog($\"Error occurred " +
                     "while fetching all ");
             
-            #line 245 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            #line 246 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DALTemplate.TableName));
             
             #line default
@@ -677,35 +698,35 @@ if (DALTemplate.Columns.Find(x => x.Name == DALTemplate.UpdateParameterName).Typ
 
             return ListOf");
             
-            #line 267 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            #line 268 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DALTemplate.TableName));
             
             #line default
             #line hidden
             this.Write(";\r\n        }\r\n");
             
-            #line 269 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            #line 270 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 271 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            #line 272 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
  if (DALTemplate.IncludeDelete) { 
             
             #line default
             #line hidden
             this.Write("        public static async Task<bool> DeleteAsync(");
             
-            #line 272 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            #line 273 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DALTemplate.HandleParameter(DALTemplate.DeleteParameterName).Replace("_", "")));
             
             #line default
             #line hidden
             this.Write(")\r\n        {\r\n            if (");
             
-            #line 274 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            #line 275 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DALTemplate.HandleCorrectCheckParamerter(DALTemplate.DeleteParameterName).Replace("_", "")));
             
             #line default
@@ -720,7 +741,7 @@ if (DALTemplate.Columns.Find(x => x.Name == DALTemplate.UpdateParameterName).Typ
                     Connection = new SqlConnection(clsConnectionString.ConnectionString);
                     Command = new SqlCommand(""sp_");
             
-            #line 282 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            #line 283 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DALTemplate.TableName));
             
             #line default
@@ -728,14 +749,14 @@ if (DALTemplate.Columns.Find(x => x.Name == DALTemplate.UpdateParameterName).Typ
             this.Write("_Delete\", Connection);\r\n\r\n                    Command.CommandType = CommandType.S" +
                     "toredProcedure;\r\n\r\n                    Command.Parameters.AddWithValue(\"@");
             
-            #line 286 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            #line 287 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DALTemplate.DeleteParameterName.Replace("_", "")));
             
             #line default
             #line hidden
             this.Write("\", ");
             
-            #line 286 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            #line 287 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DALTemplate.DeleteParameterName.Replace("_", "")));
             
             #line default
@@ -750,7 +771,7 @@ if (DALTemplate.Columns.Find(x => x.Name == DALTemplate.UpdateParameterName).Typ
                 {
                     clsEventLog.WriteToEventLog($""Error occurred while deleting ");
             
-            #line 294 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            #line 295 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DALTemplate.TableSingleName));
             
             #line default
@@ -759,7 +780,7 @@ if (DALTemplate.Columns.Find(x => x.Name == DALTemplate.UpdateParameterName).Typ
                     "eption ex)\r\n                {\r\n                    clsEventLog.WriteToEventLog($" +
                     "\"Error occurred while deleting ");
             
-            #line 298 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            #line 299 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DALTemplate.TableSingleName));
             
             #line default
@@ -785,28 +806,28 @@ if (DALTemplate.Columns.Find(x => x.Name == DALTemplate.UpdateParameterName).Typ
         }
 ");
             
-            #line 317 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            #line 318 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 319 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            #line 320 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
  if (DALTemplate.IncludeExist) { 
             
             #line default
             #line hidden
             this.Write("        public static async Task<bool> IsExistAsync(");
             
-            #line 320 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            #line 321 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DALTemplate.HandleParameter(DALTemplate.ExistParameterName).Replace("_", "")));
             
             #line default
             #line hidden
             this.Write(")\r\n        {\r\n            if (");
             
-            #line 322 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            #line 323 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DALTemplate.HandleCorrectCheckParamerter(DALTemplate.ExistParameterName).Replace("_", "")));
             
             #line default
@@ -821,7 +842,7 @@ if (DALTemplate.Columns.Find(x => x.Name == DALTemplate.UpdateParameterName).Typ
                     Connection = new SqlConnection(clsConnectionString.ConnectionString);
                     Command = new SqlCommand(""sp_");
             
-            #line 330 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            #line 331 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DALTemplate.TableName));
             
             #line default
@@ -829,14 +850,14 @@ if (DALTemplate.Columns.Find(x => x.Name == DALTemplate.UpdateParameterName).Typ
             this.Write("_IsExist\", Connection);\r\n\r\n                    Command.CommandType = CommandType." +
                     "StoredProcedure;\r\n\r\n                    Command.Parameters.AddWithValue(\"@");
             
-            #line 334 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            #line 335 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DALTemplate.ExistParameterName.Replace("_", "")));
             
             #line default
             #line hidden
             this.Write("\", ");
             
-            #line 334 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            #line 335 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DALTemplate.ExistParameterName.Replace("_", "")));
             
             #line default
@@ -861,7 +882,7 @@ if (DALTemplate.Columns.Find(x => x.Name == DALTemplate.UpdateParameterName).Typ
                 {
                     clsEventLog.WriteToEventLog($""Error occurred while checking ");
             
-            #line 352 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            #line 353 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DALTemplate.TableSingleName));
             
             #line default
@@ -870,7 +891,7 @@ if (DALTemplate.Columns.Find(x => x.Name == DALTemplate.UpdateParameterName).Typ
                     "catch (Exception ex)\r\n                {\r\n                    clsEventLog.WriteTo" +
                     "EventLog($\"Error occurred while checking ");
             
-            #line 356 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            #line 357 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DALTemplate.TableSingleName));
             
             #line default
@@ -896,21 +917,21 @@ if (DALTemplate.Columns.Find(x => x.Name == DALTemplate.UpdateParameterName).Typ
         }
 ");
             
-            #line 375 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            #line 376 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\r\n        // Never delete this comment\r\n        // [EXTRA_METHODS_HERE]\r\n\r\n");
             
-            #line 380 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            #line 381 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
  if (!DALTemplate.IsAppendMode) { 
             
             #line default
             #line hidden
             this.Write("    }\r\n}\r\n");
             
-            #line 383 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+            #line 384 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
  } 
             
             #line default
@@ -919,7 +940,7 @@ if (DALTemplate.Columns.Find(x => x.Name == DALTemplate.UpdateParameterName).Typ
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 387 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
+        #line 388 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateStoredProceduresCode.tt"
 
 
 public RuntimeTextTemplateDataAccessLayer DALTemplate = new RuntimeTextTemplateDataAccessLayer();

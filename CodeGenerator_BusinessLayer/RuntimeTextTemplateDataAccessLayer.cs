@@ -291,7 +291,7 @@ if (Columns.Find(x => x.Name == UpdateParameterName).Type == "string") {
             
             #line default
             #line hidden
-            this.Write(".IsFull())\r\n");
+            this.Write(".IsFull(true))\r\n");
             
             #line 88 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
  } 
@@ -332,7 +332,7 @@ if (Columns.Find(x => x.Name == UpdateParameterName).Type == "string") {
             
             #line default
             #line hidden
-            this.Write(".IsFull())\r\n");
+            this.Write(".IsFull(true))\r\n");
             
             #line 91 "D:\Visual Studio 2022 Projects\CodeGenerator_AppWindowsForms\CodeGenerator_BusinessLayer\RuntimeTextTemplateDataAccessLayer.tt"
  } 
